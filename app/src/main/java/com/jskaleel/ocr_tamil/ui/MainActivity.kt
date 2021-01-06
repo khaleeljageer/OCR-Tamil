@@ -1,5 +1,6 @@
 package com.jskaleel.ocr_tamil.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
@@ -8,10 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import com.jskaleel.ocr_tamil.R
 import com.jskaleel.ocr_tamil.utils.AppPreference
 import com.jskaleel.ocr_tamil.utils.Constants
+import com.jskaleel.ocr_tamil.utils.copyStreamToFile
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.koin.android.ext.android.inject
+import java.io.File
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
 
@@ -40,20 +43,34 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
+
+    private fun createFile(context: Context, fileName: String, fileExt: String): File {
+        val storageDir = context.getExternalFilesDir(Constants.PATH_OF_TESSERACT_DATA_BEST)?.path
+        val file = File("$storageDir/$fileName.$fileExt")
+        return storageDir.let { file }
+    }
+
     private fun downloadDataSet() {
         launch {
             progressBar?.visibility = View.VISIBLE
             txtTest1?.text = withContext(Dispatchers.IO) {
-                initiateDownload()
+                initiateDownload(createFile(baseContext, "eng", "traineddata"))
             }
             progressBar?.visibility = View.GONE
         }
     }
 
-    private fun initiateDownload(): String {
+    private fun initiateDownload(files: File): String {
         val client = OkHttpClient()
-        val request = Request.Builder().url(String.format(Constants.TESSERACT_DATA_DOWNLOAD_URL_BEST, "tam")).build()
+        val request =
+            Request.Builder().url(String.format(Constants.TESSERACT_DATA_DOWNLOAD_URL_BEST, "eng"))
+                .build()
         val response = client.newCall(request).execute()
+
+        if (response.body != null) {
+            val buffer = response.body!!.byteStream()
+            buffer.copyStreamToFile(files)
+        }
         return response.message
     }
 
