@@ -2,14 +2,13 @@ package com.jskaleel.ocr_tamil.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.jskaleel.ocr_tamil.R
-import com.jskaleel.ocr_tamil.utils.AppPreference
-import com.jskaleel.ocr_tamil.utils.Constants
-import com.jskaleel.ocr_tamil.utils.copyStreamToFile
+import com.jskaleel.ocr_tamil.utils.*
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -18,12 +17,15 @@ import java.io.File
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
 
+    private var localFiles: MutableList<LocalFiles> = mutableListOf()
     private var txtTest1: TextView? = null
     private var progressBar: ProgressBar? = null
+
     private val job = Job()
     override val coroutineContext = Dispatchers.Main + job
 
     private val preference: AppPreference by inject()
+    private val fileUtils: FileUtils by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,8 +41,22 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             preference.put("is_clicked", true)
             txtTest1?.text = "${preference.getBoolean("is_clicked", false)}"
 
-            downloadDataSet()
+//            downloadDataSet()
+            startScan()
         }
+
+
+
+    }
+
+    private fun startScan() {
+        progressBar?.visibility = View.VISIBLE
+        localFiles = fileUtils.scanForPDF()
+        Log.d("Khaleel", "Size : ${localFiles.size}")
+        for (file in localFiles) {
+            Log.d("Khaleel", "File : $file")
+        }
+        progressBar?.visibility = View.GONE
     }
 
 
@@ -72,6 +88,23 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             buffer.copyStreamToFile(files)
         }
         return response.message
+    }
+
+
+    private fun findPdf(dir: File) {
+//        val pdfPattern = ".pdf"
+//        val listFile: Array<File>? = dir.listFiles()
+//        if (listFile != null) {
+//            for (i in listFile.indices) {
+//                if (listFile[i].isDirectory) {
+//                    findPdf(listFile[i])
+//                } else {
+//                    if (listFile[i].name.endsWith(pdfPattern)) {
+//                        pdfFiles.add(listFile[i])
+//                    }
+//                }
+//            }
+//        }
     }
 
 }
