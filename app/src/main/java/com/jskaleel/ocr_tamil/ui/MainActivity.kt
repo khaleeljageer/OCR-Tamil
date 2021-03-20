@@ -4,10 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.jskaleel.ocr_tamil.R
+import com.jskaleel.ocr_tamil.databinding.ActivityMainBinding
 import com.jskaleel.ocr_tamil.utils.*
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
@@ -18,45 +16,40 @@ import java.io.File
 class MainActivity : AppCompatActivity(), CoroutineScope {
 
     private var localFiles: MutableList<LocalFiles> = mutableListOf()
-    private var txtTest1: TextView? = null
-    private var progressBar: ProgressBar? = null
 
     private val job = Job()
     override val coroutineContext = Dispatchers.Main + job
 
     private val preference: AppPreference by inject()
     private val fileUtils: FileUtils by inject()
+    private val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
 
-        val txtTest = findViewById<TextView>(R.id.txtTest)
-        txtTest1 = findViewById<TextView>(R.id.txtTest1)
-        progressBar = findViewById<ProgressBar>(R.id.progressBar)
-        progressBar?.visibility = View.GONE
-        txtTest1?.text = "${preference.getBoolean("is_clicked", false)}"
-        txtTest.setOnClickListener {
+        binding.progressBar.visibility = View.GONE
+        binding.txtTest1.text = "${preference.getBoolean("is_clicked", false)}"
+        binding.txtTest.setOnClickListener {
 
             preference.put("is_clicked", true)
-            txtTest1?.text = "${preference.getBoolean("is_clicked", false)}"
+            binding.txtTest1.text = "${preference.getBoolean("is_clicked", false)}"
 
-//            downloadDataSet()
-            startScan()
+            downloadDataSet()
+//            startScan()
         }
-
-
-
     }
 
     private fun startScan() {
-        progressBar?.visibility = View.VISIBLE
+        binding.progressBar?.visibility = View.VISIBLE
         localFiles = fileUtils.scanForPDF()
         Log.d("Khaleel", "Size : ${localFiles.size}")
         for (file in localFiles) {
             Log.d("Khaleel", "File : $file")
         }
-        progressBar?.visibility = View.GONE
+        binding.progressBar?.visibility = View.GONE
     }
 
 
@@ -68,18 +61,23 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
     private fun downloadDataSet() {
         launch {
-            progressBar?.visibility = View.VISIBLE
-            txtTest1?.text = withContext(Dispatchers.IO) {
-                initiateDownload(createFile(baseContext, "eng", "traineddata"))
+            binding.progressBar?.visibility = View.VISIBLE
+            binding.txtTest1?.text = withContext(Dispatchers.IO) {
+                initiateDownload(createFile(baseContext, "இட-ஒதுக்கீடு-உரிமை1", "epub"))
             }
-            progressBar?.visibility = View.GONE
+            binding.progressBar?.visibility = View.GONE
         }
     }
 
     private fun initiateDownload(files: File): String {
         val client = OkHttpClient()
+//        val request =
+//            Request.Builder().url(String.format(Constants.TESSERACT_DATA_DOWNLOAD_URL_BEST, "eng"))
+//                .build()
+
         val request =
-            Request.Builder().url(String.format(Constants.TESSERACT_DATA_DOWNLOAD_URL_BEST, "eng"))
+            Request.Builder()
+                .url("https://freetamilebooks.com/download/%e0%ae%8e%e0%ae%b3%e0%ae%bf%e0%ae%af-%e0%ae%a4%e0%ae%ae%e0%ae%bf%e0%ae%b4%e0%ae%bf%e0%ae%b2%e0%af%8d-machine-learning-epub/")
                 .build()
         val response = client.newCall(request).execute()
 
