@@ -5,8 +5,11 @@ import android.content.ContentUris
 import android.content.Context
 import android.content.Intent
 import android.database.Cursor
+import android.graphics.Bitmap
+import android.graphics.pdf.PdfRenderer
 import android.net.Uri
 import android.os.Bundle
+import android.os.ParcelFileDescriptor
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
@@ -71,10 +74,57 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
                 val uri: Uri? = intent.data
                 if (uri != null) {
-                    val filePath = getPathFromUri(uri)
+                    Log.e("TAG", "Image content URI $uri \n FILE ${uri.path}")
+                    showPdfFromUri(uri)
+                    pdfToBitmap(getPdfFile())
+                    // val filePath = getPathFromUri(uri)
                 }
             }
         }
+    }
+
+    /**
+     * Convert PDF file to Bitmap image
+     * TODO : Process should done in asynchronous
+     */
+    // https://developer.android.com/reference/android/graphics/pdf/PdfRenderer.html
+    private fun pdfToBitmap(pdfFile: File): ArrayList<Bitmap> {
+        val bitmaps: ArrayList<Bitmap> = ArrayList()
+        try {
+            val renderer = PdfRenderer(
+                ParcelFileDescriptor.open(
+                    pdfFile,
+                    ParcelFileDescriptor.MODE_READ_ONLY
+                )
+            )
+            var bitmap: Bitmap
+            val pageCount = renderer.pageCount
+            for (i in 0 until pageCount) {
+                val page = renderer.openPage(i)
+                val width = resources.displayMetrics.densityDpi / 72 * page.width
+                val height = resources.displayMetrics.densityDpi / 72 * page.height
+                bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
+                bitmaps.add(bitmap)
+
+                // close the page
+                page.close()
+            }
+
+            // close the renderer
+            renderer.close()
+        } catch (ex: Exception) {
+            ex.printStackTrace()
+        }
+        Log.e("TAG", "Image count " + bitmaps.size)
+        return bitmaps
+    }
+
+    private fun showPdfFromUri(uri: Uri?) {
+        binding.pdfView.fromUri(uri)
+            .defaultPage(0)
+            .spacing(10)
+            .load()
     }
 
     private fun getPathFromUri(uri: Uri): String {
@@ -109,6 +159,12 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         binding.progressBar.visibility = View.GONE
     }
 
+    // Sample test.pdf file manually copied inside /tesseract4/best/tessdata/
+    private fun getPdfFile(): File {
+        val storageDir = getExternalFilesDir(Constants.PATH_OF_TESSERACT_DATA_BEST)?.path
+        val file = File("$storageDir/test.pdf")
+        return storageDir.let { file }
+    }
 
     private fun createFile(context: Context, fileName: String, fileExt: String): File {
         val storageDir = context.getExternalFilesDir(Constants.PATH_OF_TESSERACT_DATA_BEST)?.path

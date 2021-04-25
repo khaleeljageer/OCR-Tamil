@@ -66,4 +66,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2'
     //PickiT
     implementation 'com.github.HBiSoft:PickiT:0.1.14'
+    // PDF View
+    implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
+
 }

@@ -54,4 +54,10 @@
         app:layout_constraintEnd_toEndOf="@+id/txtTest"
         tools:ignore="MissingConstraints" />
 
+    <com.github.barteksc.pdfviewer.PDFView
+        android:id="@+id/pdfView"
+        app:layout_constraintTop_toBottomOf="@+id/txtTest"
+        android:layout_width="match_parent"
+        android:layout_height="300dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
