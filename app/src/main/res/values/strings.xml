@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">OCR-Tamil</string>
+    <string name="choose_file_to_convert">PDF கோப்பினை தேர்வுசெய்யவும்</string>
 </resources>

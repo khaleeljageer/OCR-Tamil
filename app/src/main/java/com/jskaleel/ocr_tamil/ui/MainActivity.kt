@@ -1,9 +1,17 @@
 package com.jskaleel.ocr_tamil.ui
 
+import android.app.Activity
+import android.content.ContentUris
 import android.content.Context
+import android.content.Intent
+import android.database.Cursor
+import android.net.Uri
 import android.os.Bundle
+import android.provider.DocumentsContract
+import android.provider.MediaStore
 import android.util.Log
 import android.view.View
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.jskaleel.ocr_tamil.databinding.ActivityMainBinding
 import com.jskaleel.ocr_tamil.utils.*
@@ -12,6 +20,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.koin.android.ext.android.inject
 import java.io.File
+
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
 
@@ -30,6 +39,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        binding.btnChooseFile.setOnClickListener {
+            showFileChooser()
+        }
+
         binding.progressBar.visibility = View.GONE
         binding.txtTest1.text = "${preference.getBoolean("is_clicked", false)}"
         binding.txtTest.setOnClickListener {
@@ -42,14 +55,58 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         }
     }
 
+    fun showFileChooser() {
+        val chooseFile = Intent(Intent.ACTION_GET_CONTENT)
+        chooseFile.addCategory(Intent.CATEGORY_OPENABLE)
+        chooseFile.type = "application/pdf"
+        startActivityForResult(
+            Intent.createChooser(chooseFile, "Choose a file"),
+            REQUEST_CODE
+        )
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, intent: Intent?) {
+        super.onActivityResult(requestCode, resultCode, intent)
+        intent?.let {
+            if (requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK) {
+                val uri: Uri? = intent.data
+                if (uri != null) {
+                    val filePath = getPathFromUri(uri)
+                }
+            }
+        }
+    }
+
+    private fun getPathFromUri(uri: Uri): String {
+        val id = DocumentsContract.getDocumentId(uri)
+        val contentUri = ContentUris.withAppendedId(
+            Uri.parse("content://downloads/public_downloads"), id.toLong()
+        )
+
+        val projection = arrayOf(MediaStore.Images.Media.DATA)
+        val cursor: Cursor? = contentResolver.query(contentUri, projection, null, null, null)
+        if (cursor != null) {
+            val column_index: Int = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor.moveToFirst()
+            return cursor.getString(column_index)
+        }
+        return ""
+    }
+
+    private val pickPdf = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        uri?.let {
+            Log.d("Khaleel", "${it.path}")
+        }
+    }
+
     private fun startScan() {
-        binding.progressBar?.visibility = View.VISIBLE
+        binding.progressBar.visibility = View.VISIBLE
         localFiles = fileUtils.scanForPDF()
         Log.d("Khaleel", "Size : ${localFiles.size}")
         for (file in localFiles) {
             Log.d("Khaleel", "File : $file")
         }
-        binding.progressBar?.visibility = View.GONE
+        binding.progressBar.visibility = View.GONE
     }
 
 
@@ -61,11 +118,11 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
     private fun downloadDataSet() {
         launch {
-            binding.progressBar?.visibility = View.VISIBLE
-            binding.txtTest1?.text = withContext(Dispatchers.IO) {
+            binding.progressBar.visibility = View.VISIBLE
+            binding.txtTest1.text = withContext(Dispatchers.IO) {
                 initiateDownload(createFile(baseContext, "இட-ஒதுக்கீடு-உரிமை1", "epub"))
             }
-            binding.progressBar?.visibility = View.GONE
+            binding.progressBar.visibility = View.GONE
         }
     }
 
@@ -103,6 +160,10 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 //                }
 //            }
 //        }
+    }
+
+    companion object {
+        const val REQUEST_CODE = 1001
     }
 
 }
