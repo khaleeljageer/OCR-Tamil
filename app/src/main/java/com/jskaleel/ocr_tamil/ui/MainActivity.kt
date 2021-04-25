@@ -16,6 +16,7 @@ import android.util.Log
 import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toFile
 import com.jskaleel.ocr_tamil.databinding.ActivityMainBinding
 import com.jskaleel.ocr_tamil.utils.*
 import kotlinx.coroutines.*
@@ -23,6 +24,7 @@ import okhttp3.OkHttpClient
 import okhttp3.Request
 import org.koin.android.ext.android.inject
 import java.io.File
+import java.net.URI
 
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
@@ -38,12 +40,20 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    private val pickPdf = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+        uri?.let {
+            Log.d("Khaleel", "${it.path}")
+            showPdfFromUri(uri)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         binding.btnChooseFile.setOnClickListener {
-            showFileChooser()
+            pickPdf.launch("application/pdf")
+            // showFileChooser()
         }
 
         binding.progressBar.visibility = View.GONE
@@ -141,12 +151,6 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
             return cursor.getString(column_index)
         }
         return ""
-    }
-
-    private val pickPdf = registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
-        uri?.let {
-            Log.d("Khaleel", "${it.path}")
-        }
     }
 
     private fun startScan() {

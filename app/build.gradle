@@ -69,4 +69,8 @@ dependencies {
     // PDF View
     implementation 'com.github.barteksc:android-pdf-viewer:2.8.2'
 
+    implementation 'androidx.activity:activity-ktx:1.3.0-alpha07'
+    implementation 'androidx.fragment:fragment-ktx:1.3.3'
+
+
 }
