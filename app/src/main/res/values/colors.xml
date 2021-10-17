@@ -7,8 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="ic_launcher_background">#3D5FDC</color>
-    <color name="app_color">#3D5FDC</color>
+    <color name="ic_launcher_background">#FFFFFF</color>
     <color name="indicator_color">#3D5FDC</color>
     <color name="track_color">#C5CFF1</color>
 </resources>

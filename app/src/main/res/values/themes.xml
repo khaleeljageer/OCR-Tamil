@@ -17,6 +17,8 @@
     <style name="Splash_Base" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+        <item name="android:navigationBarColor">@color/white</item>
     </style>
 
     <style name="Splash_Theme" parent="Splash_Base">

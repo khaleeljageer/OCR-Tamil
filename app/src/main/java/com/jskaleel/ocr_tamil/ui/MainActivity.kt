@@ -1,6 +1,7 @@
 package com.jskaleel.ocr_tamil.ui
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -8,7 +9,8 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.jskaleel.ocr_tamil.R
-import com.jskaleel.ocr_tamil.utils.*
+import com.jskaleel.ocr_tamil.utils.Constants
+import com.jskaleel.ocr_tamil.utils.LocalFiles
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
@@ -83,7 +85,7 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 
         if (response.body != null) {
             val buffer = response.body!!.byteStream()
-            buffer.copyStreamToFile(files)
+//            buffer.copyStreamToFile(files)
         }
         return response.message
     }
@@ -103,6 +105,12 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
 //                }
 //            }
 //        }
+    }
+
+    companion object {
+        fun newIntent(context: Context): Intent {
+            return Intent(context, MainActivity::class.java)
+        }
     }
 
 }
