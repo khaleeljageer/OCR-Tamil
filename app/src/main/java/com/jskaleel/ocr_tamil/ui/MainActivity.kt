@@ -12,7 +12,6 @@ import com.jskaleel.ocr_tamil.utils.*
 import kotlinx.coroutines.*
 import okhttp3.OkHttpClient
 import okhttp3.Request
-import org.koin.android.ext.android.inject
 import java.io.File
 
 class MainActivity : AppCompatActivity(), CoroutineScope {
@@ -24,8 +23,8 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
     private val job = Job()
     override val coroutineContext = Dispatchers.Main + job
 
-    private val preference: AppPreference by inject()
-    private val fileUtils: FileUtils by inject()
+//    private val preference: AppPreference by inject()
+//    private val fileUtils: FileUtils by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,23 +34,22 @@ class MainActivity : AppCompatActivity(), CoroutineScope {
         txtTest1 = findViewById<TextView>(R.id.txtTest1)
         progressBar = findViewById<ProgressBar>(R.id.progressBar)
         progressBar?.visibility = View.GONE
-        txtTest1?.text = "${preference.getBoolean("is_clicked", false)}"
+//        txtTest1?.text = "${preference.getBoolean("is_clicked", false)}"
         txtTest.setOnClickListener {
 
-            preference.put("is_clicked", true)
-            txtTest1?.text = "${preference.getBoolean("is_clicked", false)}"
+//            preference.put("is_clicked", true)
+//            txtTest1?.text = "${preference.getBoolean("is_clicked", false)}"
 
 //            downloadDataSet()
             startScan()
         }
 
 
-
     }
 
     private fun startScan() {
         progressBar?.visibility = View.VISIBLE
-        localFiles = fileUtils.scanForPDF()
+//        localFiles = fileUtils.scanForPDF()
         Log.d("Khaleel", "Size : ${localFiles.size}")
         for (file in localFiles) {
             Log.d("Khaleel", "File : $file")
