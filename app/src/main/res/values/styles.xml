@@ -1,8 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Splash_Logo_Shape_Overlay">
-        <item name="cornerSize">50%</item>
-        <item name="cornerFamily">rounded</item>
+    <style name="Theme.App.Starting" parent="Theme.App.Starting_Base">
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
     </style>
+
+    <style name="Theme.App.Starting_Base" parent="Theme.SplashScreen">
+        // Set the splash screen background, animated icon, and animation duration.
+        <item name="windowSplashScreenBackground">@color/white</item>
+
+        // Use windowSplashScreenAnimatedIcon to add either a drawable or an
+        // animated drawable. One of these is required.
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenAnimationDuration">300</item>
+        # Required for
+        # animated icons
+
+        // Set the theme of the Activity that directly follows your splash screen.
+        <item name="postSplashScreenTheme">@style/Splash_Theme</item>
+        # Required.
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
 </resources>
