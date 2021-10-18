@@ -25,11 +25,11 @@
         android:layout_marginEnd="@dimen/margin_20dp"
         android:layout_marginBottom="@dimen/margin_20dp"
         android:indeterminate="true"
-        app:indicatorColor="@color/indicator_color"
+        app:indicatorColor="@color/app_primaryDarkColor"
         app:layout_constraintBottom_toTopOf="@+id/txtLoading"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:trackColor="@color/track_color"
+        app:trackColor="@color/app_primaryLightColor"
         app:trackCornerRadius="@dimen/margin_5dp"
         app:trackThickness="@dimen/margin_5dp" />
 

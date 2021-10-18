@@ -1,11 +1,30 @@
 <resources>
-    <string name="app_name">Vizhi Tamil OCR</string>
+    <string name="app_name">விழி தமிழ் வருடி</string>
     <string name="app_icon">App Icon</string>
-    <string name="initializing">Initializing…</string>
-    <string name="check_trained_model">Checking for trained models</string>
-    <string name="downloading_data">Downloading Tesseract Data</string>
-    <string name="verification_completed">Verification Completed</string>
-    <string name="downloading_lang_data">Downloading %s Data</string>
-    <string name="error_string">Something went wrong\nPlease try again later</string>
-    <string name="network_error">Network not available\nPlease try again later</string>
+    <string name="initializing">துவங்குகிறது…</string>
+    <string name="check_trained_model">தரவுகளை சரிபார்கிறது</string>
+    <string name="downloading_data">Tesseract தரவுகளை பதிவிறக்குகிறது</string>
+    <string name="verification_completed">சரிபார்பு முடிந்தது</string>
+    <string name="downloading_lang_data">%s தரவை பதிவிறக்குகிறது</string>
+    <string name="error_string">ஏதோ தவறாகிவிட்டது\nபின்னர் முயற்சிக்கவும்.</string>
+    <string name="network_error">இணைய இணைப்பு இல்லை\nபின்னர் முயற்சிக்கவும்.</string>
+    <string name="choose_pdf">Choose PDF</string>
+    <string name="capture_image">Capture Image</string>
+    <string name="recent_files">Recent Files</string>
+    <string name="settings">Settings</string>
+    <string name="source_code">மூல நிரல்</string>
+    <string name="open_sources">மூன்றாம் தரப்பு நூலகங்கள்</string>
+    <string name="share_app">செயலியை பகிரவும்</string>
+    <string name="share_text">FreeTamilEbooks செயலிமூலம் 500க்கும் மேற்பட்ட மின்நூல்களை இலவசமாக தரவிறக்கி படிக்கலாம்.\n%s</string>
+    <string name="privacy_policy">தனியுரிமைக் கொள்கை</string>
+    <string name="powered_by">Powered by</string>
+    <string name="kaniyam_foundation">கணியம் அறக்கட்டளை</string>
+    <string name="kaniyam_foundation_desc"><![CDATA[<p><b>தொலை நோக்கு – Vision</b><br>தமிழ் மொழி மற்றும் இனக்குழுக்கள் சார்ந்த மெய்நிகர்வளங்கள், கருவிகள் மற்றும் அறிவுத்தொகுதிகள், அனைவருக்கும்  கட்டற்ற அணுக்கத்தில் கிடைக்கும் சூழல்
+<br><b>பணி இலக்கு  – Mission</b><br>அறிவியல் மற்றும் சமூகப் பொருளாதார வளர்ச்சிக்கு ஒப்ப, தமிழ் மொழியின் பயன்பாடு வளர்வதை உறுதிப்படுத்துவதும், அனைத்து அறிவுத் தொகுதிகளும், வளங்களும் கட்டற்ற அணுக்கத்தில் அனைவருக்கும் கிடைக்கச்செய்தலும்.<br>
+<a>https://kaniyam.com</a></p>]]></string>
+    <string name="vglug_foundation">VGLUG அறக்கட்டளை</string>
+    <string name="vglug_foundation_desc"><![CDATA[<p>விழுப்புரம் குனு/லினக்ஸ் பயனர்கள் குழு (VGLUG) என்பது 2013 ஆம் ஆண்டில் தொடங்கப்பட்ட ஒரு இலாப நோக்கற்ற அமைப்பாகும். இந்த அமைப்பு ஒரு சமூக இயக்கமாகும். இது கட்டற்ற மென்பொருள் தத்துவத்தின் சாரத்துடன் அறிவியல் மற்றும் சமூகப் பொருளாதார வளர்ச்சிக்கு ஏற்ப FOSS தத்துவத்தினை மக்களிடையே கொண்டு சேர்க்கும் வேலையை செய்துவருகிறது.
+    <br>
+<a>https://vglug.org</a></p>]]></string>
+    <string name="version">பதிப்பு: %s</string>
 </resources>
