@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.jskaleel.ocr_tamil.model.LoaderState
 import com.jskaleel.ocr_tamil.utils.Constants
 import com.jskaleel.ocr_tamil.utils.FileUtils
+import com.jskaleel.ocr_tamil.utils.isNetworkAvailable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -47,21 +48,27 @@ class LauncherViewModel @Inject constructor(
             _loaderState.postValue(LoaderState.INIT)
             delay(timeMillis = 500)
             _loaderState.postValue(LoaderState.VERIFY)
-            initDirectories(context)
-            if (!isTrainedDataExist(context)) {
-                delay(timeMillis = 300)
-                _loaderState.postValue(LoaderState.DOWNLOAD)
-                while (isAllLangDownloaded()) {
-                    Log.d("LauncherViewModel", "isAllLangDownloaded() : ${isAllLangDownloaded()}")
-                    langCode.forEach {
-                        if (!it.value) {
-                            initiateDownload(context, it)
+            initDirectories()
+            if (!isTrainedDataExist()) {
+                if (!isNetworkAvailable(context)) {
+                    _loaderState.postValue(LoaderState.NONETWORK)
+                } else {
+                    delay(timeMillis = 300)
+                    _loaderState.postValue(LoaderState.DOWNLOAD)
+                    while (isAllLangDownloaded()) {
+                        Log.d(
+                            "LauncherViewModel",
+                            "isAllLangDownloaded() : ${isAllLangDownloaded()}"
+                        )
+                        langCode.forEach {
+                            if (!it.value) {
+                                initiateDownload(it)
+                            }
                         }
                     }
+                    delay(timeMillis = 300)
+                    _loaderState.postValue(LoaderState.READY)
                 }
-
-                delay(timeMillis = 300)
-                _loaderState.postValue(LoaderState.READY)
             } else {
                 delay(timeMillis = 300)
                 _loaderState.postValue(LoaderState.READY)
@@ -73,9 +80,9 @@ class LauncherViewModel @Inject constructor(
         return langCode.containsValue(false)
     }
 
-    private fun initiateDownload(context: Context, lang: Map.Entry<String, Boolean>) {
+    private fun initiateDownload(lang: Map.Entry<String, Boolean>) {
         Log.d("LauncherViewModel", "Lang: ${lang.key}")
-        val file = getFilePath(context, lang.key)
+        val file = getFilePath(lang.key)
         if (file != null) {
             val request =
                 Request.Builder()
@@ -126,8 +133,8 @@ class LauncherViewModel @Inject constructor(
         _downloadProgress.postValue(Triple(current, total, lang))
     }
 
-    private fun isTrainedDataExist(context: Context): Boolean {
-        val rootPath = context.getExternalFilesDir(Constants.TESS_DATA_PATH)
+    private fun isTrainedDataExist(): Boolean {
+        val rootPath = fileUtils.getAppFileDir()
         if (rootPath != null) {
             langCode.forEach {
                 val file =
@@ -140,19 +147,16 @@ class LauncherViewModel @Inject constructor(
         return false
     }
 
-    private fun getFilePath(context: Context, lang: String): File? {
-        val rootPath = context.getExternalFilesDir(Constants.TESS_DATA_PATH)
+    private fun getFilePath(lang: String): File? {
+        val rootPath = fileUtils.getAppFileDir()
         if (rootPath != null) {
             return File(rootPath, String.format(Constants.TESS_DATA_NAME, lang))
         }
         return null
     }
 
-    private fun initDirectories(context: Context) {
-        val rootPath = context.getExternalFilesDir(Constants.TESS_DATA_PATH)?.absolutePath
-        if (rootPath != null) {
-            val rootDir = File(rootPath)
-            rootDir.mkdirs()
-        }
+    private fun initDirectories() {
+        val rootPath = fileUtils.getAppFileDir()
+        rootPath?.mkdirs()
     }
 }

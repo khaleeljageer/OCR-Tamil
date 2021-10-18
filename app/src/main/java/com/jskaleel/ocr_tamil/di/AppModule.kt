@@ -2,6 +2,7 @@ package com.jskaleel.ocr_tamil.di
 
 import android.content.Context
 import com.jskaleel.ocr_tamil.utils.FileUtils
+import com.jskaleel.ocr_tamil.utils.TessScanner
 import dagger.Component
 import dagger.Module
 import dagger.Provides

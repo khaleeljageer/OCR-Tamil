@@ -34,6 +34,16 @@
         app:trackThickness="@dimen/margin_5dp" />
 
     <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtDownloadProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_10dp"
+        android:textSize="@dimen/text_size_12sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@id/progressLoader"
+        app:layout_constraintEnd_toEndOf="@id/progressLoader" />
+
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtLoading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

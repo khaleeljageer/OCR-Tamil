@@ -6,4 +6,5 @@ sealed interface LoaderState {
     object DOWNLOAD : LoaderState
     object READY : LoaderState
     object FAILURE: LoaderState
+    object NONETWORK: LoaderState
 }

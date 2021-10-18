@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">விழி தமிழ் வருடி</string>
+    <string name="app_icon">App Icon</string>
+    <string name="initializing">துவங்குகிறது…</string>
+    <string name="check_trained_model">தரவுகளை சரிபார்கிறது</string>
+    <string name="downloading_data">Tesseract தரவுகளை பதிவிறக்குகிறது</string>
+    <string name="verification_completed">சரிபார்பு முடிந்தது</string>
+    <string name="downloading_lang_data">%s தரவை பதிவிறக்குகிறது</string>
+    <string name="error_string">ஏதோ தவறாகிவிட்டது\nபின்னர் முயற்சிக்கவும்.</string>
+    <string name="network_error">இணைய இணைப்பு இல்லை\nபின்னர் முயற்சிக்கவும்.</string>
+</resources>

@@ -5,9 +5,22 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
+import java.io.File
+import javax.inject.Inject
+import javax.inject.Singleton
 
 
-class FileUtils(private val context: Context) {
+@Singleton
+class FileUtils @Inject constructor(private val context: Context) {
+
+    fun getAppFileDir(): File? {
+        return context.getExternalFilesDir(Constants.TESS_DATA_PATH)
+    }
+
+    fun getTessDataPath(): File? {
+        return context.getExternalFilesDir(Constants.TESS_BEST_DATA_PATH)
+    }
+
     fun scanForPDF(): MutableList<LocalFiles> {
         val localFiles: MutableList<LocalFiles> = mutableListOf()
 
@@ -43,7 +56,8 @@ class FileUtils(private val context: Context) {
 //                val mimeCol = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MIME_TYPE)
 //                val addedCol = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_ADDED)
 //                val modifiedCol = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_MODIFIED)
-                val nameCol = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DISPLAY_NAME)
+                val nameCol =
+                    cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DISPLAY_NAME)
 //                val titleCol = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.TITLE)
                 val sizeCol = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.SIZE)
 

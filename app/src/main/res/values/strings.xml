@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OCR-Tamil</string>
+    <string name="app_name">Vizhi Tamil OCR</string>
     <string name="app_icon">App Icon</string>
     <string name="initializing">Initializing…</string>
     <string name="check_trained_model">Checking for trained models</string>
@@ -7,4 +7,5 @@
     <string name="verification_completed">Verification Completed</string>
     <string name="downloading_lang_data">Downloading %s Data</string>
     <string name="error_string">Something went wrong\nPlease try again later</string>
+    <string name="network_error">Network not available\nPlease try again later</string>
 </resources>
