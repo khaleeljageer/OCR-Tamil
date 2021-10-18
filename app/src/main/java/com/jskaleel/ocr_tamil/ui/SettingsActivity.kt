@@ -22,6 +22,11 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        setSupportActionBar(binding.toolbar)
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
+
         binding.txtAppVersion.text =
             String.format(getString(R.string.version), BuildConfig.VERSION_NAME)
 

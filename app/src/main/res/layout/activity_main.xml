@@ -4,91 +4,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/margin_20dp"
     tools:context=".ui.main.MainActivity">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCapture"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/margin_20dp"
-        android:text="@string/capture_image"
-        android:textAlignment="viewStart"
-        android:textSize="@dimen/text_size_12sp"
-        app:icon="@drawable/ic_round_camera_24"
-        app:iconGravity="start"
-        app:iconPadding="@dimen/margin_10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnChoosePdf"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:paddingEnd="@dimen/margin_20dp"
-        android:text="@string/choose_pdf"
-        android:textAlignment="viewStart"
-        android:textSize="@dimen/text_size_12sp"
-        app:icon="@drawable/ic_round_upload_file_24"
-        app:iconGravity="start"
-        app:iconPadding="@dimen/margin_10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnCapture" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtRecent"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Output"
-        android:textSize="@dimen/text_size_16sp"
-        android:textStyle="bold"
+        android:layout_height="?attr/actionBarSize"
+        app:elevation="@dimen/margin_5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnChoosePdf"
-        app:textAllCaps="true" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtAccuracy"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Accuracy: "
-        android:textSize="12sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnChoosePdf" />
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:title="@string/app_name"
+            app:titleTextAppearance="@style/TextAppearance.Title"
+            app:titleTextColor="@color/white" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginTop="3dp"
-        android:background="@color/track_color"
-        app:layout_constraintTop_toBottomOf="@id/txtRecent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRecentList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_10dp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtRecent" />
-
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/bodyLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="@dimen/margin_10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtRecent">
+        android:padding="@dimen/margin_20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/appBar">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCapture"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/margin_20dp"
+            android:text="@string/capture_image"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/text_size_12sp"
+            app:icon="@drawable/ic_round_camera_24"
+            app:iconGravity="start"
+            app:iconPadding="@dimen/margin_10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnChoosePdf"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:paddingEnd="@dimen/margin_20dp"
+            android:text="@string/choose_pdf"
+            android:textAlignment="viewStart"
+            android:textSize="@dimen/text_size_12sp"
+            app:icon="@drawable/ic_round_upload_file_24"
+            app:iconGravity="start"
+            app:iconPadding="@dimen/margin_10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnCapture" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtOutput"
+            android:id="@+id/txtRecent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </ScrollView>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="Output"
+            android:textSize="@dimen/text_size_16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnChoosePdf"
+            app:textAllCaps="true" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/track_color"
+            app:layout_constraintTop_toBottomOf="@id/txtRecent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRecentList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtRecent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

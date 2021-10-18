@@ -4,11 +4,12 @@ import android.graphics.Bitmap
 import com.googlecode.tesseract.android.TessBaseAPI
 
 class TessScanner constructor(
-    private val tessDataPath: String,
-    private val tessLang: String
+    tessDataPath: String,
+    tessLang: String,
+    progressListener: TessBaseAPI.ProgressNotifier
 ) {
 
-    private var tessBaseAPI: TessBaseAPI = TessBaseAPI()
+    private var tessBaseAPI: TessBaseAPI = TessBaseAPI(progressListener)
 
     init {
         tessBaseAPI.init(tessDataPath, tessLang)
