@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">விழி தமிழ் வருடி</string>
+    <string name="app_name">விழி தமிழ்</string>
     <string name="app_icon">App Icon</string>
     <string name="initializing">துவங்குகிறது…</string>
     <string name="check_trained_model">தரவுகளை சரிபார்கிறது</string>
