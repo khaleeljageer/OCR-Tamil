@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="ic_launcher_background">#FFFFFF</color>
-    <color name="indicator_color">#3D5FDC</color>
+    <color name="indicator_color">#2962ff</color>
     <color name="track_color">#C5CFF1</color>
+
+    <color name="ucrop_color_toolbar">@color/app_primaryColor</color>
+    <color name="ucrop_color_statusbar">@color/app_primaryDarkColor</color>
+    <color name="ucrop_color_widget_active">@color/app_primaryColor</color>
+
+    <color name="app_primaryColor">#2962ff</color>
+    <color name="app_primaryLightColor">#768fff</color>
+    <color name="app_primaryDarkColor">#0039cb</color>
+    <color name="app_secondaryColor">#3e2723</color>
+    <color name="app_secondaryLightColor">#6a4f4b</color>
+    <color name="app_secondaryDarkColor">#1b0000</color>
+    <color name="app_primaryTextColor">#ffffff</color>
+    <color name="app_secondaryTextColor">#ffffff</color>
 </resources>

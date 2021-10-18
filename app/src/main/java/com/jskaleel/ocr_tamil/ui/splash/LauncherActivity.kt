@@ -1,6 +1,7 @@
 package com.jskaleel.ocr_tamil.ui.splash
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -12,11 +13,9 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.jskaleel.ocr_tamil.R
 import com.jskaleel.ocr_tamil.databinding.ActivityLauncherBinding
 import com.jskaleel.ocr_tamil.model.LoaderState
-import com.jskaleel.ocr_tamil.ui.MainActivity
+import com.jskaleel.ocr_tamil.ui.main.MainActivity
+import com.jskaleel.ocr_tamil.utils.toMB
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.cancel
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
 
@@ -27,7 +26,6 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
         ActivityLauncherBinding.inflate(layoutInflater)
     }
 
-    private val activityScope = CoroutineScope(Dispatchers.IO)
     private val launcherViewModel: LauncherViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -53,6 +51,7 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
         initObserver()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initObserver() {
         launcherViewModel.loaderState.observe(this, {
             when (it) {
@@ -73,7 +72,13 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
                 }
                 LoaderState.FAILURE -> {
                     binding.progressLoader.visibility = View.INVISIBLE
+                    binding.txtDownloadProgress.visibility = View.GONE
                     binding.txtLoading.text = getString(R.string.error_string)
+                }
+                LoaderState.NONETWORK -> {
+                    binding.progressLoader.visibility = View.INVISIBLE
+                    binding.txtDownloadProgress.visibility = View.GONE
+                    binding.txtLoading.text = getString(R.string.network_error)
                 }
             }
         })
@@ -81,6 +86,8 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
             it?.let { triple ->
                 binding.progressLoader.max = triple.second.toInt()
                 binding.progressLoader.progress = triple.first.toInt()
+                binding.txtDownloadProgress.visibility = View.VISIBLE
+                binding.txtDownloadProgress.text = "${triple.first.toMB()}/${triple.second.toMB()}"
                 if (triple.third == "eng") {
                     binding.txtLoading.text =
                         String.format(getString(R.string.downloading_lang_data), "English")
@@ -94,6 +101,7 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
 
     private fun launchMainActivity() {
         startActivity(MainActivity.newIntent(baseContext))
+        this@LauncherActivity.finish()
     }
 
     private fun checkPermissionGranted() {
@@ -112,11 +120,6 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
         }
     }
 
-    override fun onDestroy() {
-        activityScope.cancel()
-        super.onDestroy()
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -131,7 +134,7 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        Log.d("Khaleel", "requestCode : $requestCode perms: $perms")
+        Log.d("LauncherActivity", "requestCode : $requestCode perms: $perms")
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         }
