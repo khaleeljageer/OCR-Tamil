@@ -8,8 +8,9 @@ import android.os.Build
 
 
 fun Long.toMB(): String {
-    val size = this / 1048576L
-    return "$size MB"
+    val size = (this / 1048576L).toDouble()
+    val result = String.format("%.2f", size)
+    return "$result MB"
 }
 
 fun isNetworkAvailable(context: Context): Boolean {
