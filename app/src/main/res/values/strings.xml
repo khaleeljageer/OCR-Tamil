@@ -27,4 +27,6 @@
     <br>
 <a>https://vglug.org</a></p>]]></string>
     <string name="version">பதிப்பு: %s</string>
+    <string name="thumbnail">Thumbnail</string>
+    <string name="delete_scan">Delete Scan</string>
 </resources>

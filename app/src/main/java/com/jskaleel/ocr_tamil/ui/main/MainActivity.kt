@@ -7,9 +7,12 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.GridLayoutManager
 import com.github.drjacky.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.ocr_tamil.R
@@ -26,11 +29,28 @@ class MainActivity : AppCompatActivity() {
         ActivityMainBinding.inflate(layoutInflater)
     }
 
+    private val viewModel: MainViewModel by viewModels()
+
+    private val recentScanAdapter: RecentScanAdapter by lazy {
+        RecentScanAdapter(mutableListOf())
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
+        initUI()
+        initObserver()
+    }
+
+    private fun initUI() {
+        with(binding.rvRecentList) {
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(baseContext, 2)
+            adapter = recentScanAdapter
+        }
         binding.btnCapture.setOnClickListener {
             ImagePicker.with(this)
                 .crop()
@@ -39,7 +59,32 @@ class MainActivity : AppCompatActivity() {
                     startForProfileImageResult.launch(intent)
                 }
         }
-        binding.btnChoosePdf.setOnClickListener { }
+        binding.btnChoosePdf.setOnClickListener {
+            viewModel.insertScan()
+        }
+    }
+
+    private fun initObserver() {
+        viewModel.loadAllScanItems()
+        viewModel.loadRecentScan()
+
+        viewModel.scannedItems.observe(this, {
+            if (it != null && it.isNotEmpty()) {
+                binding.rvRecentList.visibility = View.VISIBLE
+                recentScanAdapter.addItems(it)
+            } else {
+                binding.rvRecentList.visibility = View.GONE
+            }
+        })
+
+        viewModel.lastScanItem.observe(this, {
+            if (it != null) {
+                if (binding.rvRecentList.visibility == View.GONE) {
+                    binding.rvRecentList.visibility = View.VISIBLE
+                }
+                recentScanAdapter.addItem(it)
+            }
+        })
     }
 
     companion object {
