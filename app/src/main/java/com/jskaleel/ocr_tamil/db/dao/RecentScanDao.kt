@@ -10,11 +10,11 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface RecentScanDao {
     @Query("SELECT * FROM recent_scan ORDER BY time_stamp DESC")
-    fun getAllScan(): MutableList<RecentScan>
-
-    @Query("SELECT * FROM recent_scan ORDER BY time_stamp DESC LIMIT 1")
-    fun getLastScan(): Flow<RecentScan>
+    fun getAllScan(): Flow<MutableList<RecentScan>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: RecentScan)
+
+    @Query("delete from recent_scan where time_stamp =:timeStamp")
+    suspend fun deleteScan(timeStamp: Long)
 }

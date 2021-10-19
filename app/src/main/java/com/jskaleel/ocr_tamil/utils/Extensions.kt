@@ -5,6 +5,8 @@ import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 fun Long.toMB(): String {
@@ -43,4 +45,14 @@ fun isNetworkAvailable(context: Context): Boolean {
         }
     }
     return false
+}
+
+fun toReadableDate(timeStamp: Long): String {
+    return try {
+        val sdf = SimpleDateFormat("yyyy-MM-dd EEE hh:mm a", Locale.getDefault())
+        val netDate = Date(timeStamp)
+        sdf.format(netDate)
+    } catch (e: Exception) {
+        "$timeStamp"
+    }
 }

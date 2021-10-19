@@ -21,6 +21,7 @@ import com.jskaleel.ocr_tamil.ui.SettingsActivity
 import com.jskaleel.ocr_tamil.ui.result.ResultActivity
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.File
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -31,9 +32,8 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel: MainViewModel by viewModels()
 
-    private val recentScanAdapter: RecentScanAdapter by lazy {
-        RecentScanAdapter(mutableListOf())
-    }
+    @Inject
+    lateinit var recentScanAdapter: RecentScanAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,23 +66,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun initObserver() {
         viewModel.loadAllScanItems()
-        viewModel.loadRecentScan()
 
         viewModel.scannedItems.observe(this, {
             if (it != null && it.isNotEmpty()) {
                 binding.rvRecentList.visibility = View.VISIBLE
+                binding.txtEmptyLabel.visibility = View.GONE
                 recentScanAdapter.addItems(it)
             } else {
                 binding.rvRecentList.visibility = View.GONE
-            }
-        })
-
-        viewModel.lastScanItem.observe(this, {
-            if (it != null) {
-                if (binding.rvRecentList.visibility == View.GONE) {
-                    binding.rvRecentList.visibility = View.VISIBLE
-                }
-                recentScanAdapter.addItem(it)
+                binding.txtEmptyLabel.visibility = View.VISIBLE
             }
         })
     }
@@ -120,8 +112,6 @@ class MainActivity : AppCompatActivity() {
                             Snackbar.LENGTH_SHORT
                         ).show()
                     }
-                    //                mProfileUri = fileUri
-                    //                imgProfile.setImageURI(fileUri)
                 }
                 ImagePicker.RESULT_ERROR -> {
                     Snackbar.make(

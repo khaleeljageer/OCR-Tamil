@@ -29,4 +29,5 @@
     <string name="version">பதிப்பு: %s</string>
     <string name="thumbnail">Thumbnail</string>
     <string name="delete_scan">Delete Scan</string>
+    <string name="no_recent_scan">No Recent Scan</string>
 </resources>

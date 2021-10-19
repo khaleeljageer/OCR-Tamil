@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.jskaleel.ocr_tamil.db.VizhiDatabase
 import com.jskaleel.ocr_tamil.db.dao.RecentScanDao
+import com.jskaleel.ocr_tamil.ui.main.RecentScanAdapter
 import com.jskaleel.ocr_tamil.utils.FileUtils
 import dagger.Module
 import dagger.Provides
@@ -40,5 +41,11 @@ object AppModule {
     @Provides
     fun provideRecentDao(vizhiDatabase: VizhiDatabase): RecentScanDao {
         return vizhiDatabase.recentScanDao()
+    }
+
+    @Provides
+    @Singleton
+    fun provideScanAdapter(scanDao: RecentScanDao): RecentScanAdapter {
+        return RecentScanAdapter(mutableListOf(), scanDao)
     }
 }

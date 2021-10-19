@@ -62,7 +62,7 @@
                     android:paddingTop="@dimen/margin_15dp"
                     android:paddingBottom="@dimen/margin_15dp">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/txtLabelOSS"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -70,7 +70,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/open_sources"
                         android:textAppearance="?attr/textAppearanceBody2"
-                        app:drawableStartCompat="@drawable/ic_oss" />
+                        app:drawableStartCompat="@drawable/ic_oss"
+                        app:fontFamily="@font/madurai" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -89,7 +90,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/source_code"
                         android:textAppearance="?attr/textAppearanceBody2"
-                        app:drawableStartCompat="@drawable/ic_git" />
+                        app:drawableStartCompat="@drawable/ic_git"
+                        app:fontFamily="@font/madurai" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -100,7 +102,7 @@
                     android:paddingTop="@dimen/margin_15dp"
                     android:paddingBottom="@dimen/margin_15dp">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/txtShareApp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -108,7 +110,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/share_app"
                         android:textAppearance="?attr/textAppearanceBody2"
-                        app:drawableStartCompat="@drawable/ic_round_share_24" />
+                        app:drawableStartCompat="@drawable/ic_round_share_24"
+                        app:fontFamily="@font/madurai" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -119,7 +122,7 @@
                     android:paddingTop="@dimen/margin_15dp"
                     android:paddingBottom="@dimen/margin_15dp">
 
-                    <TextView
+                    <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/txtPrivacy"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -127,7 +130,8 @@
                         android:gravity="center_vertical"
                         android:text="@string/privacy_policy"
                         android:textAppearance="?attr/textAppearanceBody2"
-                        app:drawableStartCompat="@drawable/ic_round_policy_24" />
+                        app:drawableStartCompat="@drawable/ic_round_policy_24"
+                        app:fontFamily="@font/madurai" />
                 </LinearLayout>
 
                 <View
@@ -147,7 +151,8 @@
                         android:layout_marginTop="@dimen/margin_15dp"
                         android:layout_marginBottom="@dimen/margin_15dp"
                         android:text="@string/powered_by"
-                        android:textAppearance="?attr/textAppearanceCaption" />
+                        android:textAppearance="?attr/textAppearanceCaption"
+                        app:fontFamily="@font/madurai" />
 
                     <LinearLayout
                         android:id="@+id/layout_kaniyam"
@@ -172,13 +177,15 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/kaniyam_foundation"
                                 android:textAppearance="?attr/textAppearanceBody1"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                app:fontFamily="@font/madurai" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/txtKaniyamDesc"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAppearance="?attr/textAppearanceCaption" />
+                                android:textAppearance="?attr/textAppearanceCaption"
+                                app:fontFamily="@font/madurai" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -205,17 +212,18 @@
                                 android:layout_height="wrap_content"
                                 android:text="@string/vglug_foundation"
                                 android:textAppearance="?attr/textAppearanceBody1"
-                                android:textStyle="bold" />
+                                android:textStyle="bold"
+                                app:fontFamily="@font/madurai" />
 
                             <com.google.android.material.textview.MaterialTextView
                                 android:id="@+id/txtVglugDesc"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:textAppearance="?attr/textAppearanceCaption" />
+                                android:textAppearance="?attr/textAppearanceCaption"
+                                app:fontFamily="@font/madurai" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
-
             </LinearLayout>
         </ScrollView>
 
@@ -226,6 +234,7 @@
             android:gravity="center"
             android:padding="5dp"
             android:textAppearance="?attr/textAppearanceCaption"
+            app:fontFamily="@font/madurai"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
