@@ -45,7 +45,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideScanAdapter(scanDao: RecentScanDao): RecentScanAdapter {
-        return RecentScanAdapter(mutableListOf(), scanDao)
+    fun provideScanAdapter(): RecentScanAdapter {
+        return RecentScanAdapter(mutableListOf())
     }
 }

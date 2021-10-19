@@ -1,7 +1,6 @@
 package com.jskaleel.ocr_tamil.ui.main
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -9,6 +8,7 @@ import coil.load
 import com.jskaleel.ocr_tamil.databinding.LayoutRecentScanItemBinding
 import com.jskaleel.ocr_tamil.db.dao.RecentScanDao
 import com.jskaleel.ocr_tamil.db.entity.RecentScan
+import com.jskaleel.ocr_tamil.model.RecentScanClickListener
 import com.jskaleel.ocr_tamil.utils.Constants
 import com.jskaleel.ocr_tamil.utils.toReadableDate
 import kotlinx.coroutines.Dispatchers
@@ -18,10 +18,11 @@ import java.io.File
 
 
 class RecentScanAdapter(
-    private val scanList: MutableList<RecentScan>,
-    private val scanDao: RecentScanDao
+    private val scanList: MutableList<RecentScan>
 ) :
     RecyclerView.Adapter<RecentScanAdapter.RecentScanViewHolder>() {
+
+    private var scanItemClickListener: RecentScanClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentScanViewHolder {
         val binding =
@@ -34,7 +35,7 @@ class RecentScanAdapter(
     }
 
     override fun onBindViewHolder(holder: RecentScanViewHolder, position: Int) {
-        holder.bind(scanList[position], position)
+        holder.bind(scanList[position])
     }
 
     override fun getItemCount(): Int = scanList.size
@@ -46,19 +47,21 @@ class RecentScanAdapter(
         notifyDataSetChanged()
     }
 
+    fun setListener(listener: RecentScanClickListener) {
+        this.scanItemClickListener = listener
+    }
+
     inner class RecentScanViewHolder(private val binding: LayoutRecentScanItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(recentScan: RecentScan, itemPosition: Int) {
+        fun bind(recentScan: RecentScan) {
             binding.ivThumb.load(File(recentScan.filPath))
             binding.txtLabel.text = toReadableDate(recentScan.timeStamp)
             binding.ivDeleteScan.setOnClickListener {
-                MainScope().launch(Dispatchers.IO) {
-                    scanDao.deleteScan(recentScan.timeStamp)
-                }
+                scanItemClickListener?.onDeleteClick(recentScan.timeStamp)
             }
             binding.root.setOnClickListener {
-
+                scanItemClickListener?.onItemClick(recentScan)
             }
         }
     }

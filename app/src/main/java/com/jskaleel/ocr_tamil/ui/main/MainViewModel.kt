@@ -27,13 +27,19 @@ class MainViewModel @Inject constructor(private val recentScanDao: RecentScanDao
 
     fun insertScan() {
         viewModelScope.launch(Dispatchers.IO) {
-            recentScanDao.insert(
-                RecentScan(
-                    "/storage/emulated/0/Android/data/com.jskaleel.ocr_tamil/files/Pictures/1634622840424_croppedImg.jpg",
-                    "test1",
-                    System.currentTimeMillis()
-                )
-            )
+//            recentScanDao.insert(
+//                RecentScan(
+//                    "/storage/emulated/0/Android/data/com.jskaleel.ocr_tamil/files/Pictures/1634622840424_croppedImg.jpg",
+//                    "test1",
+//                    System.currentTimeMillis()
+//                )
+//            )
+        }
+    }
+
+    fun deleteScan(timeStamp: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            recentScanDao.deleteScan(timeStamp)
         }
     }
 }

@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import com.googlecode.tesseract.android.TessBaseAPI
 import com.jskaleel.ocr_tamil.databinding.ActivityResultBinding
+import com.jskaleel.ocr_tamil.db.dao.RecentScanDao
+import com.jskaleel.ocr_tamil.db.entity.RecentScan
 import com.jskaleel.ocr_tamil.utils.FileUtils
 import com.jskaleel.ocr_tamil.utils.TessScanner
 import dagger.hilt.android.AndroidEntryPoint
@@ -30,6 +32,10 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
 
     @Inject
     lateinit var fileUtils: FileUtils
+
+    @Inject
+    lateinit var scanDao: RecentScanDao
+
     private var tessScanner: TessScanner? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,11 +46,12 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
         initTesseract()
 
         val path = intent.getStringExtra(FILE_PATH_KEY)
+        val isNewItem = intent.getBooleanExtra(IS_NEW_ITEM_KEY, false)
         if (path == null) {
             finish()
         } else {
             val bitmap = BitmapFactory.decodeFile(path)
-            startOCR(bitmap)
+            startOCR(bitmap, path, isNewItem)
         }
     }
 
@@ -53,7 +60,7 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
         tessScanner = TessScanner(path, "eng+tam", this)
     }
 
-    private fun startOCR(bitmap: Bitmap?) {
+    private fun startOCR(bitmap: Bitmap?, path: String, isNewItem: Boolean) {
         activityScope.launch(Dispatchers.IO) {
             tessScanner?.clearLastImage()
             val output = tessScanner?.getTextFromImage(bitmap)
@@ -66,19 +73,29 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
                     binding.txtOutput.text =
                         HtmlCompat.fromHtml(output, HtmlCompat.FROM_HTML_MODE_LEGACY)
                 }
+                if (isNewItem) {
+                    updateDb(path)
+                }
             }
             tessScanner?.stop()
         }
     }
 
+    private suspend fun updateDb(path: String) {
+        val scanData = RecentScan(path, "${System.currentTimeMillis()}", System.currentTimeMillis())
+        scanDao.insert(scanData)
+    }
+
     companion object {
-        fun newIntent(context: Context, filePath: String): Intent {
+        fun newIntent(context: Context, filePath: String, isNewItem: Boolean = true): Intent {
             return Intent(context, ResultActivity::class.java).apply {
                 putExtra(FILE_PATH_KEY, filePath)
+                putExtra(IS_NEW_ITEM_KEY, isNewItem)
             }
         }
 
         private const val FILE_PATH_KEY = "file_path"
+        private const val IS_NEW_ITEM_KEY = "is_new_item"
     }
 
     @SuppressLint("SetTextI18n")

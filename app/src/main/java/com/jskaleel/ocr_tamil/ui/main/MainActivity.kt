@@ -17,14 +17,21 @@ import com.github.drjacky.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.ocr_tamil.R
 import com.jskaleel.ocr_tamil.databinding.ActivityMainBinding
+import com.jskaleel.ocr_tamil.db.entity.RecentScan
+import com.jskaleel.ocr_tamil.model.RecentScanClickListener
 import com.jskaleel.ocr_tamil.ui.SettingsActivity
 import com.jskaleel.ocr_tamil.ui.result.ResultActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RecentScanClickListener {
+    private val activityScope = CoroutineScope(Dispatchers.IO)
 
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -50,6 +57,7 @@ class MainActivity : AppCompatActivity() {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(baseContext, 2)
             adapter = recentScanAdapter
+            recentScanAdapter.setListener(this@MainActivity)
         }
         binding.btnCapture.setOnClickListener {
             ImagePicker.with(this)
@@ -142,5 +150,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onItemClick(recentScan: RecentScan) {
+        startActivity(ResultActivity.newIntent(baseContext, recentScan.filPath, false))
+    }
+
+    override fun onDeleteClick(timeStamp: Long) {
+        viewModel.deleteScan(timeStamp)
     }
 }
