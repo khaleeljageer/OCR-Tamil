@@ -12,19 +12,25 @@ import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.GridLayoutManager
+import com.anggrayudi.storage.SimpleStorage
+import com.anggrayudi.storage.callback.FileCallback
+import com.anggrayudi.storage.callback.FilePickerCallback
+import com.anggrayudi.storage.file.copyFileTo
 import com.github.drjacky.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.ocr_tamil.R
 import com.jskaleel.ocr_tamil.databinding.ActivityMainBinding
 import com.jskaleel.ocr_tamil.db.entity.RecentScan
+import com.jskaleel.ocr_tamil.model.AppDocFile
 import com.jskaleel.ocr_tamil.model.RecentScanClickListener
 import com.jskaleel.ocr_tamil.ui.SettingsActivity
 import com.jskaleel.ocr_tamil.ui.result.ResultActivity
+import com.jskaleel.ocr_tamil.utils.FileUtils
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
@@ -38,6 +44,11 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
     }
 
     private val viewModel: MainViewModel by viewModels()
+
+    @Inject
+    lateinit var fileUtils: FileUtils
+
+    private val simpleStorage = SimpleStorage(this)
 
     @Inject
     lateinit var recentScanAdapter: RecentScanAdapter
@@ -68,7 +79,45 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
                 }
         }
         binding.btnChoosePdf.setOnClickListener {
-            viewModel.insertScan()
+            simpleStorage.openFilePicker(1111, false, "application/pdf")
+        }
+
+        simpleStorage.filePickerCallback = object : FilePickerCallback {
+            override fun onFileSelected(requestCode: Int, files: List<DocumentFile>) {
+                if (files.isNotEmpty()) {
+                    copySelectedFile(files.first())
+                }
+            }
+
+            override fun onStoragePermissionDenied(requestCode: Int, files: List<DocumentFile>?) {
+
+            }
+        }
+    }
+
+    private fun copySelectedFile(file: DocumentFile) {
+        activityScope.launch(Dispatchers.IO) {
+            file.copyFileTo(
+                baseContext,
+                DocumentFile.fromFile(fileUtils.getPdfFileDir()!!),
+                callback = object : FileCallback() {
+
+                    override fun onConflict(
+                        destinationFile: DocumentFile,
+                        action: FileConflictAction
+                    ) {
+                        action.confirmResolution(ConflictResolution.REPLACE)
+                    }
+
+                    override fun onCompleted(result: Any) {
+                        if (result is DocumentFile) {
+                            val appDocFile = AppDocFile(result.uri, result.name)
+                            startActivity(ResultActivity.newIntent(baseContext, appDocFile))
+                        } else {
+
+                        }
+                    }
+                })
         }
     }
 
