@@ -3,6 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'kotlin-parcelize'
 }
 
 android {
@@ -31,6 +32,7 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+        freeCompilerArgs = ['-Xjvm-default=enable']
     }
     buildFeatures {
         viewBinding true
@@ -55,7 +57,7 @@ dependencies {
     //OkHttp Client
     implementation 'com.squareup.okhttp3:okhttp:4.9.0'
     //Coroutines
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
     //Hilt
     implementation 'com.google.dagger:hilt-android:2.39.1'
     kapt 'com.google.dagger:hilt-compiler:2.39.1'
@@ -66,8 +68,21 @@ dependencies {
 
     implementation 'androidx.core:core-splashscreen:1.0.0-alpha02'
     implementation 'com.github.Drjacky:ImagePicker:2.1.13'
+
+    implementation 'androidx.room:room-runtime:2.3.0'
+    implementation 'androidx.room:room-ktx:2.3.0'
+    kapt 'androidx.room:room-compiler:2.3.0'
+    implementation 'io.coil-kt:coil:1.4.0'
+
+    implementation 'com.anggrayudi:storage:0.13.0'
 }
 
 kapt {
+    javacOptions {
+        // These options are normally set automatically via the Hilt Gradle plugin, but we
+        // set them manually to workaround a bug in the Kotlin 1.5.20
+        option("-Adagger.fastInit=ENABLED")
+        option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
+    }
     correctErrorTypes true
 }

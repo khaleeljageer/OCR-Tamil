@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">விழி தமிழ் வருடி</string>
+    <string name="app_name">விழி தமிழ்</string>
     <string name="app_icon">App Icon</string>
     <string name="initializing">துவங்குகிறது…</string>
     <string name="check_trained_model">தரவுகளை சரிபார்கிறது</string>
@@ -27,4 +27,7 @@
     <br>
 <a>https://vglug.org</a></p>]]></string>
     <string name="version">பதிப்பு: %s</string>
+    <string name="thumbnail">Thumbnail</string>
+    <string name="delete_scan">Delete Scan</string>
+    <string name="no_recent_scan">No Recent Scan</string>
 </resources>

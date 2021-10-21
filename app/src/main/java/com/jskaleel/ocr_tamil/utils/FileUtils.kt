@@ -17,6 +17,10 @@ class FileUtils @Inject constructor(private val context: Context) {
         return context.getExternalFilesDir(Constants.TESS_DATA_PATH)
     }
 
+    fun getPdfFileDir(): File? {
+        return context.getExternalFilesDir(Constants.DOCUMENT_PDF_PATH)
+    }
+
     fun getTessDataPath(): File? {
         return context.getExternalFilesDir(Constants.TESS_BEST_DATA_PATH)
     }

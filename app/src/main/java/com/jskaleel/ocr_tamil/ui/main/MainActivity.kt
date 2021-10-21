@@ -7,30 +7,69 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.documentfile.provider.DocumentFile
+import androidx.recyclerview.widget.GridLayoutManager
+import com.anggrayudi.storage.SimpleStorage
+import com.anggrayudi.storage.callback.FileCallback
+import com.anggrayudi.storage.callback.FilePickerCallback
+import com.anggrayudi.storage.file.copyFileTo
 import com.github.drjacky.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.ocr_tamil.R
 import com.jskaleel.ocr_tamil.databinding.ActivityMainBinding
+import com.jskaleel.ocr_tamil.db.entity.RecentScan
+import com.jskaleel.ocr_tamil.model.AppDocFile
+import com.jskaleel.ocr_tamil.model.RecentScanClickListener
 import com.jskaleel.ocr_tamil.ui.SettingsActivity
 import com.jskaleel.ocr_tamil.ui.result.ResultActivity
+import com.jskaleel.ocr_tamil.utils.FileUtils
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.io.File
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RecentScanClickListener {
+    private val activityScope = CoroutineScope(Dispatchers.IO)
 
     private val binding: ActivityMainBinding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
+
+    private val viewModel: MainViewModel by viewModels()
+
+    @Inject
+    lateinit var fileUtils: FileUtils
+
+    private val simpleStorage = SimpleStorage(this)
+
+    @Inject
+    lateinit var recentScanAdapter: RecentScanAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+
+        initUI()
+        initObserver()
+    }
+
+    private fun initUI() {
+        with(binding.rvRecentList) {
+            setHasFixedSize(true)
+            layoutManager = GridLayoutManager(baseContext, 2)
+            adapter = recentScanAdapter
+            recentScanAdapter.setListener(this@MainActivity)
+        }
         binding.btnCapture.setOnClickListener {
             ImagePicker.with(this)
                 .crop()
@@ -39,7 +78,62 @@ class MainActivity : AppCompatActivity() {
                     startForProfileImageResult.launch(intent)
                 }
         }
-        binding.btnChoosePdf.setOnClickListener { }
+        binding.btnChoosePdf.setOnClickListener {
+            simpleStorage.openFilePicker(1111, false, "application/pdf")
+        }
+
+        simpleStorage.filePickerCallback = object : FilePickerCallback {
+            override fun onFileSelected(requestCode: Int, files: List<DocumentFile>) {
+                if (files.isNotEmpty()) {
+                    copySelectedFile(files.first())
+                }
+            }
+
+            override fun onStoragePermissionDenied(requestCode: Int, files: List<DocumentFile>?) {
+
+            }
+        }
+    }
+
+    private fun copySelectedFile(file: DocumentFile) {
+        activityScope.launch(Dispatchers.IO) {
+            file.copyFileTo(
+                baseContext,
+                DocumentFile.fromFile(fileUtils.getPdfFileDir()!!),
+                callback = object : FileCallback() {
+
+                    override fun onConflict(
+                        destinationFile: DocumentFile,
+                        action: FileConflictAction
+                    ) {
+                        action.confirmResolution(ConflictResolution.REPLACE)
+                    }
+
+                    override fun onCompleted(result: Any) {
+                        if (result is DocumentFile) {
+                            val appDocFile = AppDocFile(result.uri, result.name)
+                            startActivity(ResultActivity.newIntent(baseContext, appDocFile))
+                        } else {
+
+                        }
+                    }
+                })
+        }
+    }
+
+    private fun initObserver() {
+        viewModel.loadAllScanItems()
+
+        viewModel.scannedItems.observe(this, {
+            if (it != null && it.isNotEmpty()) {
+                binding.rvRecentList.visibility = View.VISIBLE
+                binding.txtEmptyLabel.visibility = View.GONE
+                recentScanAdapter.addItems(it)
+            } else {
+                binding.rvRecentList.visibility = View.GONE
+                binding.txtEmptyLabel.visibility = View.VISIBLE
+            }
+        })
     }
 
     companion object {
@@ -75,8 +169,6 @@ class MainActivity : AppCompatActivity() {
                             Snackbar.LENGTH_SHORT
                         ).show()
                     }
-                    //                mProfileUri = fileUri
-                    //                imgProfile.setImageURI(fileUri)
                 }
                 ImagePicker.RESULT_ERROR -> {
                     Snackbar.make(
@@ -107,5 +199,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onItemClick(recentScan: RecentScan) {
+        startActivity(ResultActivity.newIntent(baseContext, recentScan.filPath, false))
+    }
+
+    override fun onDeleteClick(timeStamp: Long) {
+        viewModel.deleteScan(timeStamp)
     }
 }

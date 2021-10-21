@@ -29,6 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:padding="@dimen/margin_20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/appBar">
@@ -41,12 +42,14 @@
             android:text="@string/capture_image"
             android:textAlignment="viewStart"
             android:textSize="@dimen/text_size_12sp"
+            app:fontFamily="@font/madurai"
             app:icon="@drawable/ic_round_camera_24"
             app:iconGravity="start"
             app:iconPadding="@dimen/margin_10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="RtlSymmetry" />
 
 
         <com.google.android.material.button.MaterialButton
@@ -57,21 +60,24 @@
             android:text="@string/choose_pdf"
             android:textAlignment="viewStart"
             android:textSize="@dimen/text_size_12sp"
+            app:fontFamily="@font/madurai"
             app:icon="@drawable/ic_round_upload_file_24"
             app:iconGravity="start"
             app:iconPadding="@dimen/margin_10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnCapture" />
+            app:layout_constraintTop_toBottomOf="@id/btnCapture"
+            tools:ignore="RtlSymmetry" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtRecent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="Output"
+            android:text="@string/recent_files"
             android:textSize="@dimen/text_size_16sp"
             android:textStyle="bold"
+            app:fontFamily="@font/madurai"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/btnChoosePdf"
@@ -87,8 +93,23 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecentList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtRecent" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtEmptyLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/no_recent_scan"
+            android:textSize="@dimen/text_size_16sp"
+            android:visibility="gone"
+            app:fontFamily="@font/madurai"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/txtRecent" />
