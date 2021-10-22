@@ -58,8 +58,6 @@ class LauncherViewModel @Inject constructor(
                     startDownload()
                 }
             } else {
-//                delay(timeMillis = 300)
-//                _loaderState.postValue(LoaderState.READY)
                 checkConfig()
             }
         }
@@ -95,18 +93,14 @@ class LauncherViewModel @Inject constructor(
 
             override fun onResponse(call: Call, response: Response) {
                 try {
-                    if (response.code == 200 || response.code == 201) {
-                        if (response.body != null) {
-                            val body = response.body
-                            val config = Gson().fromJson(body!!.string(), Config::class.java)
-                            if (config.update_data) {
-                                viewModelScope.launch(Dispatchers.IO) {
-                                    delay(timeMillis = 300)
-                                    _loaderState.postValue(LoaderState.DOWNLOAD)
-                                    startDownload()
-                                }
-                            } else {
-                                _loaderState.postValue(LoaderState.READY)
+                    if (response.isSuccessful && response.body != null) {
+                        val body = response.body
+                        val config = Gson().fromJson(body!!.string(), Config::class.java)
+                        if (config.update_data) {
+                            viewModelScope.launch(Dispatchers.IO) {
+                                delay(timeMillis = 300)
+                                _loaderState.postValue(LoaderState.DOWNLOAD)
+                                startDownload()
                             }
                         } else {
                             _loaderState.postValue(LoaderState.READY)

@@ -2,6 +2,7 @@ package com.jskaleel.ocr_tamil.di
 
 import android.content.Context
 import androidx.room.Room
+import com.jskaleel.ocr_tamil.BuildConfig
 import com.jskaleel.ocr_tamil.db.VizhiDatabase
 import com.jskaleel.ocr_tamil.db.dao.RecentScanDao
 import com.jskaleel.ocr_tamil.ui.main.RecentScanAdapter
@@ -12,8 +13,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -26,9 +29,16 @@ object AppModule {
 
     @Provides
     fun provideOkHttpClient(): OkHttpClient {
-        return OkHttpClient.Builder()
+        val okHttp = OkHttpClient.Builder()
             .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS).build()
+            .readTimeout(60, TimeUnit.SECONDS)
+
+        if (BuildConfig.DEBUG) {
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+            okHttp.addInterceptor(interceptor)
+        }
+        return okHttp.build()
     }
 
     @Provides
