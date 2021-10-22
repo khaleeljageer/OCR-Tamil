@@ -22,7 +22,7 @@ class FileUtils @Inject constructor(private val context: Context) {
     }
 
     fun getTessDataPath(): File? {
-        return context.getExternalFilesDir(Constants.TESS_BEST_DATA_PATH)
+        return context.getExternalFilesDir(Constants.TESS_FAST_DATA_PATH)
     }
 
     fun scanForPDF(): MutableList<LocalFiles> {
