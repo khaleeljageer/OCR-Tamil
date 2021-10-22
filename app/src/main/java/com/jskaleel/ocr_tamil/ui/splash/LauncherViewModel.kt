@@ -5,6 +5,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
+import com.jskaleel.ocr_tamil.model.Config
 import com.jskaleel.ocr_tamil.model.LoaderState
 import com.jskaleel.ocr_tamil.utils.Constants
 import com.jskaleel.ocr_tamil.utils.FileUtils
@@ -13,10 +15,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.*
 import java.io.File
 import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
 import javax.inject.Inject
 
@@ -53,27 +55,70 @@ class LauncherViewModel @Inject constructor(
                 if (!isNetworkAvailable(context)) {
                     _loaderState.postValue(LoaderState.NONETWORK)
                 } else {
-                    delay(timeMillis = 300)
-                    _loaderState.postValue(LoaderState.DOWNLOAD)
-                    while (isAllLangDownloaded()) {
-                        Log.d(
-                            "LauncherViewModel",
-                            "isAllLangDownloaded() : ${isAllLangDownloaded()}"
-                        )
-                        langCode.forEach {
-                            if (!it.value) {
-                                initiateDownload(it)
-                            }
-                        }
-                    }
-                    delay(timeMillis = 300)
-                    _loaderState.postValue(LoaderState.READY)
+                    startDownload()
                 }
             } else {
-                delay(timeMillis = 300)
-                _loaderState.postValue(LoaderState.READY)
+//                delay(timeMillis = 300)
+//                _loaderState.postValue(LoaderState.READY)
+                checkConfig()
             }
         }
+    }
+
+    private suspend fun startDownload() {
+        delay(timeMillis = 300)
+        _loaderState.postValue(LoaderState.DOWNLOAD)
+        while (isAllLangDownloaded()) {
+            Log.d(
+                "LauncherViewModel",
+                "isAllLangDownloaded() : ${isAllLangDownloaded()}"
+            )
+            langCode.forEach {
+                if (!it.value) {
+                    initiateDownload(it)
+                }
+            }
+        }
+        delay(timeMillis = 300)
+        _loaderState.postValue(LoaderState.READY)
+    }
+
+    private fun checkConfig() {
+        val request =
+            Request.Builder()
+                .url(Constants.CONFIG_URL)
+                .build()
+        okHttpClient.newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                _loaderState.postValue(LoaderState.READY)
+            }
+
+            override fun onResponse(call: Call, response: Response) {
+                try {
+                    if (response.code == 200 || response.code == 201) {
+                        if (response.body != null) {
+                            val body = response.body
+                            val config = Gson().fromJson(body!!.string(), Config::class.java)
+                            if (config.update_data) {
+                                viewModelScope.launch(Dispatchers.IO) {
+                                    delay(timeMillis = 300)
+                                    _loaderState.postValue(LoaderState.DOWNLOAD)
+                                    startDownload()
+                                }
+                            } else {
+                                _loaderState.postValue(LoaderState.READY)
+                            }
+                        } else {
+                            _loaderState.postValue(LoaderState.READY)
+                        }
+                    } else {
+                        _loaderState.postValue(LoaderState.READY)
+                    }
+                } catch (e: Exception) {
+                    _loaderState.postValue(LoaderState.READY)
+                }
+            }
+        })
     }
 
     private fun isAllLangDownloaded(): Boolean {
@@ -86,7 +131,7 @@ class LauncherViewModel @Inject constructor(
         if (file != null) {
             val request =
                 Request.Builder()
-                    .url(String.format(Constants.TESSERACT_DATA_DOWNLOAD_URL_BEST, lang.key))
+                    .url(String.format(Constants.TESSERACT_DATA_DOWNLOAD_URL_FAST, lang.key))
                     .build()
             Log.d("LauncherViewModel", "URL: ${request.url}")
             val response = okHttpClient.newCall(request).execute()
