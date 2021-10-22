@@ -5,14 +5,15 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.pdf.PdfRenderer
 import android.os.Bundle
-import android.os.ParcelFileDescriptor
 import android.util.Log
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
+import com.google.android.material.snackbar.Snackbar
 import com.googlecode.tesseract.android.TessBaseAPI
+import com.jskaleel.ocr_tamil.R
 import com.jskaleel.ocr_tamil.databinding.ActivityResultBinding
 import com.jskaleel.ocr_tamil.db.dao.RecentScanDao
 import com.jskaleel.ocr_tamil.db.entity.RecentScan
@@ -30,6 +31,8 @@ import javax.inject.Inject
 @AndroidEntryPoint
 class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
     private val activityScope = CoroutineScope(Dispatchers.IO)
+    private val resultViewModel: ResultViewModel by viewModels()
+    private var tessScanner: TessScanner? = null
 
     private val binding: ActivityResultBinding by lazy {
         ActivityResultBinding.inflate(layoutInflater)
@@ -40,8 +43,6 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
 
     @Inject
     lateinit var scanDao: RecentScanDao
-
-    private var tessScanner: TessScanner? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,47 +72,38 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
     private fun initiatePdfProcess() {
         if (intent.hasExtra(APP_DOC_FILE)) {
             val appDocFile = intent.getParcelableExtra<AppDocFile>(APP_DOC_FILE)
-            if (appDocFile != null) {
-                activityScope.launch(Dispatchers.IO) {
-                    val bitmapList = pdfToBitmap(File(appDocFile.uri.path))
-                    Log.d("Khaleel", "bitmapList : ${bitmapList.size}")
-                    if (bitmapList.isNotEmpty()) {
-                        startOCR(bitmapList[0])
+            if (appDocFile != null && appDocFile.uri.path != null) {
+                resultViewModel.convertPdfToBitmap(baseContext, File(appDocFile.uri.path!!))
+                resultViewModel.bitmapList.observe(this, {
+                    if (it.isNotEmpty()) {
+                        binding.progressLayout.visibility = View.GONE
+                        binding.txtAccuracy.visibility = View.GONE
+                        binding.txtScrollView.visibility = View.GONE
+                        binding.viewPager.visibility = View.VISIBLE
+
+                        val resultPageAdapter = ResultPageAdapter(this@ResultActivity, it.size)
+                        with(binding.viewPager) {
+                            this.offscreenPageLimit = 1
+                            this.adapter = resultPageAdapter
+                        }
+                    } else {
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.error_string),
+                            Snackbar.LENGTH_LONG
+                        ).show()
                     }
-                }
+                })
             } else {
-                finish()
+                Snackbar.make(
+                    binding.root,
+                    getString(R.string.error_string),
+                    Snackbar.LENGTH_LONG
+                ).show()
             }
         } else {
             finish()
         }
-    }
-
-
-    private fun pdfToBitmap(pdfFile: File): ArrayList<Bitmap> {
-        val bitmaps: ArrayList<Bitmap> = ArrayList()
-        try {
-            val renderer =
-                PdfRenderer(ParcelFileDescriptor.open(pdfFile, ParcelFileDescriptor.MODE_READ_ONLY))
-            var bitmap: Bitmap
-            val pageCount = renderer.pageCount
-            for (i in 0 until pageCount) {
-                val page = renderer.openPage(i)
-                val width = resources.displayMetrics.densityDpi / 72 * page.width
-                val height = resources.displayMetrics.densityDpi / 72 * page.height
-                bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
-                page.render(bitmap, null, null, PdfRenderer.Page.RENDER_MODE_FOR_DISPLAY)
-                bitmaps.add(bitmap)
-
-                page.close()
-            }
-
-            // close the renderer
-            renderer.close()
-        } catch (ex: Exception) {
-            ex.printStackTrace()
-        }
-        return bitmaps
     }
 
     private fun initiateImageProcess() {
@@ -127,25 +119,7 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
 
     private fun initTesseract() {
         val path = fileUtils.getTessDataPath()?.absolutePath ?: ""
-        tessScanner = TessScanner(path, "eng+tam", this)
-    }
-
-    private fun startOCR(bitmap: Bitmap) {
-        activityScope.launch(Dispatchers.IO) {
-            tessScanner?.clearLastImage()
-            val output = tessScanner?.getTextFromImage(bitmap)
-            Log.d("Khaleel", "Accuracy : ${tessScanner?.accuracy()}")
-            if (output != null) {
-                runOnUiThread {
-                    binding.progressLayout.visibility = View.GONE
-                    binding.txtAccuracy.text = "Accuracy: ${tessScanner?.accuracy()}%"
-                    binding.txtAccuracy.visibility = View.VISIBLE
-                    binding.txtOutput.text =
-                        HtmlCompat.fromHtml(output, HtmlCompat.FROM_HTML_MODE_LEGACY)
-                }
-            }
-            tessScanner?.stop()
-        }
+        tessScanner = TessScanner(path, "eng+tam", this@ResultActivity)
     }
 
     private fun startOCR(bitmap: Bitmap?, path: String, isNewItem: Boolean) {

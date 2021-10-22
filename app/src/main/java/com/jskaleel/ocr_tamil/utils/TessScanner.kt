@@ -29,6 +29,7 @@ class TessScanner constructor(
 
     fun stop() {
         tessBaseAPI.stop()
+        tessBaseAPI.recycle()
     }
 
     fun accuracy(): Int = tessBaseAPI.meanConfidence()
