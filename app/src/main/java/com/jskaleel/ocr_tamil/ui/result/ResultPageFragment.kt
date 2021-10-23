@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
+@SuppressLint("SetTextI18n")
 class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.ProgressNotifier {
     private var ocrCompleted: Boolean = false
     private var pagePosition: Int = -1
@@ -43,6 +44,9 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
         } else {
             pagePosition = position
             totalPage = size
+
+            binding?.txtPage?.text =
+                "${String.format(getString(R.string.page), (pagePosition + 1))}/$totalPage"
         }
     }
 
@@ -62,19 +66,17 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
                 }
             }
             tessScanner?.stop()
+            bitmap.recycle()
             ocrCompleted = true
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun loadResultUI(output: String, accuracy: Int?) {
         binding?.progressLayout?.visibility = View.GONE
         binding?.txtScrollView?.visibility = View.VISIBLE
         binding?.txtResult?.text =
             HtmlCompat.fromHtml(output, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-        binding?.txtPage?.text =
-            "${String.format(getString(R.string.page), (pagePosition + 1))}/$totalPage"
         binding?.txtAccuracy?.text = "${getString(R.string.accuracy)} $accuracy%"
     }
 
@@ -108,7 +110,6 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
         }
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onProgressValues(progressValues: TessBaseAPI.ProgressValues?) {
         if (activity != null && isAdded && isVisible) {
             requireActivity().runOnUiThread {

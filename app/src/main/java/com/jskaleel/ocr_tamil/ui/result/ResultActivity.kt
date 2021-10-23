@@ -72,8 +72,8 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
             val appDocFile = intent.getParcelableExtra<AppDocFile>(APP_DOC_FILE)
             if (appDocFile != null && appDocFile.uri.path != null) {
                 resultViewModel.convertPdfToBitmap(baseContext, File(appDocFile.uri.path!!))
-                resultViewModel.bitmapList.observe(this, {
-                    if (it.isNotEmpty()) {
+                resultViewModel.bitmapList.observe(this, { list ->
+                    if (list.isNotEmpty()) {
                         binding.progressLayout.visibility = View.GONE
                         binding.txtAccuracy.visibility = View.GONE
                         binding.txtScrollView.visibility = View.GONE
@@ -82,12 +82,28 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
                         binding.viewPagerNavigator.visibility = View.VISIBLE
                         binding.navigatorShadow.visibility = View.VISIBLE
 
-                        val resultPageAdapter = ResultPageAdapter(this@ResultActivity, it.size)
+                        val resultPageAdapter = ResultPageAdapter(this@ResultActivity, list.size)
                         with(binding.viewPager) {
                             this.offscreenPageLimit = 5
                             this.setPageTransformer(CustomPageTransformer())
                             this.adapter = resultPageAdapter
                         }
+                        binding.ivNext.setOnClickListener {
+                            with(binding.viewPager) {
+                                if (this.currentItem < (list.size - 1)) {
+                                    setCurrentItem(this.currentItem + 1, true)
+                                }
+                            }
+                        }
+
+                        binding.ivPrevious.setOnClickListener {
+                            with(binding.viewPager) {
+                                if (this.currentItem >= 1) {
+                                    setCurrentItem(this.currentItem - 1, true)
+                                }
+                            }
+                        }
+                        binding.txtFileName.text = appDocFile.name
                     } else {
                         Snackbar.make(
                             binding.root,
