@@ -3,7 +3,6 @@ package com.jskaleel.ocr_tamil.ui.result
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
@@ -22,7 +21,9 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.ProgressNotifier {
+    private var ocrCompleted: Boolean = false
     private var pagePosition: Int = -1
+    private var totalPage: Int = -1
     private var binding: FragmentPdfResultBinding? = null
     private val resultViewModel: ResultViewModel by activityViewModels()
     private val fragmentScope = CoroutineScope(Dispatchers.IO)
@@ -36,16 +37,12 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
         binding = FragmentPdfResultBinding.bind(view)
         initTesseract()
         val position = arguments?.getInt(POSITION, -1) ?: -1
+        val size = arguments?.getInt(TOTAL_PAGE, -1) ?: -1
         if (position == -1) {
             binding?.txtResult?.text = getString(R.string.error_string)
         } else {
             pagePosition = position
-            val bitmap: Bitmap? = resultViewModel.getBitmap(position)
-            if (bitmap != null) {
-                startOCR(bitmap, binding)
-            } else {
-                binding?.txtResult?.text = getString(R.string.error_string)
-            }
+            totalPage = size
         }
     }
 
@@ -54,76 +51,81 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
         tessScanner = TessScanner(path, "eng+tam", this@ResultPageFragment)
     }
 
-    private fun startOCR(bitmap: Bitmap, binding: FragmentPdfResultBinding?) {
+    private fun startOCR(bitmap: Bitmap) {
         fragmentScope.launch(Dispatchers.IO) {
             tessScanner?.clearLastImage()
             val output = tessScanner?.getTextFromImage(bitmap)
-            Log.d("Khaleel", "Accuracy : ${tessScanner?.accuracy()}")
+            val accuracy = tessScanner?.accuracy()
             if (output != null) {
-                requireActivity().runOnUiThread {
-                    binding?.progressLayout?.visibility = View.GONE
-                    binding?.txtScrollView?.visibility = View.VISIBLE
-                    binding?.txtResult?.text =
-                        HtmlCompat.fromHtml(output, HtmlCompat.FROM_HTML_MODE_LEGACY)
+                fragmentScope.launch(Dispatchers.Main) {
+                    loadResultUI(output, accuracy)
                 }
             }
             tessScanner?.stop()
+            ocrCompleted = true
         }
     }
 
+    @SuppressLint("SetTextI18n")
+    private fun loadResultUI(output: String, accuracy: Int?) {
+        binding?.progressLayout?.visibility = View.GONE
+        binding?.txtScrollView?.visibility = View.VISIBLE
+        binding?.txtResult?.text =
+            HtmlCompat.fromHtml(output, HtmlCompat.FROM_HTML_MODE_LEGACY)
+
+        binding?.txtPage?.text =
+            "${String.format(getString(R.string.page), (pagePosition + 1))}/$totalPage"
+        binding?.txtAccuracy?.text = "${getString(R.string.accuracy)} $accuracy%"
+    }
+
     companion object {
-        fun newInstance(position: Int): ResultPageFragment {
+        fun newInstance(position: Int, size: Int): ResultPageFragment {
             return ResultPageFragment().apply {
                 arguments = bundleOf(
-                    POSITION to position
+                    POSITION to position,
+                    TOTAL_PAGE to size
                 )
             }
         }
 
         private const val POSITION = "position"
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("Khaleel", "onStart : $pagePosition")
+        private const val TOTAL_PAGE = "total_page"
     }
 
     override fun onResume() {
         super.onResume()
-        Log.d("Khaleel", "onResume : $pagePosition")
+        if (!ocrCompleted) {
+            initOCR()
+        }
     }
 
-    override fun onPause() {
-        super.onPause()
-        Log.d("Khaleel", "onPause : $pagePosition")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("Khaleel", "onStop : $pagePosition")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("Khaleel", "onDestroy : $pagePosition")
+    private fun initOCR() {
+        val bitmap: Bitmap? = resultViewModel.getBitmap(pagePosition)
+        if (bitmap != null) {
+            startOCR(bitmap)
+        } else {
+            binding?.txtResult?.text = getString(R.string.error_string)
+        }
     }
 
     @SuppressLint("SetTextI18n")
     override fun onProgressValues(progressValues: TessBaseAPI.ProgressValues?) {
-        requireActivity().runOnUiThread {
-            if (progressValues != null) {
-                when {
-                    progressValues.percent > 0 -> {
-                        binding?.progressLoader?.isIndeterminate = false
-                        binding?.progressLoader?.progress = progressValues.percent
-                        binding?.txtProgress?.text = "${progressValues.percent}%"
+        if (activity != null && isAdded && isVisible) {
+            requireActivity().runOnUiThread {
+                if (progressValues != null) {
+                    when {
+                        progressValues.percent > 0 -> {
+                            binding?.progressLoader?.isIndeterminate = false
+                            binding?.progressLoader?.progress = progressValues.percent
+                            binding?.txtProgress?.text = "${progressValues.percent}%"
+                        }
+                        progressValues.percent >= 100 -> {
+                            binding?.progressLayout?.visibility = View.GONE
+                        }
                     }
-                    progressValues.percent >= 100 -> {
-                        binding?.progressLayout?.visibility = View.GONE
-                    }
+                } else {
+                    binding?.progressLayout?.visibility = View.GONE
                 }
-            } else {
-                binding?.progressLayout?.visibility = View.GONE
             }
         }
     }

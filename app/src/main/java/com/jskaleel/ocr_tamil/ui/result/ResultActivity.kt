@@ -19,6 +19,7 @@ import com.jskaleel.ocr_tamil.db.dao.RecentScanDao
 import com.jskaleel.ocr_tamil.db.entity.RecentScan
 import com.jskaleel.ocr_tamil.model.AppDocFile
 import com.jskaleel.ocr_tamil.model.OCRFileType
+import com.jskaleel.ocr_tamil.utils.CustomPageTransformer
 import com.jskaleel.ocr_tamil.utils.FileUtils
 import com.jskaleel.ocr_tamil.utils.TessScanner
 import dagger.hilt.android.AndroidEntryPoint
@@ -83,7 +84,8 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
 
                         val resultPageAdapter = ResultPageAdapter(this@ResultActivity, it.size)
                         with(binding.viewPager) {
-                            this.offscreenPageLimit = 1
+                            this.offscreenPageLimit = 5
+                            this.setPageTransformer(CustomPageTransformer())
                             this.adapter = resultPageAdapter
                         }
                     } else {
@@ -122,11 +124,11 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
         tessScanner = TessScanner(path, "eng+tam", this@ResultActivity)
     }
 
+    @SuppressLint("SetTextI18n")
     private fun startOCR(bitmap: Bitmap?, path: String, isNewItem: Boolean) {
         activityScope.launch(Dispatchers.IO) {
             tessScanner?.clearLastImage()
             val output = tessScanner?.getTextFromImage(bitmap)
-            Log.d("Khaleel", "Accuracy : ${tessScanner?.accuracy()}")
             if (output != null) {
                 runOnUiThread {
                     binding.progressLayout.visibility = View.GONE
