@@ -1,16 +1,17 @@
 <resources>
     <string name="app_name">விழி தமிழ்</string>
     <string name="app_icon">App Icon</string>
-    <string name="initializing">துவங்குகிறது…</string>
-    <string name="check_trained_model">தரவுகளை சரிபார்கிறது</string>
-    <string name="downloading_data">Tesseract தரவுகளை பதிவிறக்குகிறது</string>
-    <string name="verification_completed">சரிபார்பு முடிந்தது</string>
-    <string name="downloading_lang_data">%s தரவை பதிவிறக்குகிறது</string>
-    <string name="error_string">ஏதோ தவறாகிவிட்டது\nபின்னர் முயற்சிக்கவும்.</string>
-    <string name="network_error">இணைய இணைப்பு இல்லை\nபின்னர் முயற்சிக்கவும்.</string>
+    <string name="initializing">Initializing…</string>
+    <string name="check_trained_model">Checking for trained models</string>
+    <string name="downloading_data">Downloading Tesseract Data</string>
+    <string name="verification_completed">Verification Completed</string>
+    <string name="downloading_lang_data">Downloading %s Data</string>
+    <string name="error_string">Something went wrong\nPlease try again later</string>
+    <string name="network_error">Network not available\nPlease try again later</string>
     <string name="choose_pdf">Choose PDF</string>
     <string name="capture_image">Capture Image</string>
     <string name="recent_files">Recent Files</string>
+
     <string name="settings">அமைப்புகள்</string>
     <string name="source_code">மூல நிரல்</string>
     <string name="open_sources">மூன்றாம் தரப்பு நூலகங்கள்</string>

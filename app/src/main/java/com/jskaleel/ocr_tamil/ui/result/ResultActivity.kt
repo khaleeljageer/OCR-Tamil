@@ -48,10 +48,8 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         binding.progressLayout.visibility = View.VISIBLE
         initTesseract()
-
         if (intent.hasExtra(OCR_TYPE)) {
             when (intent.getIntExtra(OCR_TYPE, -1)) {
                 OCRFileType.IMAGE.ordinal -> {
@@ -64,7 +62,6 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
                     finish()
                 }
             }
-
         } else {
             finish()
         }
@@ -80,7 +77,10 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
                         binding.progressLayout.visibility = View.GONE
                         binding.txtAccuracy.visibility = View.GONE
                         binding.txtScrollView.visibility = View.GONE
+
                         binding.viewPager.visibility = View.VISIBLE
+                        binding.viewPagerNavigator.visibility = View.VISIBLE
+                        binding.navigatorShadow.visibility = View.VISIBLE
 
                         val resultPageAdapter = ResultPageAdapter(this@ResultActivity, it.size)
                         with(binding.viewPager) {
@@ -129,11 +129,17 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
         activityScope.launch(Dispatchers.IO) {
             tessScanner?.clearLastImage()
             val output = tessScanner?.getTextFromImage(bitmap)
+            val accuracy = tessScanner?.accuracy()
             if (output != null) {
                 runOnUiThread {
                     binding.progressLayout.visibility = View.GONE
-                    binding.txtAccuracy.text = "Accuracy: ${tessScanner?.accuracy()}%"
+                    binding.viewPager.visibility = View.GONE
+                    binding.viewPagerNavigator.visibility = View.GONE
+                    binding.navigatorShadow.visibility = View.GONE
                     binding.txtAccuracy.visibility = View.VISIBLE
+                    binding.txtScrollView.visibility = View.VISIBLE
+
+                    binding.txtAccuracy.text = "${getString(R.string.accuracy)} $accuracy%"
                     binding.txtOutput.text =
                         HtmlCompat.fromHtml(output, HtmlCompat.FROM_HTML_MODE_LEGACY)
                 }
