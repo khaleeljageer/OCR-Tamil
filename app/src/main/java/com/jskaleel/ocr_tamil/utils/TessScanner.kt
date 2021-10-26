@@ -5,11 +5,10 @@ import com.googlecode.tesseract.android.TessBaseAPI
 
 class TessScanner constructor(
     tessDataPath: String,
-    tessLang: String,
-    progressListener: TessBaseAPI.ProgressNotifier
+    tessLang: String
 ) {
 
-    private var tessBaseAPI: TessBaseAPI = TessBaseAPI(progressListener)
+    private var tessBaseAPI: TessBaseAPI = TessBaseAPI()
 
     init {
         tessBaseAPI.init(tessDataPath, tessLang)

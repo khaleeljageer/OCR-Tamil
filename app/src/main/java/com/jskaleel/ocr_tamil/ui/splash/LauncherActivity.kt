@@ -18,6 +18,7 @@ import com.jskaleel.ocr_tamil.utils.toMB
 import dagger.hilt.android.AndroidEntryPoint
 import pub.devrel.easypermissions.AppSettingsDialog
 import pub.devrel.easypermissions.EasyPermissions
+import timber.log.Timber
 
 
 @AndroidEntryPoint
@@ -134,7 +135,7 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
     }
 
     override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        Log.d("LauncherActivity", "requestCode : $requestCode perms: $perms")
+        Timber.d("requestCode : $requestCode perms: $perms")
         if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
             AppSettingsDialog.Builder(this).build().show()
         }

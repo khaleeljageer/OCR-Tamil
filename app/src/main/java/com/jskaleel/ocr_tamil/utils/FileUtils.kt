@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Build
 import android.provider.MediaStore
 import android.util.Log
+import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -55,7 +56,7 @@ class FileUtils @Inject constructor(private val context: Context) {
             orderBy
         )?.use { cursor ->
             {
-                Log.d("Khaleel", "Cursor : ${cursor.count}")
+                Timber.d("Cursor : " + cursor.count)
                 val idCol = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns._ID)
 //                val mimeCol = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MIME_TYPE)
 //                val addedCol = cursor.getColumnIndexOrThrow(MediaStore.Files.FileColumns.DATE_ADDED)
@@ -88,7 +89,7 @@ class FileUtils @Inject constructor(private val context: Context) {
                                 size
                             )
                         )
-                        Log.d("Khaleel", "Cursor : $fileName")
+                        Timber.d("Cursor : $fileName")
                     } while (cursor.moveToNext())
                 }
                 cursor.close()

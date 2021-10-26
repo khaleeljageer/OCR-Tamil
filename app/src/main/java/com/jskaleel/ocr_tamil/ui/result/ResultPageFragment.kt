@@ -52,7 +52,7 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
 
     private fun initTesseract() {
         val path = fileUtils.getTessDataPath()?.absolutePath ?: ""
-        tessScanner = TessScanner(path, "eng+tam", this@ResultPageFragment)
+        tessScanner = TessScanner(path, "eng+tam")
     }
 
     private fun startOCR(bitmap: Bitmap) {
@@ -81,34 +81,36 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
     }
 
     companion object {
-        fun newInstance(position: Int, size: Int): ResultPageFragment {
+        fun newInstance(position: Int, content: String, size: Int): ResultPageFragment {
             return ResultPageFragment().apply {
                 arguments = bundleOf(
                     POSITION to position,
+                    PAGE_CONTENT to content,
                     TOTAL_PAGE to size
                 )
             }
         }
 
         private const val POSITION = "position"
+        private const val PAGE_CONTENT = "page_content"
         private const val TOTAL_PAGE = "total_page"
     }
 
     override fun onResume() {
         super.onResume()
-        if (!ocrCompleted) {
-            initOCR()
-        }
+        val content = arguments?.getString(PAGE_CONTENT, "") ?: ""
+        loadResultUI(content, 0)
+
     }
 
-    private fun initOCR() {
-        val bitmap: Bitmap? = resultViewModel.getBitmap(pagePosition)
-        if (bitmap != null) {
-            startOCR(bitmap)
-        } else {
-            binding?.txtResult?.text = getString(R.string.error_string)
-        }
-    }
+//    private fun initOCR() {
+//        val bitmap: Bitmap? = resultViewModel.getBitmap(pagePosition)
+//        if (bitmap != null) {
+//            startOCR(bitmap)
+//        } else {
+//            binding?.txtResult?.text = getString(R.string.error_string)
+//        }
+//    }
 
     override fun onProgressValues(progressValues: TessBaseAPI.ProgressValues?) {
         if (activity != null && isAdded && isVisible) {

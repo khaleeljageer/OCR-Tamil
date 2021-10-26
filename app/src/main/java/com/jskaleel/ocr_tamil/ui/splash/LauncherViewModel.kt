@@ -16,6 +16,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import okhttp3.*
+import timber.log.Timber
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -67,10 +68,7 @@ class LauncherViewModel @Inject constructor(
         delay(timeMillis = 300)
         _loaderState.postValue(LoaderState.DOWNLOAD)
         while (isAllLangDownloaded()) {
-            Log.d(
-                "LauncherViewModel",
-                "isAllLangDownloaded() : ${isAllLangDownloaded()}"
-            )
+            Timber.d("isAllLangDownloaded() : " + isAllLangDownloaded())
             langCode.forEach {
                 if (!it.value) {
                     initiateDownload(it)
@@ -120,14 +118,14 @@ class LauncherViewModel @Inject constructor(
     }
 
     private fun initiateDownload(lang: Map.Entry<String, Boolean>) {
-        Log.d("LauncherViewModel", "Lang: ${lang.key}")
+        Timber.d("Lang: " + lang.key)
         val file = getFilePath(lang.key)
         if (file != null) {
             val request =
                 Request.Builder()
                     .url(String.format(Constants.TESSERACT_DATA_DOWNLOAD_URL_FAST, lang.key))
                     .build()
-            Log.d("LauncherViewModel", "URL: ${request.url}")
+            Timber.d("URL: " + request.url)
             val response = okHttpClient.newCall(request).execute()
             if (response.code == 200 || response.code == 201) {
                 if (response.body != null) {
@@ -151,7 +149,7 @@ class LauncherViewModel @Inject constructor(
                             }
                         }
                     } catch (e: Exception) {
-                        Log.d("LauncherViewModel", "Exception : ${e.printStackTrace()}")
+                        Timber.d("Exception : " + e.printStackTrace())
                         _loaderState.postValue(LoaderState.FAILURE)
                     } finally {
                         outputStream?.flush()
@@ -160,7 +158,7 @@ class LauncherViewModel @Inject constructor(
                     }
                 }
             } else {
-                Log.d("LauncherViewModel", "Failure : ${response.code}")
+                Timber.d("Failure : " + response.code)
                 _loaderState.postValue(LoaderState.FAILURE)
             }
         } else {
