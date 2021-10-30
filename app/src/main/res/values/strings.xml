@@ -8,9 +8,9 @@
     <string name="downloading_lang_data">%s தரவை பதிவிறக்குகிறது</string>
     <string name="error_string">ஏதோ தவறாகிவிட்டது\nபின்னர் முயற்சிக்கவும்.</string>
     <string name="network_error">இணைய இணைப்பு இல்லை\nபின்னர் முயற்சிக்கவும்.</string>
-    <string name="choose_pdf">Choose PDF</string>
-    <string name="capture_image">Capture Image</string>
-    <string name="recent_files">Recent Files</string>
+    <string name="choose_pdf">PDF ஐ தேர்வு செய்யவும்</string>
+    <string name="capture_image">படம் பிடிக்கவும்</string>
+    <string name="recent_files">சமீபத்திய கோப்புகள்</string>
     <string name="settings">அமைப்புகள்</string>
     <string name="source_code">மூல நிரல்</string>
     <string name="open_sources">மூன்றாம் தரப்பு நூலகங்கள்</string>
@@ -27,11 +27,11 @@
     <br>
 <a>https://vglug.org</a></p>]]></string>
     <string name="version">பதிப்பு: %s</string>
-    <string name="thumbnail">Thumbnail</string>
-    <string name="delete_scan">Delete Scan</string>
-    <string name="no_recent_scan">No Recent Scan</string>
+    <string name="thumbnail">சிறுபடம்</string>
+    <string name="delete_scan">ஸ்கேன் நீக்கவும்</string>
+    <string name="no_recent_scan">சமீபத்திய ஸ்கேன் இல்லை</string>
     <string name="page">பக்கம்: %d</string>
     <string name="accuracy">துள்ளியத்தன்மை: </string>
-    <string name="next_page">Next Page</string>
-    <string name="previous_page">Previous Page</string>
+    <string name="next_page">அடுத்த பக்கம்</string>
+    <string name="previous_page">முந்தைய பக்கம்</string>
 </resources>
