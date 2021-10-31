@@ -69,7 +69,7 @@ class ResultActivity : AppCompatActivity() {
         if (intent.hasExtra(APP_DOC_FILE)) {
             val appDocFile = intent.getParcelableExtra<AppDocFile>(APP_DOC_FILE)
             if (appDocFile != null && appDocFile.uri.path != null) {
-                resultViewModel.initiatePdfConversion(baseContext, File(appDocFile.uri.path!!))
+                resultViewModel.initiatePdfConversion(File(appDocFile.uri.path!!))
                 resultViewModel.pdfResult.observe(this, { list ->
                     if (list.isNotEmpty()) {
                         binding.progressLayout.visibility = View.GONE
