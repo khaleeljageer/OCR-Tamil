@@ -6,13 +6,11 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import com.google.android.material.snackbar.Snackbar
-import com.googlecode.tesseract.android.TessBaseAPI
 import com.jskaleel.ocr_tamil.R
 import com.jskaleel.ocr_tamil.databinding.ActivityResultBinding
 import com.jskaleel.ocr_tamil.db.dao.RecentScanDao
@@ -30,7 +28,7 @@ import java.io.File
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
+class ResultActivity : AppCompatActivity() {
     private val activityScope = CoroutineScope(Dispatchers.IO)
     private val resultViewModel: ResultViewModel by viewModels()
     private var tessScanner: TessScanner? = null
@@ -48,10 +46,8 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
-
         binding.progressLayout.visibility = View.VISIBLE
         initTesseract()
-
         if (intent.hasExtra(OCR_TYPE)) {
             when (intent.getIntExtra(OCR_TYPE, -1)) {
                 OCRFileType.IMAGE.ordinal -> {
@@ -64,7 +60,6 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
                     finish()
                 }
             }
-
         } else {
             finish()
         }
@@ -74,20 +69,39 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
         if (intent.hasExtra(APP_DOC_FILE)) {
             val appDocFile = intent.getParcelableExtra<AppDocFile>(APP_DOC_FILE)
             if (appDocFile != null && appDocFile.uri.path != null) {
-                resultViewModel.convertPdfToBitmap(baseContext, File(appDocFile.uri.path!!))
-                resultViewModel.bitmapList.observe(this, {
-                    if (it.isNotEmpty()) {
+                resultViewModel.initiatePdfConversion(File(appDocFile.uri.path!!))
+                resultViewModel.pdfResult.observe(this, { list ->
+                    if (list.isNotEmpty()) {
                         binding.progressLayout.visibility = View.GONE
                         binding.txtAccuracy.visibility = View.GONE
                         binding.txtScrollView.visibility = View.GONE
-                        binding.viewPager.visibility = View.VISIBLE
 
-                        val resultPageAdapter = ResultPageAdapter(this@ResultActivity, it.size)
+                        binding.viewPager.visibility = View.VISIBLE
+                        binding.viewPagerNavigator.visibility = View.VISIBLE
+                        binding.navigatorShadow.visibility = View.VISIBLE
+
+                        val resultPageAdapter = ResultPageAdapter(this@ResultActivity, list)
                         with(binding.viewPager) {
                             this.offscreenPageLimit = 5
                             this.setPageTransformer(CustomPageTransformer())
                             this.adapter = resultPageAdapter
                         }
+                        binding.ivNext.setOnClickListener {
+                            with(binding.viewPager) {
+                                if (this.currentItem < (list.size - 1)) {
+                                    setCurrentItem(this.currentItem + 1, true)
+                                }
+                            }
+                        }
+
+                        binding.ivPrevious.setOnClickListener {
+                            with(binding.viewPager) {
+                                if (this.currentItem >= 1) {
+                                    setCurrentItem(this.currentItem - 1, true)
+                                }
+                            }
+                        }
+                        binding.txtFileName.text = appDocFile.name
                     } else {
                         Snackbar.make(
                             binding.root,
@@ -121,7 +135,7 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
 
     private fun initTesseract() {
         val path = fileUtils.getTessDataPath()?.absolutePath ?: ""
-        tessScanner = TessScanner(path, "eng+tam", this@ResultActivity)
+        tessScanner = TessScanner(path, "eng+tam")
     }
 
     @SuppressLint("SetTextI18n")
@@ -129,11 +143,17 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
         activityScope.launch(Dispatchers.IO) {
             tessScanner?.clearLastImage()
             val output = tessScanner?.getTextFromImage(bitmap)
+            val accuracy = tessScanner?.accuracy()
             if (output != null) {
                 runOnUiThread {
                     binding.progressLayout.visibility = View.GONE
-                    binding.txtAccuracy.text = "Accuracy: ${tessScanner?.accuracy()}%"
+                    binding.viewPager.visibility = View.GONE
+                    binding.viewPagerNavigator.visibility = View.GONE
+                    binding.navigatorShadow.visibility = View.GONE
                     binding.txtAccuracy.visibility = View.VISIBLE
+                    binding.txtScrollView.visibility = View.VISIBLE
+
+                    binding.txtAccuracy.text = "${getString(R.string.accuracy)} $accuracy%"
                     binding.txtOutput.text =
                         HtmlCompat.fromHtml(output, HtmlCompat.FROM_HTML_MODE_LEGACY)
                 }
@@ -172,24 +192,24 @@ class ResultActivity : AppCompatActivity(), TessBaseAPI.ProgressNotifier {
         private const val APP_DOC_FILE = "app_doc_file"
     }
 
-    @SuppressLint("SetTextI18n")
-    override fun onProgressValues(progressValues: TessBaseAPI.ProgressValues?) {
-        runOnUiThread {
-            if (progressValues != null) {
-                Log.d("Khaleel", "Progress : ${progressValues.percent}")
-                when {
-                    progressValues.percent > 0 -> {
-                        binding.progressLoader.isIndeterminate = false
-                        binding.progressLoader.progress = progressValues.percent
-                        binding.txtProgress.text = "${progressValues.percent}%"
-                    }
-                    progressValues.percent >= 100 -> {
-                        binding.progressLayout.visibility = View.GONE
-                    }
-                }
-            } else {
-                binding.progressLayout.visibility = View.GONE
-            }
-        }
-    }
+//    @SuppressLint("SetTextI18n")
+//    override fun onProgressValues(progressValues: TessBaseAPI.ProgressValues?) {
+//        runOnUiThread {
+//            if (progressValues != null) {
+//                Log.d("Khaleel", "Progress : ${progressValues.percent}")
+//                when {
+//                    progressValues.percent > 0 -> {
+//                        binding.progressLoader.isIndeterminate = false
+//                        binding.progressLoader.progress = progressValues.percent
+//                        binding.txtProgress.text = "${progressValues.percent}%"
+//                    }
+//                    progressValues.percent >= 100 -> {
+//                        binding.progressLayout.visibility = View.GONE
+//                    }
+//                }
+//            } else {
+//                binding.progressLayout.visibility = View.GONE
+//            }
+//        }
+//    }
 }

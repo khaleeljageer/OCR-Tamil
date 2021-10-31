@@ -15,6 +15,7 @@
         <entry key="app/src/main/res/drawable/ic_round_upload_file_24.xml" value="0.2609375" />
         <entry key="app/src/main/res/drawable/splash_bg.xml" value="0.2609375" />
         <entry key="app/src/main/res/drawable/splash_window_bg.xml" value="0.2125" />
+        <entry key="app/src/main/res/drawable/top_shadow_gradient.xml" value="0.353125" />
         <entry key="app/src/main/res/layout/activity_launcher.xml" value="0.28712160975983525" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_result.xml" value="0.37864583333333335" />

@@ -20,6 +20,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
+@SuppressLint("SetTextI18n")
 class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.ProgressNotifier {
     private var ocrCompleted: Boolean = false
     private var pagePosition: Int = -1
@@ -43,12 +44,15 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
         } else {
             pagePosition = position
             totalPage = size
+
+            binding?.txtPage?.text =
+                "${String.format(getString(R.string.page), (pagePosition + 1))}/$totalPage"
         }
     }
 
     private fun initTesseract() {
         val path = fileUtils.getTessDataPath()?.absolutePath ?: ""
-        tessScanner = TessScanner(path, "eng+tam", this@ResultPageFragment)
+        tessScanner = TessScanner(path, "eng+tam")
     }
 
     private fun startOCR(bitmap: Bitmap) {
@@ -62,53 +66,52 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
                 }
             }
             tessScanner?.stop()
+            bitmap.recycle()
             ocrCompleted = true
         }
     }
 
-    @SuppressLint("SetTextI18n")
     private fun loadResultUI(output: String, accuracy: Int?) {
         binding?.progressLayout?.visibility = View.GONE
         binding?.txtScrollView?.visibility = View.VISIBLE
         binding?.txtResult?.text =
             HtmlCompat.fromHtml(output, HtmlCompat.FROM_HTML_MODE_LEGACY)
 
-        binding?.txtPage?.text =
-            "${String.format(getString(R.string.page), (pagePosition + 1))}/$totalPage"
         binding?.txtAccuracy?.text = "${getString(R.string.accuracy)} $accuracy%"
     }
 
     companion object {
-        fun newInstance(position: Int, size: Int): ResultPageFragment {
+        fun newInstance(position: Int, content: String, size: Int): ResultPageFragment {
             return ResultPageFragment().apply {
                 arguments = bundleOf(
                     POSITION to position,
+                    PAGE_CONTENT to content,
                     TOTAL_PAGE to size
                 )
             }
         }
 
         private const val POSITION = "position"
+        private const val PAGE_CONTENT = "page_content"
         private const val TOTAL_PAGE = "total_page"
     }
 
     override fun onResume() {
         super.onResume()
-        if (!ocrCompleted) {
-            initOCR()
-        }
+        val content = arguments?.getString(PAGE_CONTENT, "") ?: ""
+        loadResultUI(content, 0)
+
     }
 
-    private fun initOCR() {
-        val bitmap: Bitmap? = resultViewModel.getBitmap(pagePosition)
-        if (bitmap != null) {
-            startOCR(bitmap)
-        } else {
-            binding?.txtResult?.text = getString(R.string.error_string)
-        }
-    }
+//    private fun initOCR() {
+//        val bitmap: Bitmap? = resultViewModel.getBitmap(pagePosition)
+//        if (bitmap != null) {
+//            startOCR(bitmap)
+//        } else {
+//            binding?.txtResult?.text = getString(R.string.error_string)
+//        }
+//    }
 
-    @SuppressLint("SetTextI18n")
     override fun onProgressValues(progressValues: TessBaseAPI.ProgressValues?) {
         if (activity != null && isAdded && isVisible) {
             requireActivity().runOnUiThread {

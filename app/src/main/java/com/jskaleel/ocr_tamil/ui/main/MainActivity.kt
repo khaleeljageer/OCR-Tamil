@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -32,7 +31,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import java.io.File
+import timber.log.Timber
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -151,7 +150,8 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
                     if (resultData != null) {
                         val fileUri = resultData.data
                         if (fileUri != null && fileUri.path != null) {
-                            Log.d("Khaleel", "FileURI : ${fileUri.path} ${File(fileUri.path).name}")
+                            Timber.tag("Khaleel")
+                                .d("FileURI : ${fileUri.path}")
                             startActivity(ResultActivity.newIntent(baseContext, fileUri.path!!))
 //                            val bitmap = BitmapFactory.decodeFile(fileUri.path)
 //                            startOCR(bitmap)

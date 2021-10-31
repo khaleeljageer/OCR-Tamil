@@ -2,6 +2,7 @@ package com.jskaleel.ocr_tamil.utils
 
 import android.content.SharedPreferences
 import android.util.Log
+import timber.log.Timber
 
 class AppPreference(private val sharedPref: SharedPreferences) {
     companion object {
@@ -16,19 +17,19 @@ class AppPreference(private val sharedPref: SharedPreferences) {
                 editor?.let {
                     it.putString(key, value)
                     it.apply()
-                } ?: Log.d(TAG, "null Preference Editor")
+                } ?: Timber.d("null Preference Editor")
             }
             is Int -> {
                 editor?.let {
                     it.putInt(key, value)
                     it.apply()
-                } ?: Log.d(TAG, "null Preference Editor")
+                } ?: Timber.d("null Preference Editor")
             }
             is Boolean -> {
                 editor?.let {
                     it.putBoolean(key, value)
                     it.apply()
-                } ?: Log.d(TAG, "null Preference Editor")
+                } ?: Timber.d("null Preference Editor")
             }
         }
     }
