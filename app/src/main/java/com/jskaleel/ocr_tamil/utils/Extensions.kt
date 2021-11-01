@@ -5,6 +5,7 @@ import android.content.Context.CONNECTIVITY_SERVICE
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import android.view.View
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -55,4 +56,16 @@ fun toReadableDate(timeStamp: Long): String {
     } catch (e: Exception) {
         "$timeStamp"
     }
+}
+
+fun View.visible() {
+    this.visibility = View.VISIBLE
+}
+
+fun View.hideView() {
+    this.visibility = View.GONE
+}
+
+fun View.invisible() {
+    this.visibility = View.INVISIBLE
 }

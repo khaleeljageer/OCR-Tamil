@@ -12,4 +12,6 @@ object Constants {
         "https://github.com/tesseract-ocr/tessdata_fast/raw/4.0.0/%s.traineddata"
     const val STORE_URL = "https://play.google.com/store/apps/details?id=com.jskaleel.ocr_tamil"
     const val CONFIG_URL = "https://raw.githubusercontent.com/khaleeljageer/OCR-Tamil/main/config.json"
+    const val GITHUB_BASE_API = "https://api.github.com/"
+    const val CONTRIBUTORS_PATH = "repos/khaleeljageer/OCR-Tamil/contributors"
 }

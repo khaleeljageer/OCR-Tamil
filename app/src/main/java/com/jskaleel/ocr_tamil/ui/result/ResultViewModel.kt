@@ -26,6 +26,11 @@ class ResultViewModel @Inject constructor(
     private val _pdfResult = MutableLiveData<MutableMap<Int, String>>()
     val pdfResult: MutableLiveData<MutableMap<Int, String>> = _pdfResult
 
+    private val _accuracy = MutableLiveData<Long>()
+    val accuracy: MutableLiveData<Long> = _accuracy
+
+    private var pageCount: Int = 0
+
     fun initiatePdfConversion(pdfFile: File) = viewModelScope.launch(Dispatchers.IO) {
         val renderer =
             PdfRenderer(
@@ -34,7 +39,7 @@ class ResultViewModel @Inject constructor(
                     ParcelFileDescriptor.MODE_READ_ONLY
                 )
             )
-        val pageCount = renderer.pageCount
+        pageCount = renderer.pageCount
         if (pageCount <= Constants.MAX_PAGE_SIZE) {
             val pageOutput = HashMap<Int, String>(pageCount)
             val path = fileUtils.getTessDataPath()?.absolutePath ?: ""

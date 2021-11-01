@@ -9,6 +9,7 @@ import androidx.core.text.HtmlCompat
 import com.jskaleel.ocr_tamil.BuildConfig
 import com.jskaleel.ocr_tamil.R
 import com.jskaleel.ocr_tamil.databinding.ActivitySettingsBinding
+import com.jskaleel.ocr_tamil.ui.contrib.ContributorsActivity
 import com.jskaleel.ocr_tamil.utils.Constants
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,6 +51,10 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.rlSourceCodeLayout.setOnClickListener {
             openUrl("https://github.com/khaleeljageer/OCR-Tamil")
+        }
+
+        binding.rlContribLayout.setOnClickListener {
+            startActivity(ContributorsActivity.newIntent(baseContext))
         }
 
         binding.llShareApp.setOnClickListener {

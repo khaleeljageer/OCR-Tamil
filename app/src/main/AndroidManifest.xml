@@ -34,6 +34,9 @@
         <activity
             android:name=".ui.result.ResultActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.contrib.ContributorsActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
