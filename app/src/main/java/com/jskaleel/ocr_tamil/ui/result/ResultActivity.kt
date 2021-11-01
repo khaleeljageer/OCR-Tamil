@@ -65,6 +65,7 @@ class ResultActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun initiatePdfProcess() {
         if (intent.hasExtra(APP_DOC_FILE)) {
             val appDocFile = intent.getParcelableExtra<AppDocFile>(APP_DOC_FILE)
@@ -109,6 +110,9 @@ class ResultActivity : AppCompatActivity() {
                             Snackbar.LENGTH_LONG
                         ).show()
                     }
+                })
+                resultViewModel.accuracy.observe(this, {
+                    binding.txtAccuracy.text = "${getString(R.string.accuracy)} $it%"
                 })
             } else {
                 Snackbar.make(
