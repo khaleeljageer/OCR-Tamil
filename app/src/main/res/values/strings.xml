@@ -44,4 +44,5 @@
     <string name="exceed_maximum_page">Currently we\'re not allowing PDF which has more than %d pages.\nPlease choose different PDF</string>
     <string name="close">Close</string>
     <string name="conversion_complete">Conversion completed...</string>
+    <string name="converting">Converting...</string>
 </resources>
