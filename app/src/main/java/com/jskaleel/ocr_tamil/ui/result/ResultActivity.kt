@@ -6,10 +6,12 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.jskaleel.ocr_tamil.R
 import com.jskaleel.ocr_tamil.databinding.ActivityResultBinding
@@ -27,8 +29,9 @@ import kotlinx.coroutines.launch
 import java.io.File
 import javax.inject.Inject
 
+
 @AndroidEntryPoint
-class ResultActivity : AppCompatActivity() {
+open class ResultActivity : AppCompatActivity() {
     private val activityScope = CoroutineScope(Dispatchers.IO)
     private val resultViewModel: ResultViewModel by viewModels()
     private var tessScanner: TessScanner? = null
@@ -196,24 +199,25 @@ class ResultActivity : AppCompatActivity() {
         private const val APP_DOC_FILE = "app_doc_file"
     }
 
-//    @SuppressLint("SetTextI18n")
-//    override fun onProgressValues(progressValues: TessBaseAPI.ProgressValues?) {
-//        runOnUiThread {
-//            if (progressValues != null) {
-//                Log.d("Khaleel", "Progress : ${progressValues.percent}")
-//                when {
-//                    progressValues.percent > 0 -> {
-//                        binding.progressLoader.isIndeterminate = false
-//                        binding.progressLoader.progress = progressValues.percent
-//                        binding.txtProgress.text = "${progressValues.percent}%"
-//                    }
-//                    progressValues.percent >= 100 -> {
-//                        binding.progressLayout.visibility = View.GONE
-//                    }
-//                }
-//            } else {
-//                binding.progressLayout.visibility = View.GONE
-//            }
-//        }
-//    }
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            exitByBackKey()
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
+
+    private fun exitByBackKey() {
+        MaterialAlertDialogBuilder(this)
+            .setCancelable(false)
+            .setMessage(getString(R.string.close_page_message))
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                finish()
+            }
+            .setNegativeButton(
+                getString(R.string.no)
+            ) { dialog, _ ->
+                dialog.dismiss()
+            }.show()
+    }
 }

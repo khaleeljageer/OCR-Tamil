@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.jskaleel.ocr_tamil.model.PDFPageOut
+import com.jskaleel.ocr_tamil.model.ScanResult
 import com.jskaleel.ocr_tamil.utils.Constants
 import com.jskaleel.ocr_tamil.utils.FileUtils
 import com.jskaleel.ocr_tamil.utils.TessScanner
@@ -32,7 +33,12 @@ class ResultViewModel @Inject constructor(
     private val _accuracy = MutableLiveData<Long>()
     val accuracy: MutableLiveData<Long> = _accuracy
 
+    private val _processedPages = MutableLiveData<Int>()
+    val processedPages: MutableLiveData<Int> = _processedPages
+
     fun initiatePdfConversion(pdfFile: File) = viewModelScope.launch(Dispatchers.IO) {
+
+        Timber.tag("Khaleel").d("ProcessorCore : ${Runtime.getRuntime().availableProcessors()}")
         val renderer =
             PdfRenderer(
                 ParcelFileDescriptor.open(
@@ -58,6 +64,7 @@ class ResultViewModel @Inject constructor(
                     }
                     ongoingJobs.clear()
                 }
+                Timber.tag("Khaleel").d("ProcessedCount : $processedCount")
             }
             _pdfResult.postValue(pageOutput)
             Timber.d("jobResult:  $pageOutput")
@@ -74,19 +81,18 @@ class ResultViewModel @Inject constructor(
             val pdfDocument: PDDocument = PDDocument.load(pdf)
             val pdfRenderer = PDFRenderer(pdfDocument)
 
-            Timber.d("pdfPage Initiated: $pageIndex")
+            Timber.tag("Khaleel").d("pdfPage Initiated: $pageIndex")
             val tessScanner = TessScanner(scannerPath, "eng+tam")
 
             val bitmap = pdfRenderer.renderImageWithDPI(pageIndex, 300f)
-            val accuracy = tessScanner.accuracy()
             tessScanner.clearLastImage()
             val output = tessScanner.getTextFromImage(bitmap)
+            val accuracy = tessScanner.accuracy()
             bitmap.recycle()
             tessScanner.stop()
-            Timber.d("pdfPage Completed: $pageIndex")
+            Timber.tag("Khaleel").d("pdfPage Completed: $pageIndex Accuracy : $accuracy")
+
             ScanResult(pageIndex, output, accuracy)
         }
     }
-
-    private class ScanResult(val pageIndex: Int, val text: CharSequence, val accuracy: Int)
 }

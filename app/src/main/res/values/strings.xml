@@ -37,4 +37,7 @@
     <string name="previous_page">Previous Page</string>
     <string name="contributors">Contributors</string>
     <string name="loading">Loading…</string>
+    <string name="close_page_message">Do you want to close this page?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
