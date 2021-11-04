@@ -2,7 +2,7 @@ package com.jskaleel.ocr_tamil.utils
 
 object Constants {
     const val ASPECT_RATIO: Double = 0.5625
-    const val MAX_PAGE_SIZE: Int = 100
+    const val MAX_PAGE_SIZE: Int = 10
     val MAX_PARALLEL_JOBS = Runtime.getRuntime().availableProcessors()
     const val TESS_DATA_PATH = "fast/tessdata"
     const val DOCUMENT_PDF_PATH = "document/pdf"

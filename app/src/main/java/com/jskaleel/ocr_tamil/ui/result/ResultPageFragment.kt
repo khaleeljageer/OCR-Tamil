@@ -1,33 +1,26 @@
 package com.jskaleel.ocr_tamil.ui.result
 
 import android.annotation.SuppressLint
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import com.googlecode.tesseract.android.TessBaseAPI
 import com.jskaleel.ocr_tamil.R
 import com.jskaleel.ocr_tamil.databinding.FragmentPdfResultBinding
+import com.jskaleel.ocr_tamil.model.PDFPageOut
 import com.jskaleel.ocr_tamil.utils.FileUtils
 import com.jskaleel.ocr_tamil.utils.TessScanner
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 @SuppressLint("SetTextI18n")
 class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.ProgressNotifier {
-    private var ocrCompleted: Boolean = false
     private var pagePosition: Int = -1
     private var totalPage: Int = -1
     private var binding: FragmentPdfResultBinding? = null
-    private val resultViewModel: ResultViewModel by activityViewModels()
-    private val fragmentScope = CoroutineScope(Dispatchers.IO)
     private var tessScanner: TessScanner? = null
 
     @Inject
@@ -55,22 +48,6 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
         tessScanner = TessScanner(path, "eng+tam")
     }
 
-    private fun startOCR(bitmap: Bitmap) {
-        fragmentScope.launch(Dispatchers.IO) {
-            tessScanner?.clearLastImage()
-            val output = tessScanner?.getTextFromImage(bitmap)
-            val accuracy = tessScanner?.accuracy()
-            if (output != null) {
-                fragmentScope.launch(Dispatchers.Main) {
-                    loadResultUI(output, accuracy)
-                }
-            }
-            tessScanner?.stop()
-            bitmap.recycle()
-            ocrCompleted = true
-        }
-    }
-
     private fun loadResultUI(output: String, accuracy: Int?) {
         binding?.progressLayout?.visibility = View.GONE
         binding?.txtScrollView?.visibility = View.VISIBLE
@@ -81,7 +58,7 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
     }
 
     companion object {
-        fun newInstance(position: Int, content: String, size: Int): ResultPageFragment {
+        fun newInstance(position: Int, content: PDFPageOut?, size: Int): ResultPageFragment {
             return ResultPageFragment().apply {
                 arguments = bundleOf(
                     POSITION to position,
@@ -98,19 +75,9 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
 
     override fun onResume() {
         super.onResume()
-        val content = arguments?.getString(PAGE_CONTENT, "") ?: ""
-        loadResultUI(content, 0)
-
+        val content = arguments?.getParcelable<PDFPageOut>(PAGE_CONTENT) as PDFPageOut
+        loadResultUI(content.output, content.accuracy)
     }
-
-//    private fun initOCR() {
-//        val bitmap: Bitmap? = resultViewModel.getBitmap(pagePosition)
-//        if (bitmap != null) {
-//            startOCR(bitmap)
-//        } else {
-//            binding?.txtResult?.text = getString(R.string.error_string)
-//        }
-//    }
 
     override fun onProgressValues(progressValues: TessBaseAPI.ProgressValues?) {
         if (activity != null && isAdded && isVisible) {

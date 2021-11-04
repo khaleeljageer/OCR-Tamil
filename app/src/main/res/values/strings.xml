@@ -37,4 +37,11 @@
     <string name="previous_page">Previous Page</string>
     <string name="contributors">Contributors</string>
     <string name="loading">Loading…</string>
+    <string name="close_page_message">Do you want to close this page?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="exceed_maximum_page_title">Exceed maximum page count</string>
+    <string name="exceed_maximum_page">Currently we\'re not allowing PDF which has more than %d pages.\nPlease choose different PDF</string>
+    <string name="close">Close</string>
+    <string name="conversion_complete">Conversion completed...</string>
 </resources>
