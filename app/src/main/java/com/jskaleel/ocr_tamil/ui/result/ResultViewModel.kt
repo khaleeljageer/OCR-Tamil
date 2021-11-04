@@ -6,6 +6,8 @@ import android.os.ParcelFileDescriptor
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jskaleel.ocr_tamil.R
+import com.jskaleel.ocr_tamil.model.ConverterResult
 import com.jskaleel.ocr_tamil.model.PDFPageOut
 import com.jskaleel.ocr_tamil.model.ScanResult
 import com.jskaleel.ocr_tamil.utils.Constants
@@ -36,40 +38,52 @@ class ResultViewModel @Inject constructor(
     private val _processedPages = MutableLiveData<Int>()
     val processedPages: MutableLiveData<Int> = _processedPages
 
-    fun initiatePdfConversion(pdfFile: File) = viewModelScope.launch(Dispatchers.IO) {
+    private val _errorMessage = MutableLiveData<ConverterResult>()
+    val errorMessage: MutableLiveData<ConverterResult> = _errorMessage
 
-        Timber.tag("Khaleel").d("ProcessorCore : ${Runtime.getRuntime().availableProcessors()}")
-        val renderer =
-            PdfRenderer(
-                ParcelFileDescriptor.open(
-                    pdfFile,
-                    ParcelFileDescriptor.MODE_READ_ONLY
+
+    fun initiatePdfConversion(context: Context, pdfFile: File) =
+        viewModelScope.launch(Dispatchers.IO) {
+            val renderer =
+                PdfRenderer(
+                    ParcelFileDescriptor.open(
+                        pdfFile,
+                        ParcelFileDescriptor.MODE_READ_ONLY
+                    )
                 )
-            )
-        val pageCount = renderer.pageCount
-        if (pageCount <= Constants.MAX_PAGE_SIZE) {
-            val pageOutput = HashMap<Int, PDFPageOut>(pageCount)
-            val path = fileUtils.getTessDataPath()?.absolutePath ?: ""
-            val ongoingJobs = ArrayList<Deferred<ScanResult>>(Constants.MAX_PARALLEL_JOBS)
-            var processedCount = 0
-            while (processedCount < pageCount) {
-                val job = scanTextFromPdfPageAsync(pdfFile, processedCount, path)
-                ongoingJobs += job
-                processedCount++
-                if (ongoingJobs.size == Constants.MAX_PARALLEL_JOBS || processedCount == pageCount) {
-                    val completedJobs = ongoingJobs.awaitAll()
-                    for (scanResult in completedJobs) {
-                        pageOutput[scanResult.pageIndex] =
-                            PDFPageOut(scanResult.text.toString(), scanResult.accuracy)
+            val pageCount = renderer.pageCount
+            if (pageCount <= Constants.MAX_PAGE_SIZE) {
+                val pageOutput = HashMap<Int, PDFPageOut>(pageCount)
+                val path = fileUtils.getTessDataPath()?.absolutePath ?: ""
+                val ongoingJobs = ArrayList<Deferred<ScanResult>>(Constants.MAX_PARALLEL_JOBS)
+                var processedCount = 0
+                while (processedCount < pageCount) {
+                    val job = scanTextFromPdfPageAsync(pdfFile, processedCount, path)
+                    ongoingJobs += job
+                    processedCount++
+                    if (ongoingJobs.size == Constants.MAX_PARALLEL_JOBS || processedCount == pageCount) {
+                        val completedJobs = ongoingJobs.awaitAll()
+                        for (scanResult in completedJobs) {
+                            pageOutput[scanResult.pageIndex] =
+                                PDFPageOut(scanResult.text.toString(), scanResult.accuracy)
+                        }
+                        ongoingJobs.clear()
                     }
-                    ongoingJobs.clear()
+                    Timber.tag("Khaleel").d("ProcessedCount : $processedCount")
                 }
-                Timber.tag("Khaleel").d("ProcessedCount : $processedCount")
+                _pdfResult.postValue(pageOutput)
+                Timber.d("jobResult:  $pageOutput")
+            } else {
+                _errorMessage.postValue(
+                    ConverterResult.MaxPageError(
+                        String.format(
+                            context.getString(R.string.exceed_maximum_page),
+                            Constants.MAX_PAGE_SIZE
+                        )
+                    )
+                )
             }
-            _pdfResult.postValue(pageOutput)
-            Timber.d("jobResult:  $pageOutput")
         }
-    }
 
     private fun scanTextFromPdfPageAsync(
         pdf: File,

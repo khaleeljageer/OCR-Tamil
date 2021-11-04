@@ -18,6 +18,7 @@ import com.jskaleel.ocr_tamil.databinding.ActivityResultBinding
 import com.jskaleel.ocr_tamil.db.dao.RecentScanDao
 import com.jskaleel.ocr_tamil.db.entity.RecentScan
 import com.jskaleel.ocr_tamil.model.AppDocFile
+import com.jskaleel.ocr_tamil.model.ConverterResult
 import com.jskaleel.ocr_tamil.model.OCRFileType
 import com.jskaleel.ocr_tamil.utils.CustomPageTransformer
 import com.jskaleel.ocr_tamil.utils.FileUtils
@@ -73,9 +74,10 @@ open class ResultActivity : AppCompatActivity() {
         if (intent.hasExtra(APP_DOC_FILE)) {
             val appDocFile = intent.getParcelableExtra<AppDocFile>(APP_DOC_FILE)
             if (appDocFile != null && appDocFile.uri.path != null) {
-                resultViewModel.initiatePdfConversion(File(appDocFile.uri.path!!))
+                resultViewModel.initiatePdfConversion(baseContext, File(appDocFile.uri.path!!))
                 resultViewModel.pdfResult.observe(this, { list ->
                     if (list.isNotEmpty()) {
+                        showSnackBar(getString(R.string.conversion_complete))
                         binding.progressLayout.visibility = View.GONE
                         binding.txtAccuracy.visibility = View.GONE
                         binding.txtScrollView.visibility = View.GONE
@@ -86,7 +88,7 @@ open class ResultActivity : AppCompatActivity() {
 
                         val resultPageAdapter = ResultPageAdapter(this@ResultActivity, list)
                         with(binding.viewPager) {
-                            this.offscreenPageLimit = 5
+                            this.offscreenPageLimit = 1
                             this.setPageTransformer(CustomPageTransformer())
                             this.adapter = resultPageAdapter
                         }
@@ -107,26 +109,33 @@ open class ResultActivity : AppCompatActivity() {
                         }
                         binding.txtFileName.text = appDocFile.name
                     } else {
-                        Snackbar.make(
-                            binding.root,
-                            getString(R.string.error_string),
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                        showSnackBar(getString(R.string.error_string))
                     }
                 })
                 resultViewModel.accuracy.observe(this, {
                     binding.txtAccuracy.text = "${getString(R.string.accuracy)} $it%"
                 })
+                resultViewModel.errorMessage.observe(this, {
+                    when (it) {
+                        is ConverterResult.MaxPageError -> {
+                            showMaxErrorDialog(it.message)
+                        }
+                    }
+                })
             } else {
-                Snackbar.make(
-                    binding.root,
-                    getString(R.string.error_string),
-                    Snackbar.LENGTH_LONG
-                ).show()
+                showSnackBar(getString(R.string.error_string))
             }
         } else {
             finish()
         }
+    }
+
+    private fun showSnackBar(message: String) {
+        Snackbar.make(
+            binding.root,
+            message,
+            Snackbar.LENGTH_LONG
+        ).show()
     }
 
     private fun initiateImageProcess() {
@@ -201,23 +210,32 @@ open class ResultActivity : AppCompatActivity() {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            exitByBackKey()
+            showExitDialog(getString(R.string.close_page_message))
             return true
         }
         return super.onKeyDown(keyCode, event)
     }
 
-    private fun exitByBackKey() {
+    private fun showExitDialog(message: String) {
         MaterialAlertDialogBuilder(this)
             .setCancelable(false)
-            .setMessage(getString(R.string.close_page_message))
-            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+            .setMessage(message).setPositiveButton(getString(R.string.yes)) { _, _ ->
+                finish()
+            }.setNegativeButton(
+                getString(R.string.no)
+            ) { dialog1, _ ->
+                dialog1.dismiss()
+            }
+            .show()
+    }
+
+    private fun showMaxErrorDialog(message: String) {
+        MaterialAlertDialogBuilder(this)
+            .setCancelable(false)
+            .setTitle(getString(R.string.exceed_maximum_page_title))
+            .setMessage(message).setPositiveButton(getString(R.string.close)) { _, _ ->
                 finish()
             }
-            .setNegativeButton(
-                getString(R.string.no)
-            ) { dialog, _ ->
-                dialog.dismiss()
-            }.show()
+            .show()
     }
 }
