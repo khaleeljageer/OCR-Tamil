@@ -113,7 +113,7 @@
             app:fontFamily="@font/madurai" />
     </ScrollView>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/progressLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -127,10 +127,13 @@
             android:id="@+id/progressLoader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:indeterminate="true"
             app:indicatorColor="@color/app_primaryDarkColor"
             app:indicatorSize="@dimen/margin_60dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:trackColor="@color/app_primaryLightColor"
             app:trackThickness="@dimen/margin_4dp" />
 
@@ -138,10 +141,23 @@
             android:id="@+id/txtProgress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:padding="@dimen/margin_5dp"
-            android:textColor="@color/app_primaryDarkColor"
             android:textSize="14sp"
-            android:textStyle="bold" />
-    </FrameLayout>
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/progressLoader"
+            app:layout_constraintEnd_toEndOf="@+id/progressLoader"
+            app:layout_constraintStart_toStartOf="@+id/progressLoader"
+            app:layout_constraintTop_toTopOf="@+id/progressLoader" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtLoadingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_15dp"
+            android:text="@string/converting"
+            android:textSize="@dimen/text_size_14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/progressLoader" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

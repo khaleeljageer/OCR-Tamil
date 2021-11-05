@@ -23,6 +23,7 @@ import com.jskaleel.ocr_tamil.model.OCRFileType
 import com.jskaleel.ocr_tamil.utils.CustomPageTransformer
 import com.jskaleel.ocr_tamil.utils.FileUtils
 import com.jskaleel.ocr_tamil.utils.TessScanner
+import com.jskaleel.ocr_tamil.utils.visible
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -86,7 +87,7 @@ open class ResultActivity : AppCompatActivity() {
                         binding.viewPagerNavigator.visibility = View.VISIBLE
                         binding.navigatorShadow.visibility = View.VISIBLE
 
-                        val resultPageAdapter = ResultPageAdapter(this@ResultActivity, list)
+                        val resultPageAdapter = ResultPageAdapter(this@ResultActivity, list.toSortedMap())
                         with(binding.viewPager) {
                             this.offscreenPageLimit = 1
                             this.setPageTransformer(CustomPageTransformer())
@@ -121,6 +122,11 @@ open class ResultActivity : AppCompatActivity() {
                             showMaxErrorDialog(it.message)
                         }
                     }
+                })
+                resultViewModel.processedPages.observe(this, {
+                    binding.txtProgress.visible()
+                    binding.txtProgress.text = "$it/${resultViewModel.pageCount}"
+                    binding.txtLoadingLabel.text = getString(R.string.converting)
                 })
             } else {
                 showSnackBar(getString(R.string.error_string))
