@@ -87,7 +87,7 @@ open class ResultActivity : AppCompatActivity() {
                         binding.viewPagerNavigator.visibility = View.VISIBLE
                         binding.navigatorShadow.visibility = View.VISIBLE
 
-                        val resultPageAdapter = ResultPageAdapter(this@ResultActivity, list)
+                        val resultPageAdapter = ResultPageAdapter(this@ResultActivity, list.toSortedMap())
                         with(binding.viewPager) {
                             this.offscreenPageLimit = 1
                             this.setPageTransformer(CustomPageTransformer())

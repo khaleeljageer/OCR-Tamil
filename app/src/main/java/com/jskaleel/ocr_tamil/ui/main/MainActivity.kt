@@ -153,8 +153,6 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
                             Timber.tag("Khaleel")
                                 .d("FileURI : ${fileUri.path}")
                             startActivity(ResultActivity.newIntent(baseContext, fileUri.path!!))
-//                            val bitmap = BitmapFactory.decodeFile(fileUri.path)
-//                            startOCR(bitmap)
                         } else {
                             Snackbar.make(
                                 binding.root,

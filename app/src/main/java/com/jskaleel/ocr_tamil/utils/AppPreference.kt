@@ -1,7 +1,6 @@
 package com.jskaleel.ocr_tamil.utils
 
 import android.content.SharedPreferences
-import android.util.Log
 import timber.log.Timber
 
 class AppPreference(private val sharedPref: SharedPreferences) {

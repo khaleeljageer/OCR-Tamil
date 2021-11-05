@@ -16,7 +16,6 @@ import com.jskaleel.ocr_tamil.utils.TessScanner
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.rendering.PDFRenderer
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.*
 import timber.log.Timber
 import java.io.File
@@ -25,8 +24,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ResultViewModel @Inject constructor(
-    @ApplicationContext private val appContext: Context,
-    val fileUtils: FileUtils
+    private val fileUtils: FileUtils
 ) : ViewModel() {
 
     private val _pdfResult = MutableLiveData<MutableMap<Int, PDFPageOut>>()
@@ -97,7 +95,6 @@ class ResultViewModel @Inject constructor(
         return viewModelScope.async(Dispatchers.IO) {
             val pdfDocument: PDDocument = PDDocument.load(pdf)
             val pdfRenderer = PDFRenderer(pdfDocument)
-
             Timber.tag("Khaleel").d("pdfPage Initiated: $pageIndex")
             val tessScanner = TessScanner(scannerPath, "eng+tam")
             val bitmap = pdfRenderer.renderImageWithDPI(pageIndex, 300f)
