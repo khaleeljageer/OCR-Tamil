@@ -1,0 +1,27 @@
+Categories:
+  - Reading
+  - Internet
+  - Science & Education
+License: GPL-3.0-only
+AuthorName: Khaleel
+SourceCode: https://github.com/khaleeljageer/OCR-Tamil
+IssueTracker: https://github.com/khaleeljageer/OCR-Tamil/issues
+Changelog: https://github.com/khaleeljageer/OCR-Tamil/releases
+
+AutoName: விழி தமிழ்(Vizhi Tamil)
+
+RepoType: git
+Repo: https://github.com/khaleeljageer/OCR-Tamil
+
+Builds:
+  - versionName: 1.0
+    versionCode: 1
+    commit: v1.0
+    subdir: app
+    gradle:
+      - yes
+
+AutoUpdateMode: Version v%v
+UpdateCheckMode: Tags
+CurrentVersion: 1.0
+CurrentVersionCode: 1
