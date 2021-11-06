@@ -35,10 +35,10 @@
     <string name="accuracy">துல்லியத்தன்மை: </string>
     <string name="next_page">Next Page</string>
     <string name="previous_page">Previous Page</string>
-    <string name="contributors">Contributors</string>
-    <string name="loading">Loading…</string>
-    <string name="close_page_message">Do you want to close this page?</string>
-    <string name="yes">Yes</string>
+    <string name="contributors">பங்களிப்பாளர்கள்</string>
+    <string name="loading">காத்திருக்கவும்…</string>
+    <string name="close_page_message">இந்தப் பக்கத்தை மூட வேண்டுமா?</string>
+    <string name="yes">ஆம்</string>
     <string name="no">No</string>
     <string name="exceed_maximum_page_title">Exceed maximum page count</string>
     <string name="exceed_maximum_page">Currently we\'re not allowing PDF which has more than %d pages.\nPlease choose different PDF</string>
