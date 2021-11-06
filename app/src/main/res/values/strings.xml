@@ -5,10 +5,10 @@
     <string name="check_trained_model">பயிற்சி பெற்ற மாதிரிகளை சரிபார்க்கிறது</string>
     <string name="downloading_data">Tesseract தரவு பதிவிறக்கபடுகிறது</string> 
     <string name="verification_completed">சரிபார்ப்பு முடிந்தது</string>
-    <string name="downloading_lang_data">Downloading %s Data</string>
-    <string name="error_string">Something went wrong\nPlease try again later</string>
-    <string name="network_error">Network not available\nPlease try again later</string>
-    <string name="choose_pdf">Choose PDF</string>
+    <string name="downloading_lang_data">%s தரவைப் பதிவிறக்குகிறது.</string>
+    <string name="error_string">ஏதோ பிழை ஏற்பட்டுள்ளது\nதயவுசெய்து பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
+    <string name="network_error">இணைய இணைப்பை சரிபார்க்கவும்.</string>
+    <string name="choose_pdf">PDF'ஐ தேர்வு செய்யவும்.</string>
     <string name="capture_image">Capture Image</string>
     <string name="recent_files">Recent Files</string>
 
