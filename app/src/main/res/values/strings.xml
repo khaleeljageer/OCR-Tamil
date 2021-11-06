@@ -29,12 +29,12 @@
 <a>https://vglug.org</a></p>]]></string>
     <string name="version">பதிப்பு: %s</string>
     <string name="thumbnail">Thumbnail</string>
-    <string name="delete_scan">Delete Scan</string>
-    <string name="no_recent_scan">No Recent Scan</string>
+    <string name="delete_scan">கோப்பை அழி</string>
+    <string name="no_recent_scan">சமீபத்திய கோப்புகள்\nஎதுவும் இல்லை</string>
     <string name="page">பக்கம்: %d</string>
     <string name="accuracy">துல்லியத்தன்மை: </string>
-    <string name="next_page">Next Page</string>
-    <string name="previous_page">Previous Page</string>
+    <string name="next_page">அடுத்த பக்கம்</string>
+    <string name="previous_page">முந்தைய பக்கம்</string>
     <string name="contributors">பங்களிப்பாளர்கள்</string>
     <string name="loading">காத்திருக்கவும்…</string>
     <string name="close_page_message">இந்தப் பக்கத்தை மூட வேண்டுமா?</string>
