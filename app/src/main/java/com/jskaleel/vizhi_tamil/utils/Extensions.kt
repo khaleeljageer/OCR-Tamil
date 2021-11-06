@@ -78,5 +78,6 @@ fun openUrl(context: Context, url: String) {
         action = Intent.ACTION_VIEW
         data = Uri.parse(url)
     }
+    shareIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     context.startActivity(shareIntent)
 }
