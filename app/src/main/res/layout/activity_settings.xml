@@ -155,6 +155,26 @@
                         app:fontFamily="@font/madurai" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/llTermsCondition"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingTop="@dimen/margin_15dp"
+                    android:paddingBottom="@dimen/margin_15dp">
+
+                    <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/txtTermsCondition"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="24dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/terms_amp_conditions"
+                        android:textAppearance="?attr/textAppearanceBody2"
+                        app:drawableStartCompat="@drawable/ic_round_text_24"
+                        app:fontFamily="@font/madurai" />
+                </LinearLayout>
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"

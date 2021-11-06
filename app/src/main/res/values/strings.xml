@@ -8,7 +8,7 @@
     <string name="downloading_lang_data">%s தரவைப் பதிவிறக்குகிறது.</string>
     <string name="error_string">ஏதோ பிழை ஏற்பட்டுள்ளது\nதயவுசெய்து பின்னர் மீண்டும் முயற்சிக்கவும்.</string>
     <string name="network_error">இணைய இணைப்பை சரிபார்க்கவும்.</string>
-    <string name="choose_pdf">PDF'ஐ தேர்வு செய்யவும்.</string>
+    <string name="choose_pdf">PDF\'ஐ தேர்வு செய்யவும்.</string>
     <string name="capture_image">Capture Image</string>
     <string name="recent_files">Recent Files</string>
 
@@ -43,6 +43,7 @@
     <string name="exceed_maximum_page_title">Exceed maximum page count</string>
     <string name="exceed_maximum_page">Currently we\'re not allowing PDF which has more than %d pages.\nPlease choose different PDF</string>
     <string name="close">Close</string>
-    <string name="conversion_complete">Conversion completed...</string>
-    <string name="converting">Converting...</string>
+    <string name="conversion_complete">Conversion completed…</string>
+    <string name="converting">Converting…</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
 </resources>
