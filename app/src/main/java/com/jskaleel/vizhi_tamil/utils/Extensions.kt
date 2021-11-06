@@ -2,8 +2,10 @@ package com.jskaleel.vizhi_tamil.utils
 
 import android.content.Context
 import android.content.Context.CONNECTIVITY_SERVICE
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
+import android.net.Uri
 import android.os.Build
 import android.view.View
 import java.text.SimpleDateFormat
@@ -68,4 +70,13 @@ fun View.hideView() {
 
 fun View.invisible() {
     this.visibility = View.INVISIBLE
+}
+
+
+fun openUrl(context: Context, url: String) {
+    val shareIntent: Intent = Intent().apply {
+        action = Intent.ACTION_VIEW
+        data = Uri.parse(url)
+    }
+    context.startActivity(shareIntent)
 }

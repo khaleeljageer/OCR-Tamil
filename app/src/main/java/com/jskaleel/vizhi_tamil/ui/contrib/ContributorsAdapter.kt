@@ -8,6 +8,7 @@ import coil.load
 import coil.transform.CircleCropTransformation
 import com.jskaleel.vizhi_tamil.databinding.LayoutContributorsBinding
 import com.jskaleel.vizhi_tamil.model.Contributors
+import com.jskaleel.vizhi_tamil.utils.openUrl
 
 class ContributorsAdapter(
     private val contributors: MutableList<Contributors>
@@ -46,6 +47,7 @@ class ContributorsAdapter(
             }
             binding.txtGithubName.text = contributor.login
             binding.root.setOnClickListener {
+                openUrl(binding.root.context, contributor.html_url)
             }
         }
     }
