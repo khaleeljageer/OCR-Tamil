@@ -1,0 +1,13 @@
+<b>விழி தமிழ்(Vizhi Tamil)</b>
+
+<b>செயலியின் பயன்பாடு</b>
+பார்வை மாற்றுத்திறனாளிகள், தமிழ் மின்னணு புத்தகங்கள் மற்றும் தகவல்களை எளிய முறையில் ஒலி மூலமாக கேட்டு பயன்பெறும் நோக்கில் வடிவமைக்கபட்டுள்ளது.
+இது Tesseract கொண்டு உருவாக்கப்பட்ட ஒரு ஆன்ட்ராய்டு OCR செயலி.
+
+<b>Powered By</b>
+<ul>
+<li><a href="https://vglug.org/">VGLUG</a></li>
+<li><a href="http://www.kaniyam.com/">Kaniyam Foundation, TamilNadu</a>,</li>
+</ul>
+<b>Note</b>
+This app load some configuration(update details & contributors) details from the app's repo.

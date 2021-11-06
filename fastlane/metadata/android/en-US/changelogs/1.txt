@@ -1,0 +1,2 @@
+- Initial release of விழி தமிழ்(Vizhi Tamil)
+- OCR Supported for Image & PDF
