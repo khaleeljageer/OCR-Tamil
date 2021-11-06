@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "909588390981",
+    "project_id": "vizhi-tamil",
+    "storage_bucket": "vizhi-tamil.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909588390981:android:ceb0311c104a236a0def2c",
+        "android_client_info": {
+          "package_name": "com.jskaleel.vizhi_tamil"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909588390981-7s1ar3qh88g3k6jtlcgapc6qat4jr6tb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jskaleel.vizhi_tamil",
+            "certificate_hash": "99aae9feb7e46208d8a8ffe3b22124b55f00be77"
+          }
+        },
+        {
+          "client_id": "909588390981-7pos0uod7bi3rr5pkdprk79rp8grtro5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOnCBKWxmxAk4niwVJNmsJCCx9kFFWOyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909588390981-7pos0uod7bi3rr5pkdprk79rp8grtro5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
