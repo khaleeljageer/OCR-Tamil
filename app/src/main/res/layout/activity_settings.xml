@@ -167,7 +167,7 @@
                         android:id="@+id/txtTermsCondition"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:drawablePadding="24dp"
+                        android:drawablePadding="@dimen/padding_24dp"
                         android:gravity="center_vertical"
                         android:text="@string/terms_amp_conditions"
                         android:textAppearance="?attr/textAppearanceBody2"
@@ -177,7 +177,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
+                    android:layout_height="@dimen/margin_1dp"
                     android:background="@android:color/black" />
 
                 <LinearLayout
@@ -202,8 +202,8 @@
                         android:orientation="horizontal">
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="90dp"
-                            android:layout_height="30dp"
+                            android:layout_width="@dimen/margin_90dp"
+                            android:layout_height="@dimen/margin_30dp"
                             android:scaleType="fitXY"
                             android:src="@drawable/logo_kaniyam" />
 
@@ -237,8 +237,8 @@
                         android:orientation="horizontal">
 
                         <androidx.appcompat.widget.AppCompatImageView
-                            android:layout_width="90dp"
-                            android:layout_height="60dp"
+                            android:layout_width="@dimen/margin_90dp"
+                            android:layout_height="@dimen/margin_60dp"
                             android:scaleType="centerInside"
                             android:src="@drawable/vglug_logo" />
 
@@ -273,7 +273,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:padding="5dp"
+            android:padding="@dimen/padding_5dp"
             android:textAppearance="?attr/textAppearanceCaption"
             app:fontFamily="@font/madurai"
             app:layout_constraintBottom_toBottomOf="parent"

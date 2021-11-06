@@ -9,7 +9,7 @@
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/margin_0dp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/viewPagerNavigator"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +20,7 @@
     <View
         android:id="@+id/navigatorShadow"
         android:layout_width="match_parent"
-        android:layout_height="4dp"
+        android:layout_height="@dimen/margin_4dp"
         android:background="@drawable/top_shadow_gradient"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@id/viewPagerNavigator"
@@ -40,7 +40,7 @@
 
         <ImageView
             android:id="@+id/ivPrevious"
-            android:layout_width="45dp"
+            android:layout_width="@dimen/margin_45dp"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/previous_page"
@@ -52,7 +52,7 @@
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtFileName"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/margin_0dp"
             android:layout_height="match_parent"
             android:ellipsize="end"
             android:gravity="center"
@@ -69,7 +69,7 @@
 
         <ImageView
             android:id="@+id/ivNext"
-            android:layout_width="45dp"
+            android:layout_width="@dimen/margin_45dp"
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="@string/next_page"
@@ -86,10 +86,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="end"
-        android:paddingStart="13dp"
+        android:paddingStart="@dimen/padding_13dp"
         android:paddingTop="@dimen/margin_5dp"
-        android:paddingEnd="13dp"
-        android:textSize="14sp"
+        android:paddingEnd="@dimen/padding_13dp"
+        android:textSize="@dimen/textsize_14sp"
         android:textStyle="bold"
         app:fontFamily="@font/madurai"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +99,7 @@
     <ScrollView
         android:id="@+id/txtScrollView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/margin_0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtAccuracy"
         tools:visibility="visible">
@@ -142,7 +142,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_5dp"
-            android:textSize="14sp"
+            android:textSize="@dimen/textsize_14sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/progressLoader"
             app:layout_constraintEnd_toEndOf="@+id/progressLoader"
