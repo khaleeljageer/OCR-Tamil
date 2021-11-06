@@ -3,7 +3,7 @@
     <string name="app_icon">App Icon</string>
     <string name="initializing">துவங்குகிறது…</string>
     <string name="check_trained_model">பயிற்சி பெற்ற மாதிரிகளை சரிபார்க்கிறது</string>
-    <string name="downloading_data">Tesseract தரவு பதிவிறக்கபடுகிறது</string>
+    <string name="downloading_data">Tesseract தரவு பதிவிறக்கபடுகிறது</string> 
     <string name="verification_completed">சரிபார்ப்பு முடிந்தது</string>
     <string name="downloading_lang_data">Downloading %s Data</string>
     <string name="error_string">Something went wrong\nPlease try again later</string>
