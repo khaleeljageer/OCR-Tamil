@@ -41,6 +41,10 @@ class SettingsActivity : AppCompatActivity() {
             HtmlCompat.FROM_HTML_MODE_LEGACY
         )
 
+        binding.llPrivacyPolicy.setOnClickListener {
+            openUrl(Constants.PRIVACY_POLICY_URL)
+        }
+
         binding.layoutKaniyam.setOnClickListener {
             openUrl("http://www.kaniyam.com/")
         }
