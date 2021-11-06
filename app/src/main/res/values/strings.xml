@@ -43,7 +43,7 @@
     <string name="exceed_maximum_page_title">Exceed maximum page count</string>
     <string name="exceed_maximum_page">Currently we\'re not allowing PDF which has more than %d pages.\nPlease choose different PDF</string>
     <string name="close">Close</string>
-    <string name="conversion_complete">Conversion completed…</string>
-    <string name="converting">Converting…</string>
-    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="conversion_complete">தரவு\nமாற்றம் முடிந்தது.</string>
+    <string name="converting">தரவு\nமாற்றபடுகிறது…</string>
+    <string name="terms_amp_conditions">விதிமுறைகள் மற்றும் நிபந்தனைகள்</string>
 </resources>
