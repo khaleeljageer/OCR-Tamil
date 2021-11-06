@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">விழி தமிழ்</string>
     <string name="app_icon">App Icon</string>
-    <string name="initializing">Initializing…</string>
-    <string name="check_trained_model">Checking for trained models</string>
-    <string name="downloading_data">Downloading Tesseract Data</string>
-    <string name="verification_completed">Verification Completed</string>
+    <string name="initializing">துவங்குகிறது…</string>
+    <string name="check_trained_model">பயிற்சி பெற்ற மாதிரிகளை சரிபார்க்கிறது</string>
+    <string name="downloading_data">Tesseract தரவு பதிவிறக்க படுகிறது</string>
+    <string name="verification_completed">சரிபார்ப்பு முடிந்தது</string>
     <string name="downloading_lang_data">Downloading %s Data</string>
     <string name="error_string">Something went wrong\nPlease try again later</string>
     <string name="network_error">Network not available\nPlease try again later</string>
