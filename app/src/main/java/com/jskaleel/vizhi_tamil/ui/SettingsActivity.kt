@@ -45,6 +45,10 @@ class SettingsActivity : AppCompatActivity() {
             openUrl(Constants.PRIVACY_POLICY_URL)
         }
 
+        binding.llTermsCondition.setOnClickListener {
+            openUrl(Constants.TERMS_CONDITIONS_URL)
+        }
+
         binding.layoutKaniyam.setOnClickListener {
             openUrl("http://www.kaniyam.com/")
         }
