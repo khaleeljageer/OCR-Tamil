@@ -16,7 +16,7 @@ object Constants {
     const val GITHUB_BASE_API = "https://api.github.com/"
     const val CONTRIBUTORS_PATH = "repos/khaleeljageer/OCR-Tamil/contributors"
 
-    const val PRIVACY_POLICY_URL = "https://khaleeljageer.github.io/OCR-Tamil/privacy_policy.html"
+    const val PRIVACY_POLICY_URL = "https://khaleeljageer.github.io/OCR-Tamil/docs/privacy_policy.html"
     const val TERMS_CONDITIONS_URL =
-        "https://khaleeljageer.github.io/OCR-Tamil/terms_conditions.html"
+        "https://khaleeljageer.github.io/OCR-Tamil/docs/terms_conditions.html"
 }
