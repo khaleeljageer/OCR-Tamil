@@ -38,6 +38,9 @@
         <activity
             android:name=".ui.contrib.ContributorsActivity"
             android:exported="true" />
+        <activity
+            android:name=".ui.oss.ThirdPartyActivity"
+            android:exported="true" />
     </application>
 
 </manifest>

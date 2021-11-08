@@ -9,6 +9,7 @@ import com.jskaleel.vizhi_tamil.BuildConfig
 import com.jskaleel.vizhi_tamil.R
 import com.jskaleel.vizhi_tamil.databinding.ActivitySettingsBinding
 import com.jskaleel.vizhi_tamil.ui.contrib.ContributorsActivity
+import com.jskaleel.vizhi_tamil.ui.oss.ThirdPartyActivity
 import com.jskaleel.vizhi_tamil.utils.Constants
 import com.jskaleel.vizhi_tamil.utils.openUrl
 import dagger.hilt.android.AndroidEntryPoint
@@ -63,6 +64,10 @@ class SettingsActivity : AppCompatActivity() {
 
         binding.rlContribLayout.setOnClickListener {
             startActivity(ContributorsActivity.newIntent(baseContext))
+        }
+
+        binding.rlOSSLayout.setOnClickListener {
+            startActivity(ThirdPartyActivity.newIntent(baseContext))
         }
 
         binding.llShareApp.setOnClickListener {

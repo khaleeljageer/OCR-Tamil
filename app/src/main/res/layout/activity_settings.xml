@@ -58,6 +58,7 @@
                     android:id="@+id/rlContribLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/margin_15dp"
                     android:paddingBottom="@dimen/margin_15dp">
@@ -79,6 +80,7 @@
                     android:id="@+id/rlOSSLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/margin_15dp"
                     android:paddingBottom="@dimen/margin_15dp">
@@ -99,6 +101,7 @@
                     android:id="@+id/rlSourceCodeLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/margin_15dp"
                     android:paddingBottom="@dimen/margin_15dp">
@@ -119,6 +122,7 @@
                     android:id="@+id/llShareApp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/margin_15dp"
                     android:paddingBottom="@dimen/margin_15dp">
@@ -139,6 +143,7 @@
                     android:id="@+id/llPrivacyPolicy"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/margin_15dp"
                     android:paddingBottom="@dimen/margin_15dp">
@@ -159,6 +164,7 @@
                     android:id="@+id/llTermsCondition"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/margin_15dp"
                     android:paddingBottom="@dimen/margin_15dp">
