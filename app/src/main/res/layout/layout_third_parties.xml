@@ -9,6 +9,7 @@
         android:id="@+id/txtTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_5dp"
         android:gravity="center_vertical"
         android:paddingTop="@dimen/margin_5dp"
         android:paddingBottom="@dimen/margin_5dp"
