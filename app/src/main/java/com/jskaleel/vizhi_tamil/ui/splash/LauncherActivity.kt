@@ -90,10 +90,10 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
                 binding.txtDownloadProgress.text = "${triple.first.toMB()}/${triple.second.toMB()}"
                 if (triple.third == "eng") {
                     binding.txtLoading.text =
-                        String.format(getString(R.string.downloading_lang_data), "English")
+                        String.format(getString(R.string.downloading_lang_data), getString(R.string.english))
                 } else {
                     binding.txtLoading.text =
-                        String.format(getString(R.string.downloading_lang_data), "Tamil")
+                        String.format(getString(R.string.downloading_lang_data), getString(R.string.tamil))
                 }
             }
         })

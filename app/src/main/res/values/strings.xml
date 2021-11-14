@@ -45,4 +45,6 @@
     <string name="conversion_complete">தரவு\nமாற்றம் முடிந்தது…</string>
     <string name="converting">தரவு\nமாற்றபடுகிறது…</string>
     <string name="terms_amp_conditions">விதிமுறைகள் மற்றும் நிபந்தனைகள்</string>
+    <string name="english">ஆங்கில</string>
+    <string name="tamil">தமிழ்</string>
 </resources>
