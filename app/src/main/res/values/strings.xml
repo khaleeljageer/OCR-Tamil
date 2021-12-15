@@ -43,7 +43,7 @@
     <string name="exceed_maximum_page">தற்போது, %d பக்கங்களுக்கு மேல் உள்ள PDF-ஐ நாங்கள் அனுமதிப்பதில்லை. தயவு செய்து வேறு PDF-ஐ தேர்வு செய்யவும்</string>
     <string name="close">மூடு</string>
     <string name="conversion_complete">தரவு\nமாற்றம் முடிந்தது…</string>
-    <string name="converting">தரவு\nமாற்றபடுகிறது…</string>
+    <string name="converting">தரவு\nமாற்றப்படுகிறது…</string>
     <string name="terms_amp_conditions">விதிமுறைகள் மற்றும் நிபந்தனைகள்</string>
     <string name="english">ஆங்கில</string>
     <string name="tamil">தமிழ்</string>

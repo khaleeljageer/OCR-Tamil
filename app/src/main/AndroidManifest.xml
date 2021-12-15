@@ -42,5 +42,4 @@
             android:name=".ui.oss.ThirdPartyActivity"
             android:exported="true" />
     </application>
-
 </manifest>

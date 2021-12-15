@@ -28,7 +28,6 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentPdfResultBinding.bind(view)
         initTesseract()
         val position = arguments?.getInt(POSITION, -1) ?: -1
         val size = arguments?.getInt(TOTAL_PAGE, -1) ?: -1
