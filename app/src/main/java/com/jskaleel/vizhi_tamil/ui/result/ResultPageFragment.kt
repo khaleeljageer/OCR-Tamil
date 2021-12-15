@@ -12,6 +12,7 @@ import com.jskaleel.vizhi_tamil.databinding.FragmentPdfResultBinding
 import com.jskaleel.vizhi_tamil.model.PDFPageOut
 import com.jskaleel.vizhi_tamil.utils.FileUtils
 import com.jskaleel.vizhi_tamil.utils.TessScanner
+import com.jskaleel.vizhi_tamil.utils.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -20,7 +21,8 @@ import javax.inject.Inject
 class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.ProgressNotifier {
     private var pagePosition: Int = -1
     private var totalPage: Int = -1
-    private var binding: FragmentPdfResultBinding? = null
+    private val binding by viewBinding(FragmentPdfResultBinding::bind)
+
     private var tessScanner: TessScanner? = null
 
     @Inject
