@@ -3,9 +3,9 @@ buildscript {
     // F-Droid Build Setup
     ext.fdroidBuild = "fdroid-build"
     ext.playStoreBuild = "playstore-build"
-    ext.appBuildType = fdroidBuild // Default build type is fdroid-build
+    ext.appBuildType = playStoreBuild // Default build type is fdroid-build
 
-    ext.kotlin_version = "1.6.0"
+    ext.kotlin_version = "1.6.20"
     repositories {
         google()
         mavenCentral()
