@@ -53,7 +53,7 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
 
     @SuppressLint("SetTextI18n")
     private fun initObserver() {
-        launcherViewModel.loaderState.observe(this, {
+        launcherViewModel.loaderState.observe(this) {
             when (it) {
                 LoaderState.INIT -> {
                     binding.txtLoading.text = getString(R.string.initializing)
@@ -81,8 +81,8 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
                     binding.txtLoading.text = getString(R.string.network_error)
                 }
             }
-        })
-        launcherViewModel.downloadProgress.observe(this, {
+        }
+        launcherViewModel.downloadProgress.observe(this) {
             it?.let { triple ->
                 binding.progressLoader.max = triple.second.toInt()
                 binding.progressLoader.progress = triple.first.toInt()
@@ -90,13 +90,19 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
                 binding.txtDownloadProgress.text = "${triple.first.toMB()}/${triple.second.toMB()}"
                 if (triple.third == "eng") {
                     binding.txtLoading.text =
-                        String.format(getString(R.string.downloading_lang_data), getString(R.string.english))
+                        String.format(
+                            getString(R.string.downloading_lang_data),
+                            getString(R.string.english)
+                        )
                 } else {
                     binding.txtLoading.text =
-                        String.format(getString(R.string.downloading_lang_data), getString(R.string.tamil))
+                        String.format(
+                            getString(R.string.downloading_lang_data),
+                            getString(R.string.tamil)
+                        )
                 }
             }
-        })
+        }
     }
 
     private fun launchMainActivity() {

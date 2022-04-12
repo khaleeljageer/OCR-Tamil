@@ -123,7 +123,7 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
     private fun initObserver() {
         viewModel.loadAllScanItems()
 
-        viewModel.scannedItems.observe(this, {
+        viewModel.scannedItems.observe(this) {
             if (it != null && it.isNotEmpty()) {
                 binding.rvRecentList.visibility = View.VISIBLE
                 binding.txtEmptyLabel.visibility = View.GONE
@@ -132,7 +132,7 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
                 binding.rvRecentList.visibility = View.GONE
                 binding.txtEmptyLabel.visibility = View.VISIBLE
             }
-        })
+        }
     }
 
     companion object {
