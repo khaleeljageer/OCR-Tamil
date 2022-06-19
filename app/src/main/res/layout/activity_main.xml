@@ -51,7 +51,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="RtlSymmetry" />
 
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnChoosePdf"
             android:layout_width="@dimen/margin_180dp"
@@ -66,7 +65,7 @@
             app:iconPadding="@dimen/margin_10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnCapture"
+            app:layout_constraintTop_toBottomOf="@id/btnTest"
             tools:ignore="RtlSymmetry" />
 
         <com.google.android.material.textview.MaterialTextView

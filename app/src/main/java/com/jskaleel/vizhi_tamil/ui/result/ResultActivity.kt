@@ -76,7 +76,7 @@ open class ResultActivity : AppCompatActivity() {
             val appDocFile = intent.getParcelableExtra<AppDocFile>(APP_DOC_FILE)
             if (appDocFile != null && appDocFile.uri.path != null) {
                 resultViewModel.initiatePdfConversion(baseContext, File(appDocFile.uri.path!!))
-                resultViewModel.pdfResult.observe(this, { list ->
+                resultViewModel.pdfResult.observe(this) { list ->
                     if (list.isNotEmpty()) {
                         showSnackBar(getString(R.string.conversion_complete))
                         binding.progressLayout.visibility = View.GONE
@@ -87,7 +87,8 @@ open class ResultActivity : AppCompatActivity() {
                         binding.viewPagerNavigator.visibility = View.VISIBLE
                         binding.navigatorShadow.visibility = View.VISIBLE
 
-                        val resultPageAdapter = ResultPageAdapter(this@ResultActivity, list.toSortedMap())
+                        val resultPageAdapter =
+                            ResultPageAdapter(this@ResultActivity, list.toSortedMap())
                         with(binding.viewPager) {
                             this.offscreenPageLimit = 1
                             this.setPageTransformer(CustomPageTransformer())
@@ -112,22 +113,22 @@ open class ResultActivity : AppCompatActivity() {
                     } else {
                         showSnackBar(getString(R.string.error_string))
                     }
-                })
-                resultViewModel.accuracy.observe(this, {
+                }
+                resultViewModel.accuracy.observe(this) {
                     binding.txtAccuracy.text = "${getString(R.string.accuracy)} $it%"
-                })
-                resultViewModel.errorMessage.observe(this, {
+                }
+                resultViewModel.errorMessage.observe(this) {
                     when (it) {
                         is ConverterResult.MaxPageError -> {
                             showMaxErrorDialog(it.message)
                         }
                     }
-                })
-                resultViewModel.processedPages.observe(this, {
+                }
+                resultViewModel.processedPages.observe(this) {
                     binding.txtProgress.visible()
                     binding.txtProgress.text = "$it/${resultViewModel.pageCount}"
                     binding.txtLoadingLabel.text = getString(R.string.converting)
-                })
+                }
             } else {
                 showSnackBar(getString(R.string.error_string))
             }
