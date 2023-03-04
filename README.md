@@ -1,6 +1,10 @@
 # OCR-Tamil
 Tesseract 4 based OCR for Tamil
 
+### Download from Google Play
+
+<a href="https://play.google.com/store/apps/details?id=com.jskaleel.vizhi_tamil"><img alt="Get it on Google Play" src="https://play.google.com/intl/en_us/badges/images/generic/en-play-badge.png" height="50px"/></a>
+
 ## Donation
 You can support by buying a coffee ☕️ here :)
 <p>
