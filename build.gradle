@@ -5,7 +5,7 @@ buildscript {
     ext.playStoreBuild = "playstore-build"
     ext.appBuildType = playStoreBuild // Default build type is fdroid-build
 
-    ext.kotlin_version = "1.6.20"
+    ext.kotlin_version = "1.8.10"
     repositories {
         google()
         mavenCentral()
@@ -17,7 +17,7 @@ buildscript {
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.39.1'
+        classpath 'com.google.dagger:hilt-android-gradle-plugin:2.44.2'
 
         // F-Droid build: Excluded proprietary classpath.
         if (!appBuildType.contains(fdroidBuild)) {
