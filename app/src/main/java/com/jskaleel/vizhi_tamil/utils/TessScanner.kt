@@ -21,9 +21,9 @@ class TessScanner constructor(
         } catch (e: Exception) {
             return "Scan Failed"
         }
-        return if (textOnImage.isEmpty()) {
+        return textOnImage.ifEmpty {
             "Scan Failed: Couldn't read the image\nProblem may be related to Tesseract or no Text on Image!"
-        } else textOnImage
+        }
     }
 
     fun stop() {
