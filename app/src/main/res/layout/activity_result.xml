@@ -50,22 +50,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="?attr/colorPrimary" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtFileName"
-            android:layout_width="@dimen/margin_0dp"
+        <ImageView
+            android:id="@+id/ivRead"
+            android:layout_width="@dimen/margin_45dp"
             android:layout_height="match_parent"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:maxLines="3"
-            android:padding="@dimen/margin_5dp"
-            app:autoSizeMaxTextSize="@dimen/text_size_16sp"
-            app:autoSizeMinTextSize="@dimen/text_size_12sp"
-            app:autoSizeTextType="uniform"
-            app:fontFamily="@font/madurai"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/str_read"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_headphones_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/ivNext"
-            app:layout_constraintStart_toEndOf="@id/ivPrevious"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/ivNext"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="?attr/colorPrimary" />
 
         <ImageView
             android:id="@+id/ivNext"
