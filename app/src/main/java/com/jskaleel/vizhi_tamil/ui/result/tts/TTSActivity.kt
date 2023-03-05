@@ -4,13 +4,14 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.speech.tts.UtteranceProgressListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
-import com.google.android.material.snackbar.Snackbar
+import com.jskaleel.vizhi_tamil.R
 import com.jskaleel.vizhi_tamil.databinding.ActivityTtsScreenBinding
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import java.util.*
+import kotlin.random.Random
 
 @AndroidEntryPoint
 class TTSActivity : AppCompatActivity(),
@@ -22,6 +23,7 @@ class TTSActivity : AppCompatActivity(),
     private val ttsEngine by lazy {
         TextToSpeech(applicationContext, this)
     }
+    private val outteranceId = Random.nextInt(1000, 10000).toString()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,15 +40,22 @@ class TTSActivity : AppCompatActivity(),
     }
 
     private fun initListener() {
+        val ocrText = binding.txtOutput.text.toString()
         binding.ivPlayPause.setOnClickListener {
-            val ocrText = binding.txtOutput.text.toString()
-            Timber.d(ocrText)
-            ttsEngine.speak(
-                ocrText,
-                TextToSpeech.QUEUE_FLUSH,
-                null,
-                UTTERANCE_ID.toString()
-            )
+            Timber.d("OCRText : $ocrText")
+            if (ttsEngine.isSpeaking) {
+                ttsEngine.stop()
+                binding.ivPlayPause.setImageResource(R.drawable.ic_round_play_circle)
+            } else {
+                ttsEngine.speak(
+                    ocrText,
+                    TextToSpeech.QUEUE_FLUSH,
+                    null,
+                    outteranceId
+                )
+
+                binding.ivPlayPause.setImageResource(R.drawable.ic_round_pause_circle)
+            }
         }
     }
 
@@ -58,7 +67,6 @@ class TTSActivity : AppCompatActivity(),
         }
 
         const val OCR_TEXT_KEY = "ocr_text"
-        const val UTTERANCE_ID = 1000
     }
 
     override fun onDestroy() {
@@ -70,15 +78,19 @@ class TTSActivity : AppCompatActivity(),
     }
 
     override fun onInit(status: Int) {
-        if (status == TextToSpeech.SUCCESS) {
-            val result = ttsEngine.setLanguage(Locale("tam", "IND"))
-            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                Snackbar.make(
-                    binding.root,
-                    "Language not supported",
-                    Snackbar.LENGTH_INDEFINITE
-                ).show()
+        ttsEngine.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
+            override fun onStart(p0: String?) {
+                Timber.d("OnStart : $p0")
             }
-        }
+
+            override fun onDone(p0: String?) {
+                Timber.d("onDone : $p0")
+            }
+
+            override fun onError(p0: String?) {
+                Timber.d("onError : $p0")
+            }
+
+        })
     }
 }
