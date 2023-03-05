@@ -11,13 +11,10 @@ import com.googlecode.tesseract.android.TessBaseAPI
 import com.jskaleel.vizhi_tamil.R
 import com.jskaleel.vizhi_tamil.databinding.FragmentPdfResultBinding
 import com.jskaleel.vizhi_tamil.model.PDFPageOut
-import com.jskaleel.vizhi_tamil.utils.FileUtils
-import com.jskaleel.vizhi_tamil.utils.TessScanner
-import com.jskaleel.vizhi_tamil.utils.viewBinding
+import com.jskaleel.vizhi_tamil.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import timber.log.Timber
+import java.util.*
 import javax.inject.Inject
-import kotlin.random.Random
 
 @AndroidEntryPoint
 @SuppressLint("SetTextI18n")
@@ -50,16 +47,21 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
             binding.txtPage.text =
                 "${String.format(getString(R.string.page), (pagePosition + 1))}/$totalPage"
         }
-        val enings = ttsEngine.engines
-        Timber.tag("Khaleel").d("Engines : $enings")
 
         binding.btnRead.setOnClickListener {
-            ttsEngine.speak(
-                binding.txtResult.text.toString(),
-                TextToSpeech.QUEUE_FLUSH,
-                null,
-                Random.nextInt(1000, 10000).toString()
-            )
+            if (!ttsEngine.isSpeaking) {
+                ttsEngine.speak(
+                    binding.txtResult.text.toString(),
+                    TextToSpeech.QUEUE_FLUSH,
+                    null,
+                    pagePosition.toString()
+                )
+
+                binding.btnRead.text = getString(R.string.str_stop)
+            } else {
+                ttsEngine.stop()
+                binding.btnRead.text = getString(R.string.str_read)
+            }
         }
     }
 
@@ -121,6 +123,13 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
     }
 
     override fun onInit(status: Int) {
-        Timber.tag("Khaleel").d(" Status : $status")
+        if (status == TextToSpeech.SUCCESS) {
+            val result = ttsEngine.setLanguage(Locale("tam", "IND"))
+            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
+                binding.btnRead.hideView()
+            } else {
+                binding.btnRead.visible()
+            }
+        }
     }
 }
