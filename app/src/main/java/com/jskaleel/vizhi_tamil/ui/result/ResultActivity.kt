@@ -20,6 +20,8 @@ import com.jskaleel.vizhi_tamil.db.entity.RecentScan
 import com.jskaleel.vizhi_tamil.model.AppDocFile
 import com.jskaleel.vizhi_tamil.model.ConverterResult
 import com.jskaleel.vizhi_tamil.model.OCRFileType
+import com.jskaleel.vizhi_tamil.model.PDFPageOut
+import com.jskaleel.vizhi_tamil.ui.result.tts.TTSActivity
 import com.jskaleel.vizhi_tamil.utils.CustomPageTransformer
 import com.jskaleel.vizhi_tamil.utils.FileUtils
 import com.jskaleel.vizhi_tamil.utils.TessScanner
@@ -29,6 +31,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
+import java.util.*
 import javax.inject.Inject
 
 
@@ -90,8 +93,7 @@ open class ResultActivity : AppCompatActivity() {
                         val resultPageAdapter =
                             ResultPageAdapter(this@ResultActivity, list.toSortedMap())
                         with(binding.viewPager) {
-                            this.offscreenPageLimit = 1
-                            this.setPageTransformer(CustomPageTransformer())
+                            this.offscreenPageLimit = 2
                             this.adapter = resultPageAdapter
                         }
                         binding.ivNext.setOnClickListener {
@@ -109,7 +111,15 @@ open class ResultActivity : AppCompatActivity() {
                                 }
                             }
                         }
-                        binding.txtFileName.text = appDocFile.name
+
+                        binding.ivRead.setOnClickListener {
+                            val ocrText: StringBuilder = StringBuilder()
+
+                            list.toSortedMap().onEach { entry ->
+                                ocrText.append(entry.value.output)
+                            }
+                            startActivity(TTSActivity.newIntent(baseContext, ocrText.toString()))
+                        }
                     } else {
                         showSnackBar(getString(R.string.error_string))
                     }
