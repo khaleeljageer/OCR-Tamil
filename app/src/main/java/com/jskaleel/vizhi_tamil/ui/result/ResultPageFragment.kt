@@ -15,6 +15,7 @@ import com.jskaleel.vizhi_tamil.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
+import kotlin.random.Random
 
 @AndroidEntryPoint
 @SuppressLint("SetTextI18n")
@@ -47,7 +48,6 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
             binding.txtPage.text =
                 "${String.format(getString(R.string.page), (pagePosition + 1))}/$totalPage"
         }
-
         binding.btnRead.setOnClickListener {
             if (!ttsEngine.isSpeaking) {
                 ttsEngine.speak(
