@@ -55,7 +55,6 @@ dependencies {
 
     //Tesseract4Android
     implementation 'cz.adaptech.tesseract4android:tesseract4android:4.3.0'
-
     //OkHttp Client
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
