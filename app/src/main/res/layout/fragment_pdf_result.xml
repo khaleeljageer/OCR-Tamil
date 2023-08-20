@@ -7,21 +7,6 @@
     android:layout_height="match_parent">
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtPage"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:paddingStart="13dp"
-        android:paddingTop="@dimen/margin_5dp"
-        android:paddingEnd="@dimen/result_fragment_padding"
-        android:textSize="14sp"
-        android:textStyle="bold"
-        app:fontFamily="@font/madurai"
-        app:layout_constraintEnd_toStartOf="@id/txtAccuracy"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtAccuracy"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -33,7 +18,6 @@
         android:textStyle="bold"
         app:fontFamily="@font/madurai"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/txtPage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
@@ -41,8 +25,8 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtPage">
+        app:layout_constraintTop_toBottomOf="@+id/txtAccuracy"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtResult"
@@ -83,13 +67,4 @@
             android:textSize="14sp"
             android:textStyle="bold" />
     </FrameLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnRead"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/str_read"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

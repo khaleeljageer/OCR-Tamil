@@ -2,7 +2,6 @@ package com.jskaleel.vizhi_tamil.ui.result
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.view.View
 import androidx.core.os.bundleOf
 import androidx.core.text.HtmlCompat
@@ -15,12 +14,10 @@ import com.jskaleel.vizhi_tamil.utils.*
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 import javax.inject.Inject
-import kotlin.random.Random
 
 @AndroidEntryPoint
 @SuppressLint("SetTextI18n")
-class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.ProgressNotifier,
-    TextToSpeech.OnInitListener {
+class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.ProgressNotifier {
     private var pagePosition: Int = -1
     private var totalPage: Int = -1
     private val binding by viewBinding(FragmentPdfResultBinding::bind)
@@ -29,10 +26,6 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
 
     @Inject
     lateinit var fileUtils: FileUtils
-
-    private val ttsEngine by lazy {
-        TextToSpeech(requireActivity(), this)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,24 +37,6 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
         } else {
             pagePosition = position
             totalPage = size
-
-            binding.txtPage.text =
-                "${String.format(getString(R.string.page), (pagePosition + 1))}/$totalPage"
-        }
-        binding.btnRead.setOnClickListener {
-            if (!ttsEngine.isSpeaking) {
-                ttsEngine.speak(
-                    binding.txtResult.text.toString(),
-                    TextToSpeech.QUEUE_FLUSH,
-                    null,
-                    pagePosition.toString()
-                )
-
-                binding.btnRead.text = getString(R.string.str_stop)
-            } else {
-                ttsEngine.stop()
-                binding.btnRead.text = getString(R.string.str_read)
-            }
         }
     }
 
@@ -118,17 +93,6 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
                 } else {
                     binding.progressLayout.visibility = View.GONE
                 }
-            }
-        }
-    }
-
-    override fun onInit(status: Int) {
-        if (status == TextToSpeech.SUCCESS) {
-            val result = ttsEngine.setLanguage(Locale("tam", "IND"))
-            if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
-                binding.btnRead.hideView()
-            } else {
-                binding.btnRead.visible()
             }
         }
     }

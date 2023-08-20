@@ -41,5 +41,7 @@
         <activity
             android:name=".ui.oss.ThirdPartyActivity"
             android:exported="false" />
+        <activity android:name=".ui.result.tts.TTSActivity"
+            android:exported="true"  />
     </application>
 </manifest>
