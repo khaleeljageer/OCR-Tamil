@@ -13,9 +13,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.GridLayoutManager
-import com.anggrayudi.storage.SimpleStorage
+import com.anggrayudi.storage.SimpleStorageHelper
 import com.anggrayudi.storage.callback.FileCallback
-import com.anggrayudi.storage.callback.FilePickerCallback
 import com.anggrayudi.storage.file.copyFileTo
 import com.github.drjacky.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
@@ -47,7 +46,7 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
     @Inject
     lateinit var fileUtils: FileUtils
 
-    private val simpleStorage = SimpleStorage(this)
+    private val simpleStorage = SimpleStorageHelper(this)
 
     @Inject
     lateinit var recentScanAdapter: RecentScanAdapter
@@ -78,18 +77,17 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
                 }
         }
         binding.btnChoosePdf.setOnClickListener {
-            simpleStorage.openFilePicker(1111, false, "application/pdf")
+            simpleStorage.openFilePicker(
+                requestCode = 1111,
+                allowMultiple = false,
+                initialPath = null,
+                filterMimeTypes = arrayOf("application/pdf")
+            )
         }
 
-        simpleStorage.filePickerCallback = object : FilePickerCallback {
-            override fun onFileSelected(requestCode: Int, files: List<DocumentFile>) {
-                if (files.isNotEmpty()) {
-                    copySelectedFile(files.first())
-                }
-            }
-
-            override fun onStoragePermissionDenied(requestCode: Int, files: List<DocumentFile>?) {
-
+        simpleStorage.onFileSelected = { _, files ->
+            if (files.isNotEmpty()) {
+                copySelectedFile(files.first())
             }
         }
     }
@@ -205,5 +203,29 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
 
     override fun onDeleteClick(timeStamp: Long) {
         viewModel.deleteScan(timeStamp)
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        simpleStorage.onSaveInstanceState(outState)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        simpleStorage.onRestoreInstanceState(savedInstanceState)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        simpleStorage.storage.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        simpleStorage.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 }

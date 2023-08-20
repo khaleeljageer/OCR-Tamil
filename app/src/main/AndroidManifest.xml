@@ -5,7 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
         android:name=".OcrTamilApp"
@@ -18,7 +18,7 @@
         android:theme="@style/Theme.OCRTamil">
         <activity
             android:name=".ui.main.MainActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.splash.LauncherActivity"
             android:exported="true"
@@ -31,15 +31,15 @@
         </activity>
         <activity
             android:name=".ui.SettingsActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.result.ResultActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.contrib.ContributorsActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".ui.oss.ThirdPartyActivity"
-            android:exported="true" />
+            android:exported="false" />
     </application>
 </manifest>
