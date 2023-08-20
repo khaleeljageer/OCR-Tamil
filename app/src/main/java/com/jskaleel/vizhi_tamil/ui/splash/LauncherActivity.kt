@@ -154,7 +154,7 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
     }
 
     companion object {
-        const val PERMS = Manifest.permission.READ_EXTERNAL_STORAGE
+        const val PERMS = Manifest.permission.READ_MEDIA_IMAGES
         const val READ_REQUEST_CODE = 108
         const val MAX_PROGRESS = 100
     }
