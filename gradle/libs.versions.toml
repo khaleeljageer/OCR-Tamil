@@ -1,0 +1,21 @@
+[versions]
+compileSdk = "34"
+minSdk = "23"
+targetSdk = "34"
+agp = "8.2.0"
+kotlin = "1.9.20"
+hilt = "2.50"
+google-services = "4.4.0"
+ksp = "1.9.20-1.0.14"
+
+[libraries]
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+hiltAndroid = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
+gmsGoogleService = { id = "com.google.gms.google-services", version.ref = "google-services" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+
+[bundles]
+

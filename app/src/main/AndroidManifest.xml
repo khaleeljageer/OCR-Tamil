@@ -36,9 +36,6 @@
             android:name=".ui.result.ResultActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.contrib.ContributorsActivity"
-            android:exported="false" />
-        <activity
             android:name=".ui.oss.ThirdPartyActivity"
             android:exported="false" />
         <activity android:name=".ui.result.tts.TTSActivity"
