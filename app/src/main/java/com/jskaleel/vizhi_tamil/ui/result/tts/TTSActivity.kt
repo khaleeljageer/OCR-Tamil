@@ -40,7 +40,7 @@ class TTSActivity : AppCompatActivity(),
     }
 
     private fun initListener() {
-        val ocrText = binding.txtOutput.text.toString()
+        val ocrText = binding.txtOutput.text.toSubString()
         binding.ivPlayPause.setOnClickListener {
             Timber.d("OCRText : $ocrText")
             if (ttsEngine.isSpeaking) {
@@ -93,4 +93,8 @@ class TTSActivity : AppCompatActivity(),
 
         })
     }
+}
+
+private fun CharSequence.toSubString(): String {
+    return this.toString().substring(1, 400)
 }
