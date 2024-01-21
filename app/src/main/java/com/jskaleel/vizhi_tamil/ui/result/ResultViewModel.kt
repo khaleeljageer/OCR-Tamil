@@ -16,7 +16,11 @@ import com.jskaleel.vizhi_tamil.utils.TessScanner
 import com.tom_roush.pdfbox.pdmodel.PDDocument
 import com.tom_roush.pdfbox.rendering.PDFRenderer
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.io.File
 import javax.inject.Inject
@@ -92,7 +96,7 @@ class ResultViewModel @Inject constructor(
         scannerPath: String,
     ): Deferred<ScanResult> {
 
-        return viewModelScope.async(Dispatchers.IO) {
+        return viewModelScope.async(Dispatchers.Default) {
             val pdfDocument: PDDocument = PDDocument.load(pdf)
             val pdfRenderer = PDFRenderer(pdfDocument)
             Timber.tag("Khaleel").d("pdfPage Initiated: $pageIndex")

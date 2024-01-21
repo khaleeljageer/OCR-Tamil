@@ -173,7 +173,7 @@ open class ResultActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun startOCR(bitmap: Bitmap?, path: String, isNewItem: Boolean) {
-        activityScope.launch(Dispatchers.IO) {
+        activityScope.launch(Dispatchers.Default) {
             tessScanner?.clearLastImage()
             val output = tessScanner?.getTextFromImage(bitmap)
             val accuracy = tessScanner?.accuracy()
