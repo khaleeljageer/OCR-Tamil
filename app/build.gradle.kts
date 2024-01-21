@@ -36,6 +36,19 @@ android {
         }
     }
 
+    setFlavorDimensions(listOf("default"))
+    productFlavors {
+        create("dev") {
+            versionNameSuffix = "-dev"
+            applicationIdSuffix = ".dev"
+            dimension = "default"
+        }
+
+        create("live") {
+            dimension = "default"
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
