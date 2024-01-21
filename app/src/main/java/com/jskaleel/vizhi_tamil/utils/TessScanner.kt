@@ -3,7 +3,7 @@ package com.jskaleel.vizhi_tamil.utils
 import android.graphics.Bitmap
 import com.googlecode.tesseract.android.TessBaseAPI
 
-class TessScanner constructor(
+class TessScanner(
     tessDataPath: String,
     tessLang: String
 ) {
@@ -11,13 +11,13 @@ class TessScanner constructor(
     private var tessBaseAPI: TessBaseAPI = TessBaseAPI()
 
     init {
-        tessBaseAPI.init(tessDataPath, tessLang)
+        tessBaseAPI.init(tessDataPath, tessLang, TessBaseAPI.OEM_TESSERACT_LSTM_COMBINED)
     }
 
     fun getTextFromImage(bitmap: Bitmap?): String {
         tessBaseAPI.setImage(bitmap)
         val textOnImage = try {
-            tessBaseAPI.getHOCRText(1)
+            tessBaseAPI.getHOCRText(0)
         } catch (e: Exception) {
             return "Scan Failed"
         }
