@@ -72,6 +72,13 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
             ImagePicker.with(this)
                 .crop()
                 .cropFreeStyle()
+                .galleryMimeTypes(
+                    mimeTypes = arrayOf(
+                        "image/png",
+                        "image/jpg",
+                        "image/jpeg"
+                    )
+                )
                 .createIntentFromDialog { intent ->
                     startForProfileImageResult.launch(intent)
                 }
@@ -148,8 +155,7 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
                     if (resultData != null) {
                         val fileUri = resultData.data
                         if (fileUri != null && fileUri.path != null) {
-                            Timber.tag("Khaleel")
-                                .d("FileURI : ${fileUri.path}")
+                            Timber.tag("Khaleel").d("FileURI : ${fileUri.path}")
                             startActivity(ResultActivity.newIntent(baseContext, fileUri.path!!))
                         } else {
                             Snackbar.make(
@@ -166,6 +172,7 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
                         ).show()
                     }
                 }
+
                 ImagePicker.RESULT_ERROR -> {
                     Snackbar.make(
                         binding.root,
@@ -173,6 +180,7 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
                         Snackbar.LENGTH_SHORT
                     ).show()
                 }
+
                 else -> {
                     Snackbar.make(
                         binding.root,

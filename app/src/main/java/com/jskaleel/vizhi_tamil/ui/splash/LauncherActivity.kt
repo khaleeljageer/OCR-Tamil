@@ -1,8 +1,6 @@
 package com.jskaleel.vizhi_tamil.ui.splash
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewTreeObserver
@@ -15,13 +13,10 @@ import com.jskaleel.vizhi_tamil.model.LoaderState
 import com.jskaleel.vizhi_tamil.ui.main.MainActivity
 import com.jskaleel.vizhi_tamil.utils.toMB
 import dagger.hilt.android.AndroidEntryPoint
-import pub.devrel.easypermissions.AppSettingsDialog
-import pub.devrel.easypermissions.EasyPermissions
-import timber.log.Timber
 
 
 @AndroidEntryPoint
-class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallbacks {
+class LauncherActivity : AppCompatActivity() {
     private val binding: ActivityLauncherBinding by lazy {
         ActivityLauncherBinding.inflate(layoutInflater)
     }
@@ -39,7 +34,7 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
                 override fun onPreDraw(): Boolean {
                     return if (launcherViewModel.isReady.value == true) {
                         content.viewTreeObserver.removeOnPreDrawListener(this)
-                        checkPermissionGranted()
+                        checkBasicSetup()
                         true
                     } else {
                         false
@@ -110,52 +105,11 @@ class LauncherActivity : AppCompatActivity(), EasyPermissions.PermissionCallback
         this@LauncherActivity.finish()
     }
 
-    private fun checkPermissionGranted() {
-        when {
-            EasyPermissions.hasPermissions(this, PERMS) -> {
-                launcherViewModel.checkBasicSetup(baseContext)
-            }
-            else -> {
-                EasyPermissions.requestPermissions(
-                    this,
-                    "Vizhi Tamil OCR needs Storage access to perform text conversion",
-                    READ_REQUEST_CODE,
-                    PERMS
-                )
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this)
-    }
-
-    override fun onPermissionsGranted(requestCode: Int, perms: MutableList<String>) {
+    private fun checkBasicSetup() {
         launcherViewModel.checkBasicSetup(baseContext)
     }
 
-    override fun onPermissionsDenied(requestCode: Int, perms: MutableList<String>) {
-        Timber.d("requestCode : $requestCode perms: $perms")
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            AppSettingsDialog.Builder(this).build().show()
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE) {
-            checkPermissionGranted()
-        }
-    }
-
     companion object {
-        const val PERMS = Manifest.permission.READ_MEDIA_IMAGES
-        const val READ_REQUEST_CODE = 108
         const val MAX_PROGRESS = 100
     }
 }

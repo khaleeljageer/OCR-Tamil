@@ -74,7 +74,6 @@ class ResultViewModel @Inject constructor(
                         }
                         ongoingJobs.clear()
                     }
-                    Timber.tag("Khaleel").d("ProcessedCount: $processedCount")
                 }
                 _pdfResult.postValue(pageOutput)
                 Timber.d("jobResult:  $pageOutput")
@@ -99,7 +98,6 @@ class ResultViewModel @Inject constructor(
         return viewModelScope.async(Dispatchers.Default) {
             val pdfDocument: PDDocument = PDDocument.load(pdf)
             val pdfRenderer = PDFRenderer(pdfDocument)
-            Timber.tag("Khaleel").d("pdfPage Initiated: $pageIndex")
             val tessScanner = TessScanner(scannerPath, "eng+tam")
             val bitmap = pdfRenderer.renderImageWithDPI(pageIndex, 300f)
             tessScanner.clearLastImage()
@@ -107,7 +105,7 @@ class ResultViewModel @Inject constructor(
             val accuracy = tessScanner.accuracy()
             bitmap.recycle()
             tessScanner.stop()
-            Timber.tag("Khaleel").d("pdfPage Completed: $pageIndex Accuracy : $accuracy")
+            pdfDocument.close()
             publishProcessedPage()
             ScanResult(pageIndex, output, accuracy)
         }

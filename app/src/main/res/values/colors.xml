@@ -11,6 +11,7 @@
     <color name="ucrop_color_widget_active">@color/app_primaryColor</color>
 
     <color name="app_primaryColor">#2962ff</color>
+    <color name="app_textBgColor">#D7FFF074</color>
     <color name="app_primaryLightColor">#768fff</color>
     <color name="app_primaryDarkColor">#0039cb</color>
     <color name="app_secondaryColor">#3e2723</color>

@@ -99,8 +99,6 @@ dependencies {
     ksp("com.google.dagger:hilt-compiler:2.50")
     //Multidex
     implementation("androidx.multidex:multidex:2.0.1")
-    //Easy permission
-    implementation("pub.devrel:easypermissions:3.0.0")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("com.github.Drjacky:ImagePicker:2.3.22")

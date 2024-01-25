@@ -1,30 +1,28 @@
 package com.jskaleel.vizhi_tamil.ui.result.tts
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
-import android.speech.tts.UtteranceProgressListener
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.text.HtmlCompat
+import androidx.lifecycle.LifecycleOwner
+import com.google.android.material.textview.MaterialTextView
 import com.jskaleel.vizhi_tamil.R
 import com.jskaleel.vizhi_tamil.databinding.ActivityTtsScreenBinding
+import com.jskaleel.vizhi_tamil.utils.tts_engine.tts.builder.TextToSpeechHelper
+import com.jskaleel.vizhi_tamil.utils.tts_engine.utils.highlightText
 import dagger.hilt.android.AndroidEntryPoint
 import timber.log.Timber
-import kotlin.random.Random
+import java.util.Locale
 
 @AndroidEntryPoint
-class TTSActivity : AppCompatActivity(),
-    TextToSpeech.OnInitListener {
+class TTSActivity : AppCompatActivity() {
 
     private val binding: ActivityTtsScreenBinding by lazy {
         ActivityTtsScreenBinding.inflate(layoutInflater)
     }
-    private val ttsEngine by lazy {
-        TextToSpeech(applicationContext, this)
-    }
-    private val outteranceId = Random.nextInt(1000, 10000).toString()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,23 +38,50 @@ class TTSActivity : AppCompatActivity(),
     }
 
     private fun initListener() {
-        val ocrText = binding.txtOutput.text.toSubString()
+        val ocrText = binding.txtOutput.text.toString()
         binding.ivPlayPause.setOnClickListener {
-            Timber.d("OCRText : $ocrText")
-            if (ttsEngine.isSpeaking) {
-                ttsEngine.stop()
-                binding.ivPlayPause.setImageResource(R.drawable.ic_round_play_circle)
-            } else {
-                ttsEngine.speak(
-                    ocrText,
-                    TextToSpeech.QUEUE_FLUSH,
-                    null,
-                    outteranceId
-                )
-
-                binding.ivPlayPause.setImageResource(R.drawable.ic_round_pause_circle)
-            }
+            speak(
+                this@TTSActivity,
+                (this@TTSActivity) as LifecycleOwner,
+                ocrText,
+                binding.txtOutput
+            )
         }
+    }
+
+    private fun speak(
+        activity: Activity,
+        owner: LifecycleOwner,
+        message: String,
+        textView: MaterialTextView
+    ) {
+        TextToSpeechHelper
+            .getInstance(activity)
+            .registerLifecycle(owner)
+            .setLanguage(Locale("ta"))
+            .speak(message)
+            .highlight()
+            .onHighlight { pair ->
+                runOnUiThread {
+                    textView.highlightText(
+                        start = pair.first,
+                        end = pair.second + 1,
+                        color = ContextCompat.getColor(
+                            activity.baseContext,
+                            R.color.app_textBgColor
+                        )
+                    )
+                }
+            }
+            .onStart {
+                Timber.tag("Khaleel").d("onStart : speak: done")
+            }
+            .onDone {
+                Timber.tag("Khaleel").d("onDone : speak: done")
+            }
+            .onError {
+                Timber.tag("Khaleel").d("onError: speak: $it")
+            }
     }
 
     companion object {
@@ -68,33 +93,4 @@ class TTSActivity : AppCompatActivity(),
 
         const val OCR_TEXT_KEY = "ocr_text"
     }
-
-    override fun onDestroy() {
-        if (ttsEngine.isSpeaking) {
-            ttsEngine.stop()
-            ttsEngine.shutdown()
-        }
-        super.onDestroy()
-    }
-
-    override fun onInit(status: Int) {
-        ttsEngine.setOnUtteranceProgressListener(object : UtteranceProgressListener() {
-            override fun onStart(p0: String?) {
-                Timber.d("OnStart : $p0")
-            }
-
-            override fun onDone(p0: String?) {
-                Timber.d("onDone : $p0")
-            }
-
-            override fun onError(p0: String?) {
-                Timber.d("onError : $p0")
-            }
-
-        })
-    }
-}
-
-private fun CharSequence.toSubString(): String {
-    return this.toString().substring(1, 400)
 }

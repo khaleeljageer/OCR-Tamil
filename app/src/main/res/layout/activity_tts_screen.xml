@@ -3,12 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:keepScreenOn="true">
 
     <ScrollView
         android:id="@+id/txtScrollView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/margin_0dp"
+        android:paddingBottom="65dp"
+        android:paddingHorizontal="@dimen/padding_16dp"
+        android:paddingTop="@dimen/padding_16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,6 +25,7 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_5dp"
             android:textIsSelectable="true"
+            android:textSize="16sp"
             app:fontFamily="@font/madurai" />
     </ScrollView>
 

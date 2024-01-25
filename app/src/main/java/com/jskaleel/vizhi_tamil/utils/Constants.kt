@@ -46,11 +46,6 @@ object Constants {
             "https://developer.android.com/studio/build/multidex"
         ),
         ThirdParty(
-            "Easy Permissions",
-            "pub.devrel:easypermissions:3.0.0",
-            "https://github.com/googlesamples/easypermissions"
-        ),
-        ThirdParty(
             "ImagePicker",
             "com.github.Drjacky:ImagePicker:2.1.13",
             "https://github.com/Dhaval2404/ImagePicker"
