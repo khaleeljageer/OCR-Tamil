@@ -1,7 +1,7 @@
 <resources>
     <string name="powered_by" translatable="false">Powered by</string>
     <string name="thumbnail" translatable="false">Thumbnail</string>
-    <string name="app_name">Vizhi Tamil</string>
+    <string name="app_name" translatable="false">Tamil-OCR</string>
     <string name="app_icon">App Icon</string>
     <string name="initializing">Initializing…</string>
     <string name="check_trained_model">Verifying trained model</string>
@@ -23,10 +23,6 @@
     <string name="kaniyam_foundation_desc"><![CDATA[<p><b>தொலை நோக்கு – Vision</b><br>தமிழ் மொழி மற்றும் இனக்குழுக்கள் சார்ந்த மெய்நிகர்வளங்கள், கருவிகள் மற்றும் அறிவுத்தொகுதிகள், அனைவருக்கும்  கட்டற்ற அணுக்கத்தில் கிடைக்கும் சூழல்
 <br><b>பணி இலக்கு  – Mission</b><br>அறிவியல் மற்றும் சமூகப் பொருளாதார வளர்ச்சிக்கு ஒப்ப, தமிழ் மொழியின் பயன்பாடு வளர்வதை உறுதிப்படுத்துவதும், அனைத்து அறிவுத் தொகுதிகளும், வளங்களும் கட்டற்ற அணுக்கத்தில் அனைவருக்கும் கிடைக்கச்செய்தலும்.<br>
 <a>https://kaniyam.com</a></p>]]></string>
-    <string name="vglug_foundation">VGLUG Foundation</string>
-    <string name="vglug_foundation_desc"><![CDATA[<p>விழுப்புரம் குனு/லினக்ஸ் பயனர்கள் குழு (VGLUG) என்பது 2013 ஆம் ஆண்டில் தொடங்கப்பட்ட ஒரு இலாப நோக்கற்ற அமைப்பாகும். இந்த அமைப்பு ஒரு சமூக இயக்கமாகும். இது கட்டற்ற மென்பொருள் தத்துவத்தின் சாரத்துடன் அறிவியல் மற்றும் சமூகப் பொருளாதார வளர்ச்சிக்கு ஏற்ப FOSS தத்துவத்தினை மக்களிடையே கொண்டு சேர்க்கும் வேலையை செய்துவருகிறது.
-    <br>
-<a>https://vglug.org</a></p>]]></string>
     <string name="version">Version: %s</string>
     <string name="delete_scan">Delete file</string>
     <string name="no_recent_scan">No recent files</string>
@@ -47,6 +43,6 @@
     <string name="terms_amp_conditions">Terms and conditions</string>
     <string name="english">English</string>
     <string name="tamil">Tamil</string>
-    <string name="str_stop">Stop</string>
-    <string name="str_read">Read</string>
+    <string name="str_stop" translatable="false">Stop</string>
+    <string name="str_read" translatable="false">Read</string>
 </resources>

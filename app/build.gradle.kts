@@ -130,4 +130,6 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation("com.google.firebase:firebase-crashlytics-ktx")
     implementation("com.google.firebase:firebase-messaging-ktx")
+
+    implementation("com.google.android.gms:play-services-mlkit-text-recognition:19.0.0")
 }

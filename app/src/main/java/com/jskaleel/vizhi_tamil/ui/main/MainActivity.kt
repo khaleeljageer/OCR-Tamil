@@ -117,8 +117,6 @@ class MainActivity : AppCompatActivity(), RecentScanClickListener {
                         if (result is DocumentFile) {
                             val appDocFile = AppDocFile(result.uri, result.name)
                             startActivity(ResultActivity.newIntent(baseContext, appDocFile))
-                        } else {
-
                         }
                     }
                 })

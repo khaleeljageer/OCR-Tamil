@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">விழி தமிழ்</string>
-
     <string name="app_icon">App Icon</string>
     <string name="initializing">துவங்குகிறது…</string>
     <string name="check_trained_model">பயிற்சி பெற்ற மாதிரிகளை சரிபார்க்கிறது</string>
@@ -23,10 +21,6 @@
     <string name="kaniyam_foundation_desc"><![CDATA[<p><b>தொலை நோக்கு – Vision</b><br>தமிழ் மொழி மற்றும் இனக்குழுக்கள் சார்ந்த மெய்நிகர்வளங்கள், கருவிகள் மற்றும் அறிவுத்தொகுதிகள், அனைவருக்கும்  கட்டற்ற அணுக்கத்தில் கிடைக்கும் சூழல்
 <br><b>பணி இலக்கு  – Mission</b><br>அறிவியல் மற்றும் சமூகப் பொருளாதார வளர்ச்சிக்கு ஒப்ப, தமிழ் மொழியின் பயன்பாடு வளர்வதை உறுதிப்படுத்துவதும், அனைத்து அறிவுத் தொகுதிகளும், வளங்களும் கட்டற்ற அணுக்கத்தில் அனைவருக்கும் கிடைக்கச்செய்தலும்.<br>
 <a>https://kaniyam.com</a></p>]]></string>
-    <string name="vglug_foundation">VGLUG அறக்கட்டளை</string>
-    <string name="vglug_foundation_desc"><![CDATA[<p>விழுப்புரம் குனு/லினக்ஸ் பயனர்கள் குழு (VGLUG) என்பது 2013 ஆம் ஆண்டில் தொடங்கப்பட்ட ஒரு இலாப நோக்கற்ற அமைப்பாகும். இந்த அமைப்பு ஒரு சமூக இயக்கமாகும். இது கட்டற்ற மென்பொருள் தத்துவத்தின் சாரத்துடன் அறிவியல் மற்றும் சமூகப் பொருளாதார வளர்ச்சிக்கு ஏற்ப FOSS தத்துவத்தினை மக்களிடையே கொண்டு சேர்க்கும் வேலையை செய்துவருகிறது.
-    <br>
-<a>https://vglug.org</a></p>]]></string>
     <string name="version">பதிப்பு: %s</string>
     <string name="delete_scan">கோப்பை அழி</string>
     <string name="no_recent_scan">சமீபத்திய கோப்புகள்\nஎதுவும் இல்லை</string>

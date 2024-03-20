@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.text.HtmlCompat
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.google.mlkit.vision.common.InputImage
+import com.google.mlkit.vision.text.TextRecognition
+import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import com.jskaleel.vizhi_tamil.R
 import com.jskaleel.vizhi_tamil.databinding.ActivityResultBinding
 import com.jskaleel.vizhi_tamil.db.dao.RecentScanDao
@@ -20,9 +23,7 @@ import com.jskaleel.vizhi_tamil.db.entity.RecentScan
 import com.jskaleel.vizhi_tamil.model.AppDocFile
 import com.jskaleel.vizhi_tamil.model.ConverterResult
 import com.jskaleel.vizhi_tamil.model.OCRFileType
-import com.jskaleel.vizhi_tamil.model.PDFPageOut
 import com.jskaleel.vizhi_tamil.ui.result.tts.TTSActivity
-import com.jskaleel.vizhi_tamil.utils.CustomPageTransformer
 import com.jskaleel.vizhi_tamil.utils.FileUtils
 import com.jskaleel.vizhi_tamil.utils.TessScanner
 import com.jskaleel.vizhi_tamil.utils.visible
@@ -45,6 +46,10 @@ open class ResultActivity : AppCompatActivity() {
         ActivityResultBinding.inflate(layoutInflater)
     }
 
+    private val txtRecognizer by lazy {
+        TextRecognition.getClient(TextRecognizerOptions.DEFAULT_OPTIONS)
+    }
+
     @Inject
     lateinit var fileUtils: FileUtils
 
@@ -61,9 +66,11 @@ open class ResultActivity : AppCompatActivity() {
                 OCRFileType.IMAGE.ordinal -> {
                     initiateImageProcess()
                 }
+
                 OCRFileType.PDF.ordinal -> {
                     initiatePdfProcess()
                 }
+
                 else -> {
                     finish()
                 }
@@ -162,8 +169,26 @@ open class ResultActivity : AppCompatActivity() {
             finish()
         } else {
             val bitmap = BitmapFactory.decodeFile(path)
+            val image = InputImage.fromBitmap(bitmap, 0)
+//            startOcr(image)
             startOCR(bitmap, path, isNewItem)
         }
+    }
+
+    private fun startOcr(image: InputImage) {
+        txtRecognizer.process(image)
+            .addOnSuccessListener { visionText ->
+                binding.progressLayout.visibility = View.GONE
+                binding.viewPager.visibility = View.GONE
+                binding.viewPagerNavigator.visibility = View.GONE
+                binding.navigatorShadow.visibility = View.GONE
+                binding.txtScrollView.visibility = View.VISIBLE
+
+                binding.txtOutput.text =
+                    HtmlCompat.fromHtml(visionText.text, HtmlCompat.FROM_HTML_MODE_LEGACY)
+            }.addOnFailureListener { e ->
+
+            }
     }
 
     private fun initTesseract() {
