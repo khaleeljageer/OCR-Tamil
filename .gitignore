@@ -100,3 +100,11 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+.idea/AndroidProjectSystem.xml
+.idea/runConfigurations.xml
+.idea/compiler.xml
+.idea/misc.xml
+.idea/deploymentTargetSelector.xml
+.idea/migrations.xml
+
+.idea
