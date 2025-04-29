@@ -3,39 +3,50 @@ package com.jskaleel.vizhi_tamil.ui.navigation
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.jskaleel.vizhi_tamil.ui.screens.setup.download.DownloadScreenRoute
+import com.jskaleel.vizhi_tamil.ui.screens.setup.download.DownloadViewModel
 
 
 @Composable
 fun NavigationHost(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = "setup") {
-        composable(route = "setup") {
-            Column {
-                Text(text = "Setup")
+    NavHost(
+        navController = navController,
+        startDestination = Route.Setup.name
+    ) {
+        navigation(
+            startDestination = Screen.Download.route,
+            route = Route.Setup.name
+        ) {
+            composable(route = Screen.Download.route) {
+                val viewModel: DownloadViewModel = hiltViewModel()
+                DownloadScreenRoute(
+                    viewModel = viewModel,
+                )
             }
         }
-
         mainNavGraph(navController = navController)
     }
 }
 
 private fun NavGraphBuilder.mainNavGraph(navController: NavHostController) {
     navigation(
-        startDestination = "home",
-        route = "main"
+        startDestination = Screen.Home.route,
+        route = Route.Main.name
     ) {
-        composable(route = "home") {
+        composable(route = Screen.Home.route) {
             Column {
-                Text(text = "Home")
+                Text(text = Screen.Home.route)
             }
         }
-        composable(route = "about") {
+        composable(route = Screen.About.route) {
             Column {
-                Text(text = "About")
+                Text(text = Screen.About.route)
             }
         }
     }

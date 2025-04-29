@@ -1,4 +1,4 @@
-package com.jskaleel.vizhi_tamil.data
+package com.jskaleel.vizhi_tamil.ui.model
 
 import androidx.compose.ui.graphics.painter.Painter
 

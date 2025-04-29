@@ -7,7 +7,7 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
-import com.jskaleel.vizhi_tamil.data.BottomBarItem
+import com.jskaleel.vizhi_tamil.ui.model.BottomBarItem
 
 @Composable
 fun BottomNavigationBar(

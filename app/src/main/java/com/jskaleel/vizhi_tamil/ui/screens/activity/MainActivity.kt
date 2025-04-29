@@ -20,7 +20,7 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.jskaleel.vizhi_tamil.R
-import com.jskaleel.vizhi_tamil.data.BottomBarItem
+import com.jskaleel.vizhi_tamil.ui.model.BottomBarItem
 import com.jskaleel.vizhi_tamil.ui.core.BottomNavigationBar
 import com.jskaleel.vizhi_tamil.ui.navigation.NavigationHost
 import com.jskaleel.vizhi_tamil.ui.theme.VizhiTamilTheme
