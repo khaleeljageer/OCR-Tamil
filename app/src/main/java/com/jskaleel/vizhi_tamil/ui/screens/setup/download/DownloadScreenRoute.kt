@@ -13,7 +13,8 @@ fun DownloadScreenRoute(viewModel: DownloadViewModel) {
 
     }
 
-    DownloadScreen(
-        loading = uiState.loading
-    )
+    when (uiState) {
+        DownloadUiState.Loading -> FullScreenLoader()
+        is DownloadUiState.DownloadStatus -> DownloadScreen(loading = false)
+    }
 }

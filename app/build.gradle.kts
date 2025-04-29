@@ -5,6 +5,7 @@ plugins {
     alias(libs.plugins.ksp.android)
     alias(libs.plugins.hilt.android)
     id("androidx.navigation.safeargs.kotlin")
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -67,7 +68,7 @@ dependencies {
     ksp(libs.androidx.room.compiler)
 
     implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.android)
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.serialization.kotlinx.json)
 
@@ -75,4 +76,6 @@ dependencies {
 
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    // Kotlinx serialization
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0") // Latest version
 }
