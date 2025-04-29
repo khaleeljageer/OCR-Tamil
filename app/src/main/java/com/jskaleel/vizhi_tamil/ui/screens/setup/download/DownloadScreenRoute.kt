@@ -15,6 +15,13 @@ fun DownloadScreenRoute(viewModel: DownloadViewModel) {
 
     when (uiState) {
         DownloadUiState.Loading -> FullScreenLoader()
-        is DownloadUiState.DownloadStatus -> DownloadScreen(loading = false)
+        is DownloadUiState.DownloadStatus -> {
+            val state = uiState as DownloadUiState.DownloadStatus
+            DownloadScreen(
+                loading = false,
+                progress = state.progress,
+                fileName = state.fileName
+            )
+        }
     }
 }

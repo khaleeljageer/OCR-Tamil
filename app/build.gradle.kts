@@ -78,4 +78,5 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
     // Kotlinx serialization
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0") // Latest version
+    implementation("com.airbnb.android:lottie-compose:6.6.6")
 }
