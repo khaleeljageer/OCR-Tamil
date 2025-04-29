@@ -8,6 +8,7 @@ import com.jskaleel.vizhi_tamil.core.model.onError
 import com.jskaleel.vizhi_tamil.core.model.onSuccess
 import com.jskaleel.vizhi_tamil.domain.usecase.SetupUseCase
 import com.jskaleel.vizhi_tamil.ui.utils.mutableNavigationState
+import com.jskaleel.vizhi_tamil.ui.utils.navigate
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -60,18 +61,24 @@ class DownloadViewModel @Inject constructor(
         downloadNewModel()
     }
 
-    private suspend fun downloadNewModel() {
-
-        viewModelState.update { it.copy(loading = false) }
-        onStartDownload()
-    }
-
-    fun onStartDownload() {
+    private fun downloadNewModel() {
         viewModelScope.launch(Dispatchers.IO) {
-            for (i in 1..100) {
-                delay(500)
-                viewModelState.update {
-                    it.copy(progress = i / 100f)
+            setupUseCase.downloadModel().collect { result ->
+                viewModelState.update { it.copy(loading = false) }
+                result.onSuccess { progress ->
+                    viewModelState.update {
+                        it.copy(
+                            progress = progress.progress,
+                            fileSize = progress.fileSize,
+                        )
+                    }
+                    if (progress.fileCompleted) {
+                        viewModelState.update { it.copy(loading = true) }
+                        delay(800)
+                        navigation = navigate(DownloadNavigationState.DownloadCompleted)
+                    }
+                }.onError { _, _ ->
+
                 }
             }
         }
@@ -81,14 +88,14 @@ class DownloadViewModel @Inject constructor(
 private data class DownloadViewModelState(
     val loading: Boolean = true,
     val progress: Float = 0.1f,
-    val fileName: String = ""
+    val fileSize: String = ""
 ) {
     fun toUiState() = if (loading) {
         DownloadUiState.Loading
     } else {
         DownloadUiState.DownloadStatus(
             progress = progress,
-            fileName = fileName
+            fileSize = fileSize,
         )
     }
 }
@@ -97,10 +104,10 @@ sealed interface DownloadUiState {
     data object Loading : DownloadUiState
     data class DownloadStatus(
         val progress: Float,
-        val fileName: String,
+        val fileSize: String,
     ) : DownloadUiState
 }
 
-sealed class DownloadNavigationState {
-
+sealed interface DownloadNavigationState {
+    object DownloadCompleted : DownloadNavigationState
 }

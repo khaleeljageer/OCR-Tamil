@@ -10,6 +10,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
@@ -41,9 +42,8 @@ import com.jskaleel.vizhi_tamil.R
 
 @Composable
 fun DownloadScreen(
-    loading: Boolean,
     progress: Float,
-    fileName: String
+    fileSize: String,
 ) {
     val animatedProgress by animateFloatAsState(
         targetValue = progress,
@@ -72,18 +72,25 @@ fun DownloadScreen(
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(),
+                .fillMaxHeight()
+                .padding(horizontal = 24.dp),
             verticalArrangement = Arrangement.Bottom,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            FadeInFadeOutText("Downloading: $fileName")
+            Row {
+                FadeInFadeOutText("Downloading Language Models")
+                Spacer(modifier = Modifier.weight(1f))
+                Text(
+                    text = fileSize,
+                    style = MaterialTheme.typography.labelSmall,
+                )
+            }
             Spacer(modifier = Modifier.height(8.dp))
             LinearProgressIndicator(
                 progress = { animatedProgress },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(6.dp)
-                    .padding(horizontal = 24.dp),
+                    .height(6.dp),
                 gapSize = 0.dp,
                 strokeCap = StrokeCap.Butt,
                 drawStopIndicator = {}

@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.jskaleel.vizhi_tamil.data.source.local.room.VizhiTamilDatabase
 import com.jskaleel.vizhi_tamil.data.source.local.room.dao.RecentScanDao
+import com.jskaleel.vizhi_tamil.data.source.local.storage.FileStorage
+import com.jskaleel.vizhi_tamil.data.source.local.storage.InternalFileStorage
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,6 +32,12 @@ class AppDatabaseModule {
     @Singleton
     fun getRecentScanDao(appDatabase: VizhiTamilDatabase): RecentScanDao =
         appDatabase.recentScanDao()
+
+    @Provides
+    @Singleton
+    fun provideFileStorage(@ApplicationContext context: Context): FileStorage {
+        return InternalFileStorage(context)
+    }
 
     companion object {
         private const val APP_DATABASE_NAME = "vizhi_tamil.db"

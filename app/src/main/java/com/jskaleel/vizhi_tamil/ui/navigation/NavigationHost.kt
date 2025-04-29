@@ -26,6 +26,13 @@ fun NavigationHost(navController: NavHostController) {
             composable(route = Screen.Download.route) {
                 val viewModel: DownloadViewModel = hiltViewModel()
                 DownloadScreenRoute(
+                    onDownloadComplete = {
+                        navController.navigate(Route.Main.name) {
+                            popUpTo(Route.Setup.name) {
+                                inclusive = true
+                            }
+                        }
+                    },
                     viewModel = viewModel,
                 )
             }

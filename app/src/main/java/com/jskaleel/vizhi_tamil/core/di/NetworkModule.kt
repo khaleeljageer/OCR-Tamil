@@ -1,5 +1,7 @@
 package com.jskaleel.vizhi_tamil.core.di
 
+import com.jskaleel.vizhi_tamil.data.source.remote.ModelDataSource
+import com.jskaleel.vizhi_tamil.data.source.remote.RemoteModelDataSource
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,5 +35,11 @@ object NetworkModule {
                 )
             }
         }
+    }
+
+    @Provides
+    @Singleton
+    fun provideModelDataSource(httpClient: HttpClient): ModelDataSource {
+        return RemoteModelDataSource(httpClient)
     }
 }
