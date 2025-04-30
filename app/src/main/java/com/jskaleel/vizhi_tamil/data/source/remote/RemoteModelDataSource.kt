@@ -2,7 +2,7 @@ package com.jskaleel.vizhi_tamil.data.source.remote
 
 import com.jskaleel.vizhi_tamil.core.model.ApiResult
 import com.jskaleel.vizhi_tamil.core.utils.sizeInMBString
-import com.jskaleel.vizhi_tamil.data.model.DownloadResponse
+import com.jskaleel.vizhi_tamil.data.model.DownloadResponseDTO
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import io.ktor.client.statement.HttpResponse
@@ -13,14 +13,14 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
 interface ModelDataSource {
-    suspend fun downloadModel(name: String, url: String): Flow<ApiResult<DownloadResponse>>
+    suspend fun downloadModel(name: String, url: String): Flow<ApiResult<DownloadResponseDTO>>
 }
 class RemoteModelDataSource(private val httpClient: HttpClient) : ModelDataSource {
     override suspend fun downloadModel(
         name: String,
         url: String
-    ): Flow<ApiResult<DownloadResponse>> = flow {
-        emit(ApiResult.Success(DownloadResponse(0f, 0, "0 MB")))
+    ): Flow<ApiResult<DownloadResponseDTO>> = flow {
+        emit(ApiResult.Success(DownloadResponseDTO(0f, 0, "0 MB")))
 
         try {
             val response: HttpResponse = httpClient.get(url)
@@ -39,7 +39,7 @@ class RemoteModelDataSource(private val httpClient: HttpClient) : ModelDataSourc
 
                 emit(
                     ApiResult.Success(
-                        DownloadResponse(
+                        DownloadResponseDTO(
                             progress = progress,
                             bytesDownloaded = bytesDownloaded,
                             fileSize = totalBytes.sizeInMBString(),
@@ -51,7 +51,7 @@ class RemoteModelDataSource(private val httpClient: HttpClient) : ModelDataSourc
 
             emit(
                 ApiResult.Success(
-                    DownloadResponse(
+                    DownloadResponseDTO(
                         progress = 1f,
                         bytesDownloaded = bytesDownloaded,
                         fileSize = totalBytes.sizeInMBString(),

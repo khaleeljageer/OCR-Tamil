@@ -1,5 +1,7 @@
 package com.jskaleel.vizhi_tamil.domain.di
 
+import com.jskaleel.vizhi_tamil.domain.usecase.OCRUseCase
+import com.jskaleel.vizhi_tamil.domain.usecase.OCRUseCaseImpl
 import com.jskaleel.vizhi_tamil.domain.usecase.SetupUseCase
 import com.jskaleel.vizhi_tamil.domain.usecase.SetupUseCaseImpl
 import dagger.Binds
@@ -17,4 +19,10 @@ abstract class UseCaseModule {
     abstract fun getSetupUseCase(
         setupUseCase: SetupUseCaseImpl,
     ): SetupUseCase
+
+    @Binds
+    @Singleton
+    abstract fun getOCRUseCase(
+        useCase: OCRUseCaseImpl,
+    ): OCRUseCase
 }

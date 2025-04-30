@@ -3,8 +3,8 @@ package com.jskaleel.vizhi_tamil.data.repository
 import com.jskaleel.vizhi_tamil.core.model.ApiResult
 import com.jskaleel.vizhi_tamil.core.model.safeApiCall
 import com.jskaleel.vizhi_tamil.core.utils.sizeInMBString
-import com.jskaleel.vizhi_tamil.data.model.ConfigResponse
-import com.jskaleel.vizhi_tamil.data.model.DownloadResponse
+import com.jskaleel.vizhi_tamil.data.model.ConfigResponseDTO
+import com.jskaleel.vizhi_tamil.data.model.DownloadResponseDTO
 import com.jskaleel.vizhi_tamil.data.source.local.storage.FileStorage
 import com.jskaleel.vizhi_tamil.data.source.remote.ModelDataSource
 import io.ktor.client.HttpClient
@@ -17,8 +17,8 @@ import java.io.File
 import javax.inject.Inject
 
 interface SetupRepository {
-    suspend fun downloadModel(): Flow<ApiResult<DownloadResponse>>
-    suspend fun downloadConfig(): ApiResult<ConfigResponse>
+    suspend fun downloadModel(): Flow<ApiResult<DownloadResponseDTO>>
+    suspend fun downloadConfig(): ApiResult<ConfigResponseDTO>
     suspend fun checkModelExists(): ApiResult<Boolean>
 }
 
@@ -33,7 +33,7 @@ class SetupRepositoryImpl @Inject constructor(
         "English" to "https://github.com/tesseract-ocr/tessdata_fast/raw/refs/heads/main/eng.traineddata"
     )
 
-    override suspend fun downloadModel(): Flow<ApiResult<DownloadResponse>> = flow {
+    override suspend fun downloadModel(): Flow<ApiResult<DownloadResponseDTO>> = flow {
         val totalFiles = modelUrls.size
         val completedFlags = mutableMapOf<String, Boolean>()
 
@@ -58,7 +58,7 @@ class SetupRepositoryImpl @Inject constructor(
                                         val allCompleted =
                                             completedFlags.size == totalFiles && completedFlags.all { it.value }
                                         ApiResult.Success(
-                                            DownloadResponse(
+                                            DownloadResponseDTO(
                                                 progress = 1f,
                                                 bytesDownloaded = it.length(),
                                                 fileSize = it.length().sizeInMBString(),
@@ -72,7 +72,7 @@ class SetupRepositoryImpl @Inject constructor(
                                 )
                             } else {
                                 ApiResult.Success(
-                                    DownloadResponse(
+                                    DownloadResponseDTO(
                                         progress = res.progress,
                                         bytesDownloaded = res.bytesDownloaded,
                                         fileSize = res.fileSize,
@@ -88,9 +88,9 @@ class SetupRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun downloadConfig(): ApiResult<ConfigResponse> {
+    override suspend fun downloadConfig(): ApiResult<ConfigResponseDTO> {
         return safeApiCall {
-            httpClient.get(CONFIG_URL).body<ConfigResponse>()
+            httpClient.get(CONFIG_URL).body<ConfigResponseDTO>()
         }
     }
 

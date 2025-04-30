@@ -2,6 +2,7 @@ package com.jskaleel.vizhi_tamil.data.di
 
 import android.content.Context
 import androidx.room.Room
+import com.googlecode.tesseract.android.TessBaseAPI
 import com.jskaleel.vizhi_tamil.data.source.local.room.VizhiTamilDatabase
 import com.jskaleel.vizhi_tamil.data.source.local.room.dao.RecentScanDao
 import com.jskaleel.vizhi_tamil.data.source.local.storage.FileStorage
@@ -16,7 +17,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-class AppDatabaseModule {
+class AppModule {
 
     @Provides
     @Singleton
@@ -37,6 +38,12 @@ class AppDatabaseModule {
     @Singleton
     fun provideFileStorage(@ApplicationContext context: Context): FileStorage {
         return InternalFileStorage(context)
+    }
+
+    @Provides
+    @Singleton
+    fun provideTessApi(): TessBaseAPI {
+        return TessBaseAPI()
     }
 
     companion object {

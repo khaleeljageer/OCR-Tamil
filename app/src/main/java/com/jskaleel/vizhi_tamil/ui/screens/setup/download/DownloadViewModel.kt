@@ -46,7 +46,7 @@ class DownloadViewModel @Inject constructor(
             viewModelState.update { it.copy(loading = true) }
             setupUseCase.checkForModelUpdate()
                 .onSuccess { it ->
-                    if (it.updateData) {
+                    if (it) {
                         downloadModel()
                     } else {
                         checkModelExists()

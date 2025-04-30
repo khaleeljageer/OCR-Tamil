@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 
 @Serializable
-data class ConfigResponse(
+data class ConfigResponseDTO(
     @SerialName("update_data")
     val updateData: Boolean,
     val revision: Int

@@ -5,6 +5,8 @@ import io.ktor.client.plugins.ResponseException
 import io.ktor.client.plugins.ServerResponseException
 import io.ktor.client.statement.bodyAsText
 import io.ktor.utils.io.CancellationException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
@@ -44,12 +46,18 @@ suspend fun parseErrorMessage(e: ResponseException): String {
     }
 }
 
-inline fun <T> ApiResult<T>.onSuccess(action: (T) -> Unit): ApiResult<T> {
+inline fun <I> ApiResult<I>.onSuccess(action: (I) -> Unit): ApiResult<I> {
     if (this is ApiResult.Success) action(data)
     return this
 }
 
-inline fun <T> ApiResult<T>.onError(action: (Int?, String?) -> Unit): ApiResult<T> {
+inline fun <I> ApiResult<I>.onError(action: (Int?, String?) -> Unit): ApiResult<I> {
     if (this is ApiResult.Error) action(code, message)
     return this
+}
+
+suspend fun <I, O> ApiResult<I>.map(responseProvider: ApiResultMapper<I, O>): ApiResult<O> {
+    return withContext(Dispatchers.Default) {
+        responseProvider.map(this@map)
+    }
 }
