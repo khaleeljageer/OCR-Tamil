@@ -9,6 +9,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.jskaleel.vizhi_tamil.ui.screens.home.HomeScreenRoute
+import com.jskaleel.vizhi_tamil.ui.screens.home.HomeViewModel
 import com.jskaleel.vizhi_tamil.ui.screens.setup.download.DownloadScreenRoute
 import com.jskaleel.vizhi_tamil.ui.screens.setup.download.DownloadViewModel
 
@@ -47,9 +49,10 @@ private fun NavGraphBuilder.mainNavGraph(navController: NavHostController) {
         route = Route.Main.name
     ) {
         composable(route = Screen.Home.route) {
-            Column {
-                Text(text = Screen.Home.route)
-            }
+            val viewModel: HomeViewModel = hiltViewModel()
+            HomeScreenRoute(
+                viewModel = viewModel
+            )
         }
         composable(route = Screen.About.route) {
             Column {
