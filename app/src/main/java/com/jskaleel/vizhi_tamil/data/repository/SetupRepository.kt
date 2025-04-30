@@ -13,11 +13,13 @@ import io.ktor.client.request.get
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
+import java.io.File
 import javax.inject.Inject
 
 interface SetupRepository {
     suspend fun downloadModel(): Flow<ApiResult<DownloadResponse>>
     suspend fun downloadConfig(): ApiResult<ConfigResponse>
+    suspend fun checkModelExists(): ApiResult<Boolean>
 }
 
 class SetupRepositoryImpl @Inject constructor(
@@ -26,12 +28,12 @@ class SetupRepositoryImpl @Inject constructor(
     private val fileStorage: FileStorage
 ) : SetupRepository {
 
-    override suspend fun downloadModel(): Flow<ApiResult<DownloadResponse>> = flow {
-        val modelUrls = mapOf(
-            "Tamil" to "https://github.com/khaleeljageer/tesseract-gt-builder/raw/refs/heads/main/model/27-04-25/tamhng.traineddata",
-            "English" to "https://github.com/tesseract-ocr/tessdata_fast/raw/refs/heads/main/eng.traineddata"
-        )
+    val modelUrls = mapOf(
+        "Tamil" to "https://github.com/khaleeljageer/tesseract-gt-builder/raw/refs/heads/main/model/27-04-25/tamhng.traineddata",
+        "English" to "https://github.com/tesseract-ocr/tessdata_fast/raw/refs/heads/main/eng.traineddata"
+    )
 
+    override suspend fun downloadModel(): Flow<ApiResult<DownloadResponse>> = flow {
         val totalFiles = modelUrls.size
         val completedFlags = mutableMapOf<String, Boolean>()
 
@@ -90,6 +92,17 @@ class SetupRepositoryImpl @Inject constructor(
         return safeApiCall {
             httpClient.get(CONFIG_URL).body<ConfigResponse>()
         }
+    }
+
+    override suspend fun checkModelExists(): ApiResult<Boolean> {
+        val modelDir = fileStorage.getTessDataDir()
+        val requiredModels = listOf("tamhng.traineddata", "eng.traineddata")
+
+        val allModelsExist = requiredModels.all { modelName ->
+            File(modelDir, modelName).exists()
+        }
+
+        return ApiResult.Success(allModelsExist)
     }
 
     companion object {

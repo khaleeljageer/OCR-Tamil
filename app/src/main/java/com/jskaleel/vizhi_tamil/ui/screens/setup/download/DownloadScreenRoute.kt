@@ -30,5 +30,9 @@ fun DownloadScreenRoute(
                 fileSize = state.fileSize
             )
         }
+
+        DownloadUiState.Error -> DownloadErrorScreen(
+            onRetry = viewModel::onRetry
+        )
     }
 }

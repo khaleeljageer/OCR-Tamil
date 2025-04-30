@@ -11,6 +11,7 @@ import javax.inject.Inject
 interface SetupUseCase {
     suspend fun downloadModel(): Flow<ApiResult<DownloadProgress>>
     suspend fun checkForModelUpdate(): ApiResult<ConfigResponse>
+    suspend fun checkModelExists(): ApiResult<Boolean>
 }
 
 class SetupUseCaseImpl @Inject constructor(
@@ -27,5 +28,9 @@ class SetupUseCaseImpl @Inject constructor(
 
     override suspend fun checkForModelUpdate(): ApiResult<ConfigResponse> {
         return setupRepository.downloadConfig()
+    }
+
+    override suspend fun checkModelExists(): ApiResult<Boolean> {
+        return setupRepository.checkModelExists()
     }
 }

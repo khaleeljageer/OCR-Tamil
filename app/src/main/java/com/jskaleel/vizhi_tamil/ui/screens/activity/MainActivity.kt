@@ -9,7 +9,6 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -20,8 +19,8 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.jskaleel.vizhi_tamil.R
-import com.jskaleel.vizhi_tamil.ui.model.BottomBarItem
 import com.jskaleel.vizhi_tamil.ui.core.BottomNavigationBar
+import com.jskaleel.vizhi_tamil.ui.model.BottomBarItem
 import com.jskaleel.vizhi_tamil.ui.navigation.NavigationHost
 import com.jskaleel.vizhi_tamil.ui.theme.VizhiTamilTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,8 +34,8 @@ class MainActivity : ComponentActivity() {
                 Color.TRANSPARENT,
             ),
             SystemBarStyle.light(
-                Color.argb(0xFF, 0xD9, 0xD2, 0xBF),
-                Color.argb(0xFF, 0xD9, 0xD2, 0xBF)
+                Color.argb(0xFF, 0xF2, 0xE7, 0xBA),
+                Color.argb(0xFF, 0xF2, 0xE7, 0xBA),
             ),
         )
         installSplashScreen()
@@ -75,13 +74,11 @@ fun MainNavigation() {
         modifier = Modifier.fillMaxSize(),
         bottomBar = {
             if (showBottomBar) {
-                NavigationBar {
-                    BottomNavigationBar(
-                        items = bottomBarItems,
-                        navController = navController,
-                        currentRoute = currentRoute
-                    )
-                }
+                BottomNavigationBar(
+                    items = bottomBarItems,
+                    navController = navController,
+                    currentRoute = currentRoute
+                )
             }
         }
     ) { innerPadding ->

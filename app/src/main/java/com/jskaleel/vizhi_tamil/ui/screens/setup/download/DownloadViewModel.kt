@@ -47,7 +47,7 @@ class DownloadViewModel @Inject constructor(
             setupUseCase.checkForModelUpdate()
                 .onSuccess { it ->
                     if (it.updateData) {
-                        downloadNewModel()
+                        downloadModel()
                     } else {
                         checkModelExists()
                     }
@@ -58,10 +58,23 @@ class DownloadViewModel @Inject constructor(
     }
 
     private suspend fun checkModelExists() {
-        downloadNewModel()
+        setupUseCase.checkModelExists().onSuccess {
+            if (it) {
+                downloadCompleted()
+            } else {
+                downloadModel()
+            }
+        }.onError { _, _ ->
+            viewModelState.update {
+                it.copy(
+                    error = true,
+                    loading = false,
+                )
+            }
+        }
     }
 
-    private fun downloadNewModel() {
+    private fun downloadModel() {
         viewModelScope.launch(Dispatchers.IO) {
             setupUseCase.downloadModel().collect { result ->
                 viewModelState.update { it.copy(loading = false) }
@@ -72,26 +85,44 @@ class DownloadViewModel @Inject constructor(
                             fileSize = progress.fileSize,
                         )
                     }
+
                     if (progress.fileCompleted) {
-                        viewModelState.update { it.copy(loading = true) }
-                        delay(800)
-                        navigation = navigate(DownloadNavigationState.DownloadCompleted)
+                        downloadCompleted()
                     }
                 }.onError { _, _ ->
-
+                    viewModelState.update {
+                        it.copy(
+                            error = true,
+                            loading = false,
+                        )
+                    }
                 }
             }
         }
+    }
+
+    private suspend fun downloadCompleted() {
+        viewModelState.update { it.copy(loading = true) }
+        delay(800)
+        navigation = navigate(DownloadNavigationState.DownloadCompleted)
+    }
+
+    fun onRetry() {
+        viewModelState.update { it.copy(loading = true, error = false) }
+        checkUpdate()
     }
 }
 
 private data class DownloadViewModelState(
     val loading: Boolean = true,
     val progress: Float = 0.1f,
-    val fileSize: String = ""
+    val fileSize: String = "",
+    val error: Boolean = false,
 ) {
     fun toUiState() = if (loading) {
         DownloadUiState.Loading
+    } else if (error) {
+        DownloadUiState.Error
     } else {
         DownloadUiState.DownloadStatus(
             progress = progress,
@@ -106,6 +137,8 @@ sealed interface DownloadUiState {
         val progress: Float,
         val fileSize: String,
     ) : DownloadUiState
+
+    data object Error : DownloadUiState
 }
 
 sealed interface DownloadNavigationState {
