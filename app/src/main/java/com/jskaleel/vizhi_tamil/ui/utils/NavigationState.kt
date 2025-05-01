@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 
 sealed class NavigationState<out T> {
     data class Navigate<T>(val data: T, var isConsumed: Boolean = false) : NavigationState<T>()
@@ -31,4 +32,12 @@ inline fun <T> NavigationState<T>.consume(crossinline block: (T) -> Unit) {
 
 inline fun <reified T> navigate(data: T) = NavigationState.Navigate(data)
 
-
+@Composable
+fun InvokeOnce(
+    block: () -> Unit
+) {
+    rememberSaveable {
+        block()
+        true
+    }
+}

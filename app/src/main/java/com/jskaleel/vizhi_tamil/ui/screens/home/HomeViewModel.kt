@@ -1,14 +1,11 @@
 package com.jskaleel.vizhi_tamil.ui.screens.home
 
-import android.text.Html
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
-import androidx.core.text.HtmlCompat
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanningResult
-import com.jskaleel.vizhi_tamil.core.model.onSuccess
 import com.jskaleel.vizhi_tamil.domain.usecase.OCRUseCase
 import com.jskaleel.vizhi_tamil.ui.utils.mutableNavigationState
 import com.jskaleel.vizhi_tamil.ui.utils.navigate
@@ -22,9 +19,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
-    private val ocrUseCase: OCRUseCase
-) : ViewModel() {
+class HomeViewModel @Inject constructor() : ViewModel() {
     var navigation by mutableNavigationState<HomeNavigationState>()
         private set
 
@@ -56,12 +51,8 @@ class HomeViewModel @Inject constructor(
             val imageUri = pages[0].imageUri
             Log.d("HomeViewModel", "handleScanResult: $imageUri")
             imageUri.path?.let { path ->
-                Log.d("HomeViewModel", "path: $path")
-                viewModelScope.launch(Dispatchers.IO) {
-                    ocrUseCase.fetchTextFromImage(imagePath = path).onSuccess {
-                        Log.d("HomeViewModel", "fetchTextFromImage: ${Html.fromHtml(it.text, Html.FROM_HTML_MODE_LEGACY)}")
-                    }
-                }
+                Log.d("HomeViewModel", "handleScanResult: $path")
+                navigation = navigate(HomeNavigationState.ImageOCRDetail(path))
             }
         }
     }
@@ -83,4 +74,5 @@ sealed interface HomeUiState {
 
 sealed interface HomeNavigationState {
     object DocumentScanner : HomeNavigationState
+    data class ImageOCRDetail(val imageUri: String) : HomeNavigationState
 }

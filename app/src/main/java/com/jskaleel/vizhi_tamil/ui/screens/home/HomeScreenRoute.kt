@@ -12,12 +12,14 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions
 import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.RESULT_FORMAT_JPEG
+import com.google.mlkit.vision.documentscanner.GmsDocumentScannerOptions.SCANNER_MODE_FULL
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanning
 import com.google.mlkit.vision.documentscanner.GmsDocumentScanningResult
 import com.jskaleel.vizhi_tamil.ui.utils.consume
 
 @Composable
 fun HomeScreenRoute(
+    imageOCRDetail: (String) -> Unit,
     viewModel: HomeViewModel
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -36,7 +38,7 @@ fun HomeScreenRoute(
         when (it) {
             HomeNavigationState.DocumentScanner -> {
                 val scannerOptions = GmsDocumentScannerOptions.Builder()
-                    .setScannerMode(GmsDocumentScannerOptions.SCANNER_MODE_FULL)
+                    .setScannerMode(SCANNER_MODE_FULL)
                     .setPageLimit(1)
                     .setGalleryImportAllowed(true)
                     .setResultFormats(RESULT_FORMAT_JPEG)
@@ -53,6 +55,10 @@ fun HomeScreenRoute(
                         Toast.makeText(context, "Scan failed: ${e.message}", Toast.LENGTH_SHORT)
                             .show()
                     }
+            }
+
+            is HomeNavigationState.ImageOCRDetail -> {
+                imageOCRDetail(it.imageUri)
             }
         }
     }

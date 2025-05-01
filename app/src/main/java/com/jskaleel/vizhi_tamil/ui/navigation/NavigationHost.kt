@@ -11,8 +11,11 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.jskaleel.vizhi_tamil.ui.screens.home.HomeScreenRoute
 import com.jskaleel.vizhi_tamil.ui.screens.home.HomeViewModel
+import com.jskaleel.vizhi_tamil.ui.screens.imageDetail.ImageOCRDetailScreenRoute
+import com.jskaleel.vizhi_tamil.ui.screens.imageDetail.ImageOCRDetailViewModel
 import com.jskaleel.vizhi_tamil.ui.screens.setup.download.DownloadScreenRoute
 import com.jskaleel.vizhi_tamil.ui.screens.setup.download.DownloadViewModel
+import com.jskaleel.vizhi_tamil.ui.utils.InvokeOnce
 
 
 @Composable
@@ -51,6 +54,9 @@ private fun NavGraphBuilder.mainNavGraph(navController: NavHostController) {
         composable(route = Screen.Home.route) {
             val viewModel: HomeViewModel = hiltViewModel()
             HomeScreenRoute(
+                imageOCRDetail = { path ->
+                    navController.navigate(Screen.ImageOCRDetail.Link.create(path))
+                },
                 viewModel = viewModel
             )
         }
@@ -58,6 +64,16 @@ private fun NavGraphBuilder.mainNavGraph(navController: NavHostController) {
             Column {
                 Text(text = Screen.About.route)
             }
+        }
+        composable(route = Screen.ImageOCRDetail.Link.link) { entry ->
+            val viewModel: ImageOCRDetailViewModel = hiltViewModel()
+            InvokeOnce {
+                val imagePath = Screen.ImageOCRDetail.Link.get(entry.arguments)
+                viewModel.setup(imagePath = imagePath)
+            }
+            ImageOCRDetailScreenRoute(
+                viewModel = viewModel
+            )
         }
     }
 }
