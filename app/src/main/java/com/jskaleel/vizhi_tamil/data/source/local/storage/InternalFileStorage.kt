@@ -6,6 +6,7 @@ import java.io.File
 interface FileStorage {
     fun saveFile(fileName: String, content: ByteArray): Result<File>
     fun getTessDataDir(): File
+    fun getOCRImageDir(): File
     fun getFilesDir(): File
 }
 
@@ -27,6 +28,12 @@ class InternalFileStorage(private val context: Context) : FileStorage {
 
     override fun getTessDataDir(): File {
         return File(context.filesDir, "tessdata").apply {
+            if (!exists()) mkdirs()
+        }
+    }
+
+    override fun getOCRImageDir(): File {
+        return File(context.filesDir, "ocr_images").apply {
             if (!exists()) mkdirs()
         }
     }

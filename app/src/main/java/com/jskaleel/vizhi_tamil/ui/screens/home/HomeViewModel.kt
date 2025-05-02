@@ -19,7 +19,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
+class HomeViewModel @Inject constructor(
+    private val ocrUseCase: OCRUseCase
+) : ViewModel() {
     var navigation by mutableNavigationState<HomeNavigationState>()
         private set
 
@@ -33,12 +35,15 @@ class HomeViewModel @Inject constructor() : ViewModel() {
         )
 
     init {
-        fetchPreviousScans()
+        updateRecentScans()
     }
 
-    private fun fetchPreviousScans() {
+    private fun updateRecentScans() {
         viewModelScope.launch(Dispatchers.IO) {
+            ocrUseCase.getRecentScans().collect { record ->
+                viewModelState.value = viewModelState.value.copy(loading = false)
 
+            }
         }
     }
 
