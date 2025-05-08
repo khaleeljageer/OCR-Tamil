@@ -40,10 +40,11 @@ class HomeViewModel @Inject constructor(
 
     private fun updateRecentScans() {
         viewModelScope.launch(Dispatchers.IO) {
-            ocrUseCase.getRecentScans().collect { record ->
-                viewModelState.value = viewModelState.value.copy(loading = false)
-
-            }
+            ocrUseCase.getRecentScans()
+                .collect { record ->
+                    viewModelState.value = viewModelState.value.copy(loading = false)
+                    Log.d("HomeViewModel", "updateRecentScans: $record")
+                }
         }
     }
 
