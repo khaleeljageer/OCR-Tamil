@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.ksp.android)
     alias(libs.plugins.hilt.android)
+    alias(libs.plugins.detekt.android)
     id("androidx.navigation.safeargs.kotlin")
     id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
 }
@@ -31,15 +32,44 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
+
     kotlinOptions {
         jvmTarget = "17"
     }
+
     buildFeatures {
         compose = true
+    }
+
+    detekt {
+        toolVersion = libs.versions.detekt.get()
+        config.setFrom(files("$rootDir/config/detekt/rules.yml"))
+        buildUponDefaultConfig = true
+
+        source.setFrom(
+            files("src/main/java", "src/main/kotlin")
+        )
+        parallel = false
+    }
+}
+
+tasks.withType<io.gitlab.arturbosch.detekt.Detekt>().configureEach {
+    reports {
+        html.required.set(true)
+        html.outputLocation.set(file("$rootDir/reports/detekt/detekt-report.html"))
+
+        xml.required.set(true)
+        xml.outputLocation.set(file("$rootDir/reports/detekt/detekt-report.xml"))
+
+        txt.required.set(false)
+
+        sarif.required.set(true)
+        sarif.outputLocation.set(file("$rootDir/reports/detekt/detekt-report.sarif"))
     }
 }
 
@@ -76,10 +106,11 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     // Kotlinx serialization
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.8.0") // Latest version
-    implementation("com.airbnb.android:lottie-compose:6.6.6")
-    implementation("io.coil-kt.coil3:coil-compose:3.1.0")
+    implementation(libs.kotlinx.serialization.json) // Latest version
+    implementation(libs.lottie.compose)
+    implementation(libs.coil.compose)
 
     // ML Kit document scanner
     implementation(libs.play.services.mlkit.document.scanner)
+    detektPlugins(libs.detekt.formatting)
 }

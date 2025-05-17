@@ -1,24 +1,28 @@
 [versions]
-agp = "8.9.2"
+agp = "8.9.3"
+coilCompose = "3.1.0"
+detektFormatting = "1.23.8"
 kotlin = "2.0.21"
 coreKtx = "1.16.0"
-lifecycleRuntimeKtx = "2.8.7"
+lifecycleRuntimeKtx = "2.9.0"
 activityCompose = "1.10.1"
-composeBom = "2025.04.01"
+composeBom = "2025.05.00"
 coreSplashscreen = "1.0.1"
 hilt = "2.56.1"
 hilt-compose = "1.2.0"
 ksp = "2.0.21-1.0.27"
 
-kotlinxCoroutinesAndroid = "1.9.0"
-navigationSafeArgsGradlePlugin = "2.8.9"
+kotlinxCoroutinesAndroid = "1.10.1"
+lottieCompose = "6.6.6"
+navigationSafeArgsGradlePlugin = "2.9.0"
 kotlinx-serialization = "1.8.0"
-navigationCompose = "2.8.9"
+navigationCompose = "2.9.0"
 roomRuntime = "2.7.1"
 tesseract4androidOpenmpVersion = "4.8.0"
-viewModelCompose = "2.8.7"
+viewModelCompose = "2.9.0"
 ktor = "3.1.2"
 playServicesMlkitDocumentScanner = "16.0.0-beta1"
+detekt ="1.23.8"
 
 [libraries]
 androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
@@ -36,13 +40,16 @@ androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-toolin
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 
+coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 cz-tesseract4android-openmp = { module = "cz.adaptech.tesseract4android:tesseract4android-openmp", version.ref = "tesseract4androidOpenmpVersion" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detektFormatting" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-compose = { group = "androidx.hilt", name = "hilt-navigation-compose", version.ref = "hilt-compose" }
 hilt-compiler = { group = "com.google.dagger", name = "hilt-compiler", version.ref = "hilt" }
 
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutinesAndroid" }
 lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "viewModelCompose" }
+lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationSafeArgsGradlePlugin" }
@@ -59,4 +66,5 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 ksp-android = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+detekt-android = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
 
