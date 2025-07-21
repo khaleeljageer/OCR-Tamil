@@ -2,6 +2,7 @@ package com.jskaleel.vizhi_tamil.ui.core
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.NavigationBarItemDefaults
@@ -11,8 +12,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.jskaleel.vizhi_tamil.ui.model.BottomBarItem
 import com.jskaleel.vizhi_tamil.ui.navigation.Route
-import com.jskaleel.vizhi_tamil.ui.theme.Cream
-import com.jskaleel.vizhi_tamil.ui.theme.RustRed
 
 @Composable
 fun BottomNavigationBar(
@@ -22,7 +21,7 @@ fun BottomNavigationBar(
 ) {
     NavigationBar(
         modifier = Modifier.fillMaxWidth(),
-        containerColor = Cream,
+        containerColor = MaterialTheme.colorScheme.background,
         tonalElevation = 6.dp
     ) {
         items.forEach { item ->
@@ -51,11 +50,11 @@ fun BottomNavigationBar(
                     }
                 },
                 colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = RustRed,
-                    selectedTextColor = RustRed,
-                    indicatorColor = Cream,
-                    unselectedIconColor = RustRed.copy(alpha = 0.6f),
-                    unselectedTextColor = RustRed.copy(alpha = 0.6f)
+                    selectedIconColor = MaterialTheme.colorScheme.primary,
+                    selectedTextColor = MaterialTheme.colorScheme.primary,
+                    indicatorColor = MaterialTheme.colorScheme.background,
+                    unselectedIconColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),
+                    unselectedTextColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
                 )
             )
         }
