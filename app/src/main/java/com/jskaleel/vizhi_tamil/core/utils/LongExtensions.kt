@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-
 @SuppressLint("DefaultLocale")
 fun Long?.sizeInMBString(): String {
     val sizeInMB = if (this != null) {

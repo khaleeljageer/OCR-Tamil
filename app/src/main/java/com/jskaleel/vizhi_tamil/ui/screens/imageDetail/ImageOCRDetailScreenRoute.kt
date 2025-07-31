@@ -3,7 +3,7 @@ package com.jskaleel.vizhi_tamil.ui.screens.imageDetail
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.jskaleel.vizhi_tamil.ui.screens.setup.download.FullScreenLoader
+import com.jskaleel.vizhi_tamil.ui.screens.common.FullScreenLoader
 
 @Composable
 fun ImageOCRDetailScreenRoute(

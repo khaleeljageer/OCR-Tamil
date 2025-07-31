@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -6,17 +8,17 @@ plugins {
     alias(libs.plugins.hilt.android)
     alias(libs.plugins.detekt.android)
     id("androidx.navigation.safeargs.kotlin")
-    id("org.jetbrains.kotlin.plugin.serialization") version "2.0.21"
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.2.0"
 }
 
 android {
     namespace = "com.jskaleel.vizhi_tamil"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.jskaleel.vizhi_tamil"
         minSdk = 24
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -38,17 +40,23 @@ android {
         targetCompatibility = JavaVersion.VERSION_17
     }
 
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.fromTarget("17")
+            freeCompilerArgs = listOf(
+                "-XXLanguage:+PropertyParamAnnotationDefaultTargetMode"
+            )
+        }
     }
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     detekt {
         toolVersion = libs.versions.detekt.get()
-        config.setFrom(files("$rootDir/config/detekt/rules.yml"))
+        config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
         buildUponDefaultConfig = true
 
         source.setFrom(
@@ -97,18 +105,16 @@ dependencies {
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
 
-    implementation(libs.ktor.client.core)
-    implementation(libs.ktor.client.android)
-    implementation(libs.ktor.client.content.negotiation)
-    implementation(libs.ktor.serialization.kotlinx.json)
-
     // Hilt
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
     // Kotlinx serialization
     implementation(libs.kotlinx.serialization.json) // Latest version
     implementation(libs.lottie.compose)
     implementation(libs.coil.compose)
+
+    implementation(libs.androidx.work.runtime.ktx)
 
     // ML Kit document scanner
     implementation(libs.play.services.mlkit.document.scanner)

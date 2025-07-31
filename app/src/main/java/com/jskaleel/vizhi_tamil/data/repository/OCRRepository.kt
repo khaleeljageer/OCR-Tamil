@@ -1,8 +1,7 @@
 package com.jskaleel.vizhi_tamil.data.repository
 
-import android.util.Log
 import com.googlecode.tesseract.android.TessBaseAPI
-import com.jskaleel.vizhi_tamil.core.model.ApiResult
+import com.jskaleel.vizhi_tamil.core.model.OCRResult
 import com.jskaleel.vizhi_tamil.core.utils.toRelativeTimeStamp
 import com.jskaleel.vizhi_tamil.data.model.ImageOCRResponseDTO
 import com.jskaleel.vizhi_tamil.data.source.local.room.dao.RecentScanDao
@@ -15,7 +14,7 @@ import java.io.File
 import javax.inject.Inject
 
 interface OCRRepository {
-    fun fetchTextFromImage(imagePath: String): ApiResult<ImageOCRResponseDTO>
+    fun fetchTextFromImage(imagePath: String): OCRResult<ImageOCRResponseDTO>
     suspend fun saveImageResult(oCR: ImageOCRResponseDTO)
     fun getRecentScans(): Flow<List<ImageOCR>>
 }
@@ -25,14 +24,12 @@ class OCRRepositoryImpl @Inject constructor(
     private val fileStorage: FileStorage,
     private val recentScanDao: RecentScanDao
 ) : OCRRepository {
-    override fun fetchTextFromImage(imagePath: String): ApiResult<ImageOCRResponseDTO> {
-        val ocrImagePath = imagePath.toFile()
+    override fun fetchTextFromImage(imagePath: String): OCRResult<ImageOCRResponseDTO> {
+        val ocrImagePath: File = imagePath.toFile()
         with(tessBaseAPI) {
-            val tessdataPath = fileStorage.getFilesDir().absolutePath
-            Log.d("OCRRepositoryImpl", "fetchTextFromImage: $tessdataPath")
-            init(tessdataPath, "tamhng+eng")
-            setPageSegMode(TessBaseAPI.PageSegMode.PSM_AUTO_OSD)
-
+            val tessDataPath = fileStorage.getFilesDir().absolutePath
+            init(tessDataPath, "tam+eng")
+            pageSegMode = TessBaseAPI.PageSegMode.PSM_AUTO_OSD
             setImage(ocrImagePath)
         }
         val imgFileDirPath = copyImageFromTempToDirectory(ocrImagePath)
@@ -45,9 +42,9 @@ class OCRRepositoryImpl @Inject constructor(
         val timeStamp = System.currentTimeMillis()
         tessBaseAPI.clear()
         return if (text.isNotEmpty()) {
-            ApiResult.Success(ImageOCRResponseDTO(text, accuracy, timeStamp, imgFileDirPath))
+            OCRResult.Success(ImageOCRResponseDTO(text, accuracy, timeStamp, imgFileDirPath))
         } else {
-            ApiResult.Error(null, "No text found")
+            OCRResult.Error(null, "No text found")
         }
     }
 

@@ -5,7 +5,6 @@ import android.os.Bundle
 import com.jskaleel.vizhi_tamil.core.utils.valueOrDefault
 
 sealed class Screen(val route: String) {
-    object Download : Screen("download")
     object Home : Screen("home")
     object About : Screen("about")
     object ImageOCRDetail : Screen("image_ocr_detail") {
@@ -24,6 +23,5 @@ sealed class Screen(val route: String) {
 }
 
 sealed class Route(val name: String) {
-    object Setup : Route("Route_Setup")
     object Main : Route("Route_Main")
 }
