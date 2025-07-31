@@ -15,6 +15,6 @@ interface RecentScanDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(item: RecentScan)
 
-    @Query("delete from recent_scan where time_stamp =:timeStamp")
+    @Query("DELETE FROM recent_scan WHERE time_stamp =:timeStamp")
     suspend fun deleteScan(timeStamp: Long)
 }

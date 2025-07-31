@@ -56,9 +56,13 @@ class LauncherViewModel @Inject constructor(
                     _loaderState.postValue(LoaderState.NONETWORK)
                 } else {
                     startDownload()
+//                    delay(timeMillis = 300)
+//                    _loaderState.postValue(LoaderState.READY)
                 }
             } else {
                 checkConfig()
+//                delay(timeMillis = 300)
+//                _loaderState.postValue(LoaderState.READY)
             }
         }
     }
@@ -67,7 +71,7 @@ class LauncherViewModel @Inject constructor(
         delay(timeMillis = 300)
         _loaderState.postValue(LoaderState.DOWNLOAD)
         while (isAllLangDownloaded()) {
-            Timber.d("isAllLangDownloaded() : " + isAllLangDownloaded())
+            Timber.d("isAllLangDownloaded() : %s", isAllLangDownloaded())
             langCode.forEach {
                 if (!it.value) {
                     initiateDownload(it)
@@ -191,7 +195,7 @@ class LauncherViewModel @Inject constructor(
         return null
     }
 
-    private fun initDirectories() {
+    private fun     initDirectories() {
         val rootPath = fileUtils.getAppFileDir()
         rootPath?.mkdirs()
     }

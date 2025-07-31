@@ -42,7 +42,7 @@ class ResultPageFragment : Fragment(R.layout.fragment_pdf_result), TessBaseAPI.P
 
     private fun initTesseract() {
         val path = fileUtils.getTessDataPath()?.absolutePath ?: ""
-        tessScanner = TessScanner(path, "eng+tam")
+        tessScanner = TessScanner(path, "tam")
     }
 
     private fun loadResultUI(output: String, accuracy: Int?) {

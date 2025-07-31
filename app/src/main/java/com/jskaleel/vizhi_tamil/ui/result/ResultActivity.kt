@@ -168,7 +168,7 @@ open class ResultActivity : AppCompatActivity() {
 
     private fun initTesseract() {
         val path = fileUtils.getTessDataPath()?.absolutePath ?: ""
-        tessScanner = TessScanner(path, "eng+tam")
+        tessScanner = TessScanner(path, "tam")
     }
 
     @SuppressLint("SetTextI18n")

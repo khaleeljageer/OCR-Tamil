@@ -1,19 +1,21 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.devtools.ksp' version '2.2.0-2.0.2'
     id 'kotlin-parcelize'
 }
 
 android {
     namespace "com.jskaleel.vizhi_tamil"
-    compileSdk 33
+    compileSdk 36
 
     defaultConfig {
         applicationId "com.jskaleel.vizhi_tamil"
         minSdk 23
-        targetSdk 33
+        targetSdk 36
         versionCode 5
         versionName "1.0.3"
         multiDexEnabled true
@@ -31,10 +33,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = '17'
-        freeCompilerArgs = ['-Xjvm-default=enable']
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.fromTarget("17")
+        }
     }
+
     buildFeatures {
         viewBinding true
     }
@@ -55,15 +59,15 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     //Tesseract4Android
-    implementation 'cz.adaptech.tesseract4android:tesseract4android:4.3.0'
+    implementation 'cz.adaptech.tesseract4android:tesseract4android:4.9.0'
     //OkHttp Client
     implementation 'com.squareup.okhttp3:okhttp:4.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.10.0'
     //Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4'
     //Hilt
-    implementation 'com.google.dagger:hilt-android:2.44.2'
-    kapt 'com.google.dagger:hilt-compiler:2.44.2'
+    implementation 'com.google.dagger:hilt-android:2.57'
+    ksp 'com.google.dagger:hilt-compiler:2.57'
     //Multidex
     implementation 'androidx.multidex:multidex:2.0.1'
     //Easy permission
@@ -72,9 +76,9 @@ dependencies {
     implementation 'androidx.core:core-splashscreen:1.0.1'
     implementation 'com.github.Drjacky:ImagePicker:2.3.22'
 
-    implementation 'androidx.room:room-runtime:2.5.2'
-    implementation 'androidx.room:room-ktx:2.5.2'
-    kapt 'androidx.room:room-compiler:2.5.2'
+    implementation 'androidx.room:room-runtime:2.7.2'
+    implementation 'androidx.room:room-ktx:2.7.2'
+    ksp 'androidx.room:room-compiler:2.7.2'
     implementation 'io.coil-kt:coil:2.2.2'
 
     implementation 'com.anggrayudi:storage:1.5.5'
@@ -93,14 +97,4 @@ if (!appBuildType.contains(fdroidBuild)) {
         implementation 'com.google.firebase:firebase-crashlytics-ktx'
         implementation 'com.google.android.play:core-ktx:1.8.1'
     }
-}
-
-kapt {
-    javacOptions {
-        // These options are normally set automatically via the Hilt Gradle plugin, but we
-        // set them manually to workaround a bug in the Kotlin 1.5.20
-        option("-Adagger.fastInit=ENABLED")
-        option("-Adagger.hilt.android.internal.disableAndroidSuperclassValidation=true")
-    }
-    correctErrorTypes true
 }

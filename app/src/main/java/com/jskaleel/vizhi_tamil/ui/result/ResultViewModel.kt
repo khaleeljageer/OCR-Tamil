@@ -96,7 +96,7 @@ class ResultViewModel @Inject constructor(
             val pdfDocument: PDDocument = PDDocument.load(pdf)
             val pdfRenderer = PDFRenderer(pdfDocument)
             Timber.tag("Khaleel").d("pdfPage Initiated: $pageIndex")
-            val tessScanner = TessScanner(scannerPath, "eng+tam")
+            val tessScanner = TessScanner(scannerPath, "tam")
             val bitmap = pdfRenderer.renderImageWithDPI(pageIndex, 300f)
             tessScanner.clearLastImage()
             val output = tessScanner.getTextFromImage(bitmap)
