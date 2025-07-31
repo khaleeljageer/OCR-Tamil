@@ -24,14 +24,16 @@ class OCRRepositoryImpl @Inject constructor(
     private val fileStorage: FileStorage,
     private val recentScanDao: RecentScanDao
 ) : OCRRepository {
+
+    init {
+        val tessDataPath = fileStorage.getFilesDir().absolutePath
+        tessBaseAPI.init(tessDataPath, "tam+eng")
+        tessBaseAPI.pageSegMode = TessBaseAPI.PageSegMode.PSM_AUTO_OSD
+    }
+
     override fun fetchTextFromImage(imagePath: String): OCRResult<ImageOCRResponseDTO> {
         val ocrImagePath: File = imagePath.toFile()
-        with(tessBaseAPI) {
-            val tessDataPath = fileStorage.getFilesDir().absolutePath
-            init(tessDataPath, "tam+eng")
-            pageSegMode = TessBaseAPI.PageSegMode.PSM_AUTO_OSD
-            setImage(ocrImagePath)
-        }
+        tessBaseAPI.setImage(ocrImagePath)
         val imgFileDirPath = copyImageFromTempToDirectory(ocrImagePath)
         val text = try {
             tessBaseAPI.getHOCRText(1)
