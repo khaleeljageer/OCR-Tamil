@@ -195,7 +195,7 @@ class LauncherViewModel @Inject constructor(
         return null
     }
 
-    private fun     initDirectories() {
+    private fun initDirectories() {
         val rootPath = fileUtils.getAppFileDir()
         rootPath?.mkdirs()
     }

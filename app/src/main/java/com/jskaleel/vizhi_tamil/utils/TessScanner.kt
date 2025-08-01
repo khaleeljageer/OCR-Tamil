@@ -12,6 +12,7 @@ class TessScanner constructor(
 
     init {
         tessBaseAPI.init(tessDataPath, tessLang)
+        tessBaseAPI.pageSegMode = TessBaseAPI.PageSegMode.PSM_SINGLE_BLOCK
     }
 
     fun getTextFromImage(bitmap: Bitmap?): String {
