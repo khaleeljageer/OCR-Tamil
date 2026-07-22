@@ -25,4 +25,34 @@
     <!-- Detail -->
     <string name="detail_title">Scan</string>
     <string name="detail_copied">Copied to clipboard</string>
+    <string name="action_export">Export</string>
+    <string name="detail_export_failed">Export failed</string>
+
+    <!-- Settings -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_theme">Appearance</string>
+    <string name="settings_theme_system">Follow system</string>
+    <string name="settings_theme_light">Light</string>
+    <string name="settings_theme_dark">Dark</string>
+    <string name="settings_language">OCR language</string>
+    <string name="settings_language_tamil">Tamil</string>
+    <string name="settings_language_english">English</string>
+    <string name="settings_language_both">Tamil + English</string>
+    <string name="settings_psm">Page segmentation</string>
+    <string name="settings_psm_auto_osd">Automatic (with orientation)</string>
+    <string name="settings_psm_auto">Automatic</string>
+    <string name="settings_psm_single_block">Single block of text</string>
+    <string name="settings_psm_single_line">Single line</string>
+    <string name="settings_export">Default export format</string>
+    <string name="settings_export_txt">Plain text (.txt)</string>
+    <string name="settings_export_pdf">PDF (.pdf)</string>
+
+    <!-- About -->
+    <string name="about_title">About</string>
+    <string name="about_version">Version %1$s</string>
+    <string name="about_tagline">Tesseract-based Tamil OCR</string>
+    <string name="about_privacy">Privacy policy</string>
+    <string name="about_terms">Terms &amp; conditions</string>
+    <string name="about_support">Support the project ☕</string>
+    <string name="about_rate">Rate on Google Play</string>
 </resources>

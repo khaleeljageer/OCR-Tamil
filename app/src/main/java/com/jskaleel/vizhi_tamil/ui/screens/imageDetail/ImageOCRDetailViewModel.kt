@@ -1,9 +1,12 @@
 package com.jskaleel.vizhi_tamil.ui.screens.imageDetail
 
+import android.net.Uri
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.toRoute
+import com.jskaleel.vizhi_tamil.core.export.ScanExporter
+import com.jskaleel.vizhi_tamil.data.repository.SettingsRepository
 import com.jskaleel.vizhi_tamil.domain.model.ImageOCR
 import com.jskaleel.vizhi_tamil.domain.usecase.OCRUseCase
 import com.jskaleel.vizhi_tamil.ui.navigation.AppRoute
@@ -12,6 +15,7 @@ import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -20,6 +24,8 @@ import javax.inject.Inject
 class ImageOCRDetailViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     private val ocrUseCase: OCRUseCase,
+    private val settingsRepository: SettingsRepository,
+    private val scanExporter: ScanExporter,
 ) : ViewModel() {
 
     private val scanId = savedStateHandle.toRoute<AppRoute.ImageOcrDetail>().scanId
@@ -71,6 +77,16 @@ class ImageOCRDetailViewModel @Inject constructor(
         }
     }
 
+    fun onExport() {
+        val current = _uiState.value as? ImageOCRDetailUiState.Content ?: return
+        viewModelScope.launch {
+            val format = settingsRepository.settings.first().exportFormat
+            scanExporter.export(current.scan, format)
+                .onSuccess { uri -> _events.send(DetailEvent.Share(uri, format.mimeType)) }
+                .onFailure { _events.send(DetailEvent.ExportFailed) }
+        }
+    }
+
     private inline fun updateContent(block: (ImageOCRDetailUiState.Content) -> ImageOCRDetailUiState.Content) {
         (_uiState.value as? ImageOCRDetailUiState.Content)?.let { _uiState.value = block(it) }
     }
@@ -84,4 +100,6 @@ sealed interface ImageOCRDetailUiState {
 
 sealed interface DetailEvent {
     data object Deleted : DetailEvent
+    data class Share(val uri: Uri, val mimeType: String) : DetailEvent
+    data object ExportFailed : DetailEvent
 }

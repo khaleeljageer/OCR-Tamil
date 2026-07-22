@@ -7,4 +7,5 @@ data class DetailCallbacks(
     val onCancelEdit: () -> Unit = {},
     val onSave: (String) -> Unit = {},
     val onDelete: () -> Unit = {},
+    val onExport: () -> Unit = {},
 )

@@ -5,9 +5,12 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.jskaleel.vizhi_tamil.ui.screens.about.AboutScreen
+import androidx.navigation.toRoute
+import com.jskaleel.vizhi_tamil.ui.screens.about.AboutScreenRoute
+import com.jskaleel.vizhi_tamil.ui.screens.about.LegalDocScreen
 import com.jskaleel.vizhi_tamil.ui.screens.home.HomeScreenRoute
 import com.jskaleel.vizhi_tamil.ui.screens.imageDetail.ImageOCRDetailScreenRoute
+import com.jskaleel.vizhi_tamil.ui.screens.settings.SettingsScreenRoute
 
 @Composable
 fun NavigationHost(
@@ -26,8 +29,23 @@ fun NavigationHost(
                 },
             )
         }
+        composable<AppRoute.Settings> {
+            SettingsScreenRoute()
+        }
         composable<AppRoute.About> {
-            AboutScreen()
+            AboutScreenRoute(
+                onOpenLegal = { asset, title ->
+                    navController.navigate(AppRoute.LegalDoc(asset, title))
+                },
+            )
+        }
+        composable<AppRoute.LegalDoc> { entry ->
+            val route = entry.toRoute<AppRoute.LegalDoc>()
+            LegalDocScreen(
+                title = route.title,
+                assetFile = route.asset,
+                onBack = { navController.popBackStack() },
+            )
         }
         composable<AppRoute.ImageOcrDetail> {
             // The ViewModel reads its scanId argument from SavedStateHandle.

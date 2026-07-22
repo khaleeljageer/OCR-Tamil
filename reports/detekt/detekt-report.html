@@ -157,11 +157,11 @@
 
 <div>
   <ul>
-    <li>156 number of properties</li>
-    <li>122 number of functions</li>
-    <li>43 number of classes</li>
-    <li>24 number of packages</li>
-    <li>45 number of kt files</li>
+    <li>193 number of properties</li>
+    <li>160 number of functions</li>
+    <li>67 number of classes</li>
+    <li>26 number of packages</li>
+    <li>52 number of kt files</li>
   </ul>
 </div>
 
@@ -170,22 +170,22 @@
 
 <div>
   <ul>
-    <li>2,629 lines of code (loc)</li>
-    <li>2,274 source lines of code (sloc)</li>
-    <li>1,494 logical lines of code (lloc)</li>
-    <li>80 comment lines of code (cloc)</li>
-    <li>221 cyclomatic complexity (mcc)</li>
-    <li>135 cognitive complexity</li>
-    <li>246 number of total code smells</li>
-    <li>3% comment source ratio</li>
-    <li>147 mcc per 1,000 lloc</li>
-    <li>164 code smells per 1,000 lloc</li>
+    <li>3,321 lines of code (loc)</li>
+    <li>2,897 source lines of code (sloc)</li>
+    <li>1,899 logical lines of code (lloc)</li>
+    <li>84 comment lines of code (cloc)</li>
+    <li>294 cyclomatic complexity (mcc)</li>
+    <li>146 cognitive complexity</li>
+    <li>266 number of total code smells</li>
+    <li>2% comment source ratio</li>
+    <li>154 mcc per 1,000 lloc</li>
+    <li>140 code smells per 1,000 lloc</li>
   </ul>
 </div>
 
 
 <h2>Findings</h2>
-<div>Total: 246
+<div>Total: 266
   <h3>exceptions: 2</h3>
   <details id="TooGenericExceptionCaught" open="open">
     <summary class="rule-container"><span class="rule">TooGenericExceptionCaught: 2 </span><span class="description">The caught exception is too generic. Prefer catching specific exceptions to the case that is currently handled.</span></summary>
@@ -213,19 +213,19 @@
       </li>
     </ul>
   </details>
-  <h3>formatting: 65</h3>
+  <h3>formatting: 71</h3>
   <details id="ArgumentListWrapping" open="open">
     <summary class="rule-container"><span class="rule">ArgumentListWrapping: 1 </span><span class="description">Reports incorrect argument list wrapping</span></summary>
 <a href="https://detekt.dev/docs/rules/formatting#argumentlistwrapping">Documentation</a>
     <ul>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:94:28</span><span class="message">Argument should be on a separate line (unless all arguments can fit a single line)</span>
-        <pre><code><span class="lineno">  91 </span>
-<span class="lineno">  92 </span>
-<span class="lineno">  93 </span>@Preview(
-<span class="lineno">  94 </span>    showBackground = true, <span class="error">s</span>howSystemUi = true,
-<span class="lineno">  95 </span>    device = &quot;spec:parent=resizable,navigation=buttons&quot;
-<span class="lineno">  96 </span>)
-<span class="lineno">  97 </span>@Composable
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:115:28</span><span class="message">Argument should be on a separate line (unless all arguments can fit a single line)</span>
+        <pre><code><span class="lineno"> 112 </span>
+<span class="lineno"> 113 </span>
+<span class="lineno"> 114 </span>@Preview(
+<span class="lineno"> 115 </span>    showBackground = true, <span class="error">s</span>howSystemUi = true,
+<span class="lineno"> 116 </span>    device = &quot;spec:parent=resizable,navigation=buttons&quot;
+<span class="lineno"> 117 </span>)
+<span class="lineno"> 118 </span>@Composable
 </code></pre>
       </li>
     </ul>
@@ -277,7 +277,7 @@
         <pre><code><span class="lineno">   1 </span><span class="error">p</span>ackage com.jskaleel.vizhi_tamil.data.di
 <span class="lineno">   2 </span>
 <span class="lineno">   3 </span>import android.content.Context
-<span class="lineno">   4 </span>import androidx.room.Room
+<span class="lineno">   4 </span>import androidx.datastore.core.DataStore
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/RepositoryModule.kt:1:1</span><span class="message">File must end with a newline (\n)</span>
@@ -353,19 +353,9 @@
     </ul>
   </details>
   <details id="NoConsecutiveBlankLines" open="open">
-    <summary class="rule-container"><span class="rule">NoConsecutiveBlankLines: 3 </span><span class="description">Reports consecutive blank lines</span></summary>
+    <summary class="rule-container"><span class="rule">NoConsecutiveBlankLines: 2 </span><span class="description">Reports consecutive blank lines</span></summary>
 <a href="https://detekt.dev/docs/rules/formatting#noconsecutiveblanklines">Documentation</a>
     <ul>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/AppModule.kt:17:1</span><span class="message">Needless blank line(s)</span>
-        <pre><code><span class="lineno">  14 </span>import dagger.hilt.components.SingletonComponent
-<span class="lineno">  15 </span>import javax.inject.Singleton
-<span class="lineno">  16 </span>
-<span class="lineno">  17 </span><span class="error"></span>
-<span class="lineno">  18 </span>@Module
-<span class="lineno">  19 </span>@InstallIn(SingletonComponent::class)
-<span class="lineno">  20 </span>class AppModule {
-</code></pre>
-      </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/model/ConfigResponseDTO.kt:6:1</span><span class="message">Needless blank line(s)</span>
         <pre><code><span class="lineno">   3 </span>import kotlinx.serialization.SerialName
 <span class="lineno">   4 </span>import kotlinx.serialization.Serializable
@@ -376,20 +366,20 @@
 <span class="lineno">   9 </span>    @SerialName(&quot;update_data&quot;)
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:92:1</span><span class="message">Needless blank line(s)</span>
-        <pre><code><span class="lineno">  89 </span>    }
-<span class="lineno">  90 </span>}
-<span class="lineno">  91 </span>
-<span class="lineno">  92 </span><span class="error"></span>
-<span class="lineno">  93 </span>@Preview(
-<span class="lineno">  94 </span>    showBackground = true, showSystemUi = true,
-<span class="lineno">  95 </span>    device = &quot;spec:parent=resizable,navigation=buttons&quot;
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:113:1</span><span class="message">Needless blank line(s)</span>
+        <pre><code><span class="lineno"> 110 </span>    }
+<span class="lineno"> 111 </span>}
+<span class="lineno"> 112 </span>
+<span class="lineno"> 113 </span><span class="error"></span>
+<span class="lineno"> 114 </span>@Preview(
+<span class="lineno"> 115 </span>    showBackground = true, showSystemUi = true,
+<span class="lineno"> 116 </span>    device = &quot;spec:parent=resizable,navigation=buttons&quot;
 </code></pre>
       </li>
     </ul>
   </details>
   <details id="PackageName" open="open">
-    <summary class="rule-container"><span class="rule">PackageName: 45 </span><span class="description">Checks package name is formatted correctly</span></summary>
+    <summary class="rule-container"><span class="rule">PackageName: 52 </span><span class="description">Checks package name is formatted correctly</span></summary>
 <a href="https://detekt.dev/docs/rules/formatting#packagename">Documentation</a>
     <ul>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/VizhiTamilApp.kt:1:9</span><span class="message">Package name must not contain underscore</span>
@@ -397,6 +387,13 @@
 <span class="lineno">   2 </span>
 <span class="lineno">   3 </span>import android.app.Application
 <span class="lineno">   4 </span>import com.jskaleel.vizhi_tamil.core.ocr.TrainedDataManager
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/export/ScanExporter.kt:1:9</span><span class="message">Package name must not contain underscore</span>
+        <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.core.export
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import android.content.Context
+<span class="lineno">   4 </span>import android.graphics.Color
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/model/ApiResultMapper.kt:1:9</span><span class="message">Package name must not contain underscore</span>
@@ -465,7 +462,7 @@
         <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.data.di
 <span class="lineno">   2 </span>
 <span class="lineno">   3 </span>import android.content.Context
-<span class="lineno">   4 </span>import androidx.room.Room
+<span class="lineno">   4 </span>import androidx.datastore.core.DataStore
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/RepositoryModule.kt:1:9</span><span class="message">Package name must not contain underscore</span>
@@ -494,6 +491,13 @@
 <span class="lineno">   2 </span>
 <span class="lineno">   3 </span>import com.googlecode.tesseract.android.TessBaseAPI
 <span class="lineno">   4 </span>import com.jskaleel.vizhi_tamil.core.model.OCRResult
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/repository/SettingsRepository.kt:1:9</span><span class="message">Package name must not contain underscore</span>
+        <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.data.repository
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import androidx.datastore.core.DataStore
+<span class="lineno">   4 </span>import androidx.datastore.preferences.core.Preferences
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/room/VizhiTamilDatabase.kt:1:9</span><span class="message">Package name must not contain underscore</span>
@@ -536,6 +540,13 @@
 <span class="lineno">   2 </span>
 <span class="lineno">   3 </span>import com.jskaleel.vizhi_tamil.core.model.ApiResultMapper
 <span class="lineno">   4 </span>import com.jskaleel.vizhi_tamil.data.model.ConfigResponseDTO
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/model/AppSettings.kt:1:9</span><span class="message">Package name must not contain underscore</span>
+        <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.domain.model
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>data class AppSettings(
+<span class="lineno">   4 </span>    val themeMode: ThemeMode = ThemeMode.SYSTEM,
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/model/DownloadProgress.kt:1:9</span><span class="message">Package name must not contain underscore</span>
@@ -618,8 +629,15 @@
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt:1:9</span><span class="message">Package name must not contain underscore</span>
         <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.ui.screens.about
 <span class="lineno">   2 </span>
-<span class="lineno">   3 </span>import androidx.compose.foundation.layout.Arrangement
-<span class="lineno">   4 </span>import androidx.compose.foundation.layout.Column
+<span class="lineno">   3 </span>import android.content.ActivityNotFoundException
+<span class="lineno">   4 </span>import android.content.Context
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/LegalDocScreen.kt:1:9</span><span class="message">Package name must not contain underscore</span>
+        <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.ui.screens.about
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import android.webkit.WebView
+<span class="lineno">   4 </span>import androidx.compose.foundation.layout.fillMaxSize
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:1:9</span><span class="message">Package name must not contain underscore</span>
@@ -627,6 +645,13 @@
 <span class="lineno">   2 </span>
 <span class="lineno">   3 </span>import android.graphics.Color
 <span class="lineno">   4 </span>import android.os.Bundle
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainViewModel.kt:1:9</span><span class="message">Package name must not contain underscore</span>
+        <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.ui.screens.activity
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import androidx.lifecycle.ViewModel
+<span class="lineno">   4 </span>import androidx.lifecycle.viewModelScope
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeCallbacks.kt:1:9</span><span class="message">Package name must not contain underscore</span>
@@ -667,8 +692,8 @@
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreenRoute.kt:1:9</span><span class="message">Package name must not contain underscore</span>
         <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.ui.screens.imageDetail
 <span class="lineno">   2 </span>
-<span class="lineno">   3 </span>import androidx.compose.runtime.Composable
-<span class="lineno">   4 </span>import androidx.compose.runtime.LaunchedEffect
+<span class="lineno">   3 </span>import android.content.Context
+<span class="lineno">   4 </span>import android.content.Intent
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt:1:9</span><span class="message">Package name must not contain underscore</span>
@@ -681,8 +706,22 @@
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailViewModel.kt:1:9</span><span class="message">Package name must not contain underscore</span>
         <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.ui.screens.imageDetail
 <span class="lineno">   2 </span>
-<span class="lineno">   3 </span>import androidx.lifecycle.SavedStateHandle
-<span class="lineno">   4 </span>import androidx.lifecycle.ViewModel
+<span class="lineno">   3 </span>import android.net.Uri
+<span class="lineno">   4 </span>import androidx.lifecycle.SavedStateHandle
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/settings/SettingsScreen.kt:1:9</span><span class="message">Package name must not contain underscore</span>
+        <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.ui.screens.settings
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import androidx.compose.foundation.layout.Column
+<span class="lineno">   4 </span>import androidx.compose.foundation.layout.Row
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/settings/SettingsViewModel.kt:1:9</span><span class="message">Package name must not contain underscore</span>
+        <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.ui.screens.settings
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import androidx.lifecycle.ViewModel
+<span class="lineno">   4 </span>import androidx.lifecycle.viewModelScope
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/theme/Color.kt:1:9</span><span class="message">Package name must not contain underscore</span>
@@ -708,9 +747,9 @@
       </li>
     </ul>
   </details>
-  <h3>naming: 77</h3>
+  <h3>naming: 92</h3>
   <details id="FunctionNaming" open="open">
-    <summary class="rule-container"><span class="rule">FunctionNaming: 32 </span><span class="description">Function names should follow the naming convention set in the configuration.</span></summary>
+    <summary class="rule-container"><span class="rule">FunctionNaming: 40 </span><span class="description">Function names should follow the naming convention set in the configuration.</span></summary>
 <a href="https://detekt.dev/docs/rules/naming#functionnaming">Documentation</a>
     <ul>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/components/ConfidenceBadge.kt:36:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
@@ -803,54 +842,84 @@
 <span class="lineno">  23 </span>    currentDestination: NavDestination?,
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/NavigationHost.kt:13:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno">  10 </span>import com.jskaleel.vizhi_tamil.ui.screens.imageDetail.ImageOCRDetailScreenRoute
-<span class="lineno">  11 </span>
-<span class="lineno">  12 </span>@Composable
-<span class="lineno">  13 </span>fun <span class="error">NavigationHost</span>(
-<span class="lineno">  14 </span>    navController: NavHostController,
-<span class="lineno">  15 </span>    modifier: Modifier = Modifier,
-<span class="lineno">  16 </span>) {
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/NavigationHost.kt:16:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno">  13 </span>import com.jskaleel.vizhi_tamil.ui.screens.settings.SettingsScreenRoute
+<span class="lineno">  14 </span>
+<span class="lineno">  15 </span>@Composable
+<span class="lineno">  16 </span>fun <span class="error">NavigationHost</span>(
+<span class="lineno">  17 </span>    navController: NavHostController,
+<span class="lineno">  18 </span>    modifier: Modifier = Modifier,
+<span class="lineno">  19 </span>) {
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt:23:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno">  20 </span> * terms, licenses and the support link.
-<span class="lineno">  21 </span> */
-<span class="lineno">  22 </span>@Composable
-<span class="lineno">  23 </span>fun <span class="error">AboutScreen</span>(modifier: Modifier = Modifier) {
-<span class="lineno">  24 </span>    Column(
-<span class="lineno">  25 </span>        modifier = modifier
-<span class="lineno">  26 </span>            .fillMaxSize()
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt:35:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno">  32 </span>import com.jskaleel.vizhi_tamil.R
+<span class="lineno">  33 </span>
+<span class="lineno">  34 </span>@Composable
+<span class="lineno">  35 </span>fun <span class="error">AboutScreenRoute</span>(
+<span class="lineno">  36 </span>    onOpenLegal: (asset: String, title: String) -&gt; Unit,
+<span class="lineno">  37 </span>) {
+<span class="lineno">  38 </span>    val context = LocalContext.current
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt:41:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno">  38 </span>
-<span class="lineno">  39 </span>@Preview(showBackground = true)
-<span class="lineno">  40 </span>@Composable
-<span class="lineno">  41 </span>private fun <span class="error">AboutScreenPreview</span>() {
-<span class="lineno">  42 </span>    VizhiTamilTheme {
-<span class="lineno">  43 </span>        AboutScreen()
-<span class="lineno">  44 </span>    }
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt:53:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno">  50 </span>
+<span class="lineno">  51 </span>@OptIn(ExperimentalMaterial3Api::class)
+<span class="lineno">  52 </span>@Composable
+<span class="lineno">  53 </span>fun <span class="error">AboutScreen</span>(
+<span class="lineno">  54 </span>    onOpenPrivacy: () -&gt; Unit,
+<span class="lineno">  55 </span>    onOpenTerms: () -&gt; Unit,
+<span class="lineno">  56 </span>    onSupport: () -&gt; Unit,
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:50:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno">  47 </span>}
-<span class="lineno">  48 </span>
-<span class="lineno">  49 </span>@Composable
-<span class="lineno">  50 </span>fun <span class="error">MainNavigation</span>() {
-<span class="lineno">  51 </span>    val navController = rememberNavController()
-<span class="lineno">  52 </span>    val navBackStackEntry by navController.currentBackStackEntryAsState()
-<span class="lineno">  53 </span>    val currentDestination = navBackStackEntry?.destination
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt:79:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno">  76 </span>}
+<span class="lineno">  77 </span>
+<span class="lineno">  78 </span>@Composable
+<span class="lineno">  79 </span>private fun <span class="error">Header</span>() {
+<span class="lineno">  80 </span>    Column(
+<span class="lineno">  81 </span>        modifier = Modifier
+<span class="lineno">  82 </span>            .fillMaxWidth()
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:98:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno">  95 </span>    device = &quot;spec:parent=resizable,navigation=buttons&quot;
-<span class="lineno">  96 </span>)
-<span class="lineno">  97 </span>@Composable
-<span class="lineno">  98 </span>fun <span class="error">GreetingPreview</span>() {
-<span class="lineno">  99 </span>    VizhiTamilTheme {
-<span class="lineno"> 100 </span>        MainNavigation()
-<span class="lineno"> 101 </span>    }
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt:109:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 106 </span>}
+<span class="lineno"> 107 </span>
+<span class="lineno"> 108 </span>@Composable
+<span class="lineno"> 109 </span>private fun <span class="error">LinkRow</span>(text: String, onClick: () -&gt; Unit) {
+<span class="lineno"> 110 </span>    Text(
+<span class="lineno"> 111 </span>        text = text,
+<span class="lineno"> 112 </span>        style = MaterialTheme.typography.bodyLarge,
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/LegalDocScreen.kt:22:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno">  19 </span>
+<span class="lineno">  20 </span>@OptIn(ExperimentalMaterial3Api::class)
+<span class="lineno">  21 </span>@Composable
+<span class="lineno">  22 </span>fun <span class="error">LegalDocScreen</span>(
+<span class="lineno">  23 </span>    title: String,
+<span class="lineno">  24 </span>    assetFile: String,
+<span class="lineno">  25 </span>    onBack: () -&gt; Unit,
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:66:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno">  63 </span>}
+<span class="lineno">  64 </span>
+<span class="lineno">  65 </span>@Composable
+<span class="lineno">  66 </span>fun <span class="error">MainNavigation</span>() {
+<span class="lineno">  67 </span>    val navController = rememberNavController()
+<span class="lineno">  68 </span>    val navBackStackEntry by navController.currentBackStackEntryAsState()
+<span class="lineno">  69 </span>    val currentDestination = navBackStackEntry?.destination
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:119:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 116 </span>    device = &quot;spec:parent=resizable,navigation=buttons&quot;
+<span class="lineno"> 117 </span>)
+<span class="lineno"> 118 </span>@Composable
+<span class="lineno"> 119 </span>fun <span class="error">GreetingPreview</span>() {
+<span class="lineno"> 120 </span>    VizhiTamilTheme {
+<span class="lineno"> 121 </span>        MainNavigation()
+<span class="lineno"> 122 </span>    }
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreenRoute.kt:24:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
@@ -963,14 +1032,14 @@
 <span class="lineno"> 357 </span>            uiState = HomeUiState.Content(
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreenRoute.kt:12:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno">   9 </span>import com.jskaleel.vizhi_tamil.ui.components.LoadingIndicator
-<span class="lineno">  10 </span>
-<span class="lineno">  11 </span>@Composable
-<span class="lineno">  12 </span>fun <span class="error">ImageOCRDetailScreenRoute</span>(
-<span class="lineno">  13 </span>    onBack: () -&gt; Unit,
-<span class="lineno">  14 </span>    viewModel: ImageOCRDetailViewModel = hiltViewModel(),
-<span class="lineno">  15 </span>) {
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreenRoute.kt:18:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno">  15 </span>import com.jskaleel.vizhi_tamil.ui.components.LoadingIndicator
+<span class="lineno">  16 </span>
+<span class="lineno">  17 </span>@Composable
+<span class="lineno">  18 </span>fun <span class="error">ImageOCRDetailScreenRoute</span>(
+<span class="lineno">  19 </span>    onBack: () -&gt; Unit,
+<span class="lineno">  20 </span>    viewModel: ImageOCRDetailViewModel = hiltViewModel(),
+<span class="lineno">  21 </span>) {
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt:59:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
@@ -983,44 +1052,94 @@
 <span class="lineno">  62 </span>) {
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt:122:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno"> 119 </span>
-<span class="lineno"> 120 </span>@OptIn(ExperimentalMaterial3Api::class)
-<span class="lineno"> 121 </span>@Composable
-<span class="lineno"> 122 </span>private fun <span class="error">DetailTopBar</span>(
-<span class="lineno"> 123 </span>    isEditing: Boolean,
-<span class="lineno"> 124 </span>    onBack: () -&gt; Unit,
-<span class="lineno"> 125 </span>    onSave: () -&gt; Unit,
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt:123:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 120 </span>
+<span class="lineno"> 121 </span>@OptIn(ExperimentalMaterial3Api::class)
+<span class="lineno"> 122 </span>@Composable
+<span class="lineno"> 123 </span>private fun <span class="error">DetailTopBar</span>(
+<span class="lineno"> 124 </span>    isEditing: Boolean,
+<span class="lineno"> 125 </span>    onBack: () -&gt; Unit,
+<span class="lineno"> 126 </span>    onSave: () -&gt; Unit,
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt:161:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno"> 158 </span>}
-<span class="lineno"> 159 </span>
-<span class="lineno"> 160 </span>@Composable
-<span class="lineno"> 161 </span>private fun <span class="error">ScanImage</span>(imagePath: String) {
-<span class="lineno"> 162 </span>    val context = LocalContext.current
-<span class="lineno"> 163 </span>    AsyncImage(
-<span class="lineno"> 164 </span>        model = ImageRequest.Builder(context)
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt:162:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 159 </span>}
+<span class="lineno"> 160 </span>
+<span class="lineno"> 161 </span>@Composable
+<span class="lineno"> 162 </span>private fun <span class="error">ScanImage</span>(imagePath: String) {
+<span class="lineno"> 163 </span>    val context = LocalContext.current
+<span class="lineno"> 164 </span>    AsyncImage(
+<span class="lineno"> 165 </span>        model = ImageRequest.Builder(context)
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt:178:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno"> 175 </span>}
-<span class="lineno"> 176 </span>
-<span class="lineno"> 177 </span>@Composable
-<span class="lineno"> 178 </span>private fun <span class="error">MetaRow</span>(scan: ImageOCR) {
-<span class="lineno"> 179 </span>    Row(verticalAlignment = Alignment.CenterVertically) {
-<span class="lineno"> 180 </span>        ConfidenceBadge(accuracy = scan.accuracy)
-<span class="lineno"> 181 </span>        Spacer(Modifier.width(8.dp))
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt:179:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 176 </span>}
+<span class="lineno"> 177 </span>
+<span class="lineno"> 178 </span>@Composable
+<span class="lineno"> 179 </span>private fun <span class="error">MetaRow</span>(scan: ImageOCR) {
+<span class="lineno"> 180 </span>    Row(verticalAlignment = Alignment.CenterVertically) {
+<span class="lineno"> 181 </span>        ConfidenceBadge(accuracy = scan.accuracy)
+<span class="lineno"> 182 </span>        Spacer(Modifier.width(8.dp))
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt:191:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno"> 188 </span>}
-<span class="lineno"> 189 </span>
-<span class="lineno"> 190 </span>@Composable
-<span class="lineno"> 191 </span>private fun <span class="error">DetailActionsMenu</span>(
-<span class="lineno"> 192 </span>    onCopy: () -&gt; Unit,
-<span class="lineno"> 193 </span>    onShare: () -&gt; Unit,
-<span class="lineno"> 194 </span>    onEdit: () -&gt; Unit,
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt:192:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 189 </span>}
+<span class="lineno"> 190 </span>
+<span class="lineno"> 191 </span>@Composable
+<span class="lineno"> 192 </span>private fun <span class="error">DetailActionsMenu</span>(
+<span class="lineno"> 193 </span>    onCopy: () -&gt; Unit,
+<span class="lineno"> 194 </span>    onShare: () -&gt; Unit,
+<span class="lineno"> 195 </span>    onExport: () -&gt; Unit,
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt:221:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 218 </span>}
+<span class="lineno"> 219 </span>
+<span class="lineno"> 220 </span>@Composable
+<span class="lineno"> 221 </span>private fun <span class="error">MenuAction</span>(labelRes: Int, onClick: () -&gt; Unit) {
+<span class="lineno"> 222 </span>    DropdownMenuItem(
+<span class="lineno"> 223 </span>        text = { Text(stringResource(labelRes)) },
+<span class="lineno"> 224 </span>        onClick = onClick,
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/settings/SettingsScreen.kt:33:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno">  30 </span>import com.jskaleel.vizhi_tamil.domain.model.ThemeMode
+<span class="lineno">  31 </span>
+<span class="lineno">  32 </span>@Composable
+<span class="lineno">  33 </span>fun <span class="error">SettingsScreenRoute</span>(
+<span class="lineno">  34 </span>    viewModel: SettingsViewModel = hiltViewModel(),
+<span class="lineno">  35 </span>) {
+<span class="lineno">  36 </span>    val settings by viewModel.uiState.collectAsStateWithLifecycle()
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/settings/SettingsScreen.kt:48:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno">  45 </span>
+<span class="lineno">  46 </span>@OptIn(ExperimentalMaterial3Api::class)
+<span class="lineno">  47 </span>@Composable
+<span class="lineno">  48 </span>fun <span class="error">SettingsScreen</span>(
+<span class="lineno">  49 </span>    settings: AppSettings,
+<span class="lineno">  50 </span>    onThemeChange: (ThemeMode) -&gt; Unit,
+<span class="lineno">  51 </span>    onLanguageChange: (OcrLanguage) -&gt; Unit,
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/settings/SettingsScreen.kt:99:17</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno">  96 </span>}
+<span class="lineno">  97 </span>
+<span class="lineno">  98 </span>@Composable
+<span class="lineno">  99 </span>private fun &lt;T&gt; <span class="error">SettingSection</span>(
+<span class="lineno"> 100 </span>    title: String,
+<span class="lineno"> 101 </span>    options: List&lt;T&gt;,
+<span class="lineno"> 102 </span>    selected: T,
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/settings/SettingsScreen.kt:124:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 121 </span>}
+<span class="lineno"> 122 </span>
+<span class="lineno"> 123 </span>@Composable
+<span class="lineno"> 124 </span>private fun <span class="error">OptionRow</span>(
+<span class="lineno"> 125 </span>    text: String,
+<span class="lineno"> 126 </span>    selected: Boolean,
+<span class="lineno"> 127 </span>    onClick: () -&gt; Unit,
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/theme/Theme.kt:70:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
@@ -1036,7 +1155,7 @@
     </ul>
   </details>
   <details id="PackageNaming" open="open">
-    <summary class="rule-container"><span class="rule">PackageNaming: 45 </span><span class="description">Package names should match the naming convention set in the configuration.</span></summary>
+    <summary class="rule-container"><span class="rule">PackageNaming: 52 </span><span class="description">Package names should match the naming convention set in the configuration.</span></summary>
 <a href="https://detekt.dev/docs/rules/naming#packagenaming">Documentation</a>
     <ul>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/VizhiTamilApp.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
@@ -1044,6 +1163,13 @@
 <span class="lineno">   2 </span>
 <span class="lineno">   3 </span>import android.app.Application
 <span class="lineno">   4 </span>import com.jskaleel.vizhi_tamil.core.ocr.TrainedDataManager
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/export/ScanExporter.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
+        <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.core.export</span>
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import android.content.Context
+<span class="lineno">   4 </span>import android.graphics.Color
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/model/ApiResultMapper.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
@@ -1112,7 +1238,7 @@
         <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.data.di</span>
 <span class="lineno">   2 </span>
 <span class="lineno">   3 </span>import android.content.Context
-<span class="lineno">   4 </span>import androidx.room.Room
+<span class="lineno">   4 </span>import androidx.datastore.core.DataStore
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/RepositoryModule.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
@@ -1141,6 +1267,13 @@
 <span class="lineno">   2 </span>
 <span class="lineno">   3 </span>import com.googlecode.tesseract.android.TessBaseAPI
 <span class="lineno">   4 </span>import com.jskaleel.vizhi_tamil.core.model.OCRResult
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/repository/SettingsRepository.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
+        <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.data.repository</span>
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import androidx.datastore.core.DataStore
+<span class="lineno">   4 </span>import androidx.datastore.preferences.core.Preferences
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/room/VizhiTamilDatabase.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
@@ -1183,6 +1316,13 @@
 <span class="lineno">   2 </span>
 <span class="lineno">   3 </span>import com.jskaleel.vizhi_tamil.core.model.ApiResultMapper
 <span class="lineno">   4 </span>import com.jskaleel.vizhi_tamil.data.model.ConfigResponseDTO
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/model/AppSettings.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
+        <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.domain.model</span>
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>data class AppSettings(
+<span class="lineno">   4 </span>    val themeMode: ThemeMode = ThemeMode.SYSTEM,
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/model/DownloadProgress.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
@@ -1265,8 +1405,15 @@
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
         <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.ui.screens.about</span>
 <span class="lineno">   2 </span>
-<span class="lineno">   3 </span>import androidx.compose.foundation.layout.Arrangement
-<span class="lineno">   4 </span>import androidx.compose.foundation.layout.Column
+<span class="lineno">   3 </span>import android.content.ActivityNotFoundException
+<span class="lineno">   4 </span>import android.content.Context
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/LegalDocScreen.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
+        <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.ui.screens.about</span>
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import android.webkit.WebView
+<span class="lineno">   4 </span>import androidx.compose.foundation.layout.fillMaxSize
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
@@ -1274,6 +1421,13 @@
 <span class="lineno">   2 </span>
 <span class="lineno">   3 </span>import android.graphics.Color
 <span class="lineno">   4 </span>import android.os.Bundle
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainViewModel.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
+        <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.ui.screens.activity</span>
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import androidx.lifecycle.ViewModel
+<span class="lineno">   4 </span>import androidx.lifecycle.viewModelScope
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeCallbacks.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
@@ -1314,8 +1468,8 @@
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreenRoute.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
         <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.ui.screens.imageDetail</span>
 <span class="lineno">   2 </span>
-<span class="lineno">   3 </span>import androidx.compose.runtime.Composable
-<span class="lineno">   4 </span>import androidx.compose.runtime.LaunchedEffect
+<span class="lineno">   3 </span>import android.content.Context
+<span class="lineno">   4 </span>import android.content.Intent
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
@@ -1328,8 +1482,22 @@
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailViewModel.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
         <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.ui.screens.imageDetail</span>
 <span class="lineno">   2 </span>
-<span class="lineno">   3 </span>import androidx.lifecycle.SavedStateHandle
-<span class="lineno">   4 </span>import androidx.lifecycle.ViewModel
+<span class="lineno">   3 </span>import android.net.Uri
+<span class="lineno">   4 </span>import androidx.lifecycle.SavedStateHandle
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/settings/SettingsScreen.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
+        <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.ui.screens.settings</span>
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import androidx.compose.foundation.layout.Column
+<span class="lineno">   4 </span>import androidx.compose.foundation.layout.Row
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/settings/SettingsViewModel.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
+        <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.ui.screens.settings</span>
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import androidx.lifecycle.ViewModel
+<span class="lineno">   4 </span>import androidx.lifecycle.viewModelScope
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/theme/Color.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
@@ -1372,7 +1540,7 @@
       </li>
     </ul>
   </details>
-  <h3>style: 101</h3>
+  <h3>style: 100</h3>
   <details id="MagicNumber" open="open">
     <summary class="rule-container"><span class="rule">MagicNumber: 80 </span><span class="description">Report magic numbers. Magic number is a numeric literal that is not defined as a constant and hence it's unclear what the purpose of this number is. It's better to declare such numbers as constants and give them a proper name. By default, -1, 0, 1, and 2 are not considered to be magic numbers.</span></summary>
 <a href="https://detekt.dev/docs/rules/style#magicnumber">Documentation</a>
@@ -2207,18 +2375,18 @@
 <span class="lineno">   3 </span>typealias CallBack = () -&gt; Unit
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/AppModule.kt:52:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/AppModule.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  49 </span>    companion object {
-<span class="lineno">  50 </span>        private const val APP_DATABASE_NAME = &quot;vizhi_tamil.db&quot;
-<span class="lineno">  51 </span>    }
-<span class="lineno">  52 </span>}
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/AppModule.kt:64:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/AppModule.kt is not ending with a new line.</span>
+        <pre><code><span class="lineno">  61 </span>        private const val APP_DATABASE_NAME = &quot;vizhi_tamil.db&quot;
+<span class="lineno">  62 </span>        private const val SETTINGS_DATASTORE_NAME = &quot;settings&quot;
+<span class="lineno">  63 </span>    }
+<span class="lineno">  64 </span>}
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/RepositoryModule.kt:20:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/RepositoryModule.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  17 </span>    abstract fun getOCRRepository(
-<span class="lineno">  18 </span>        repository: OCRRepositoryImpl
-<span class="lineno">  19 </span>    ): OCRRepository
-<span class="lineno">  20 </span>}
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/RepositoryModule.kt:28:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/RepositoryModule.kt is not ending with a new line.</span>
+        <pre><code><span class="lineno">  25 </span>    abstract fun getSettingsRepository(
+<span class="lineno">  26 </span>        repository: SettingsRepositoryImpl
+<span class="lineno">  27 </span>    ): SettingsRepository
+<span class="lineno">  28 </span>}
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/model/ConfigResponseDTO.kt:12:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/model/ConfigResponseDTO.kt is not ending with a new line.</span>
@@ -2277,17 +2445,17 @@
 <span class="lineno">   8 </span>)
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:102:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  99 </span>    VizhiTamilTheme {
-<span class="lineno"> 100 </span>        MainNavigation()
-<span class="lineno"> 101 </span>    }
-<span class="lineno"> 102 </span>}
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:123:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt is not ending with a new line.</span>
+        <pre><code><span class="lineno"> 120 </span>    VizhiTamilTheme {
+<span class="lineno"> 121 </span>        MainNavigation()
+<span class="lineno"> 122 </span>    }
+<span class="lineno"> 123 </span>}
 </code></pre>
       </li>
     </ul>
   </details>
   <details id="UnusedPrivateMember" open="open">
-    <summary class="rule-container"><span class="rule">UnusedPrivateMember: 6 </span><span class="description">Private function is unused and should be removed.</span></summary>
+    <summary class="rule-container"><span class="rule">UnusedPrivateMember: 5 </span><span class="description">Private function is unused and should be removed.</span></summary>
 <a href="https://detekt.dev/docs/rules/style#unusedprivatemember">Documentation</a>
     <ul>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/components/ConfidenceBadge.kt:57:13</span><span class="message">Private function `ConfidenceBadgePreview` is unused.</span>
@@ -2330,16 +2498,6 @@
 <span class="lineno">  56 </span>    }
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt:41:13</span><span class="message">Private function `AboutScreenPreview` is unused.</span>
-        <pre><code><span class="lineno">  38 </span>
-<span class="lineno">  39 </span>@Preview(showBackground = true)
-<span class="lineno">  40 </span>@Composable
-<span class="lineno">  41 </span>private fun <span class="error">AboutScreenPreview</span>() {
-<span class="lineno">  42 </span>    VizhiTamilTheme {
-<span class="lineno">  43 </span>        AboutScreen()
-<span class="lineno">  44 </span>    }
-</code></pre>
-      </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:354:13</span><span class="message">Private function `HomeScreenContentPreview` is unused.</span>
         <pre><code><span class="lineno"> 351 </span>
 <span class="lineno"> 352 </span>@Preview(showSystemUi = true, showBackground = true, device = &quot;spec:parent=pixel_6&quot;)
@@ -2355,7 +2513,7 @@
 </div>
 
 
-generated with <a href="https://detekt.dev/">detekt version 1.23.8</a> on 2026-07-22 20:15:37 UTC.
+generated with <a href="https://detekt.dev/">detekt version 1.23.8</a> on 2026-07-22 20:54:10 UTC.
 
 </body>
 </html>

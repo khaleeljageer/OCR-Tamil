@@ -8,8 +8,11 @@ import com.jskaleel.vizhi_tamil.data.source.local.room.dao.RecentScanDao
 import com.jskaleel.vizhi_tamil.data.source.local.room.entity.RecentScan
 import com.jskaleel.vizhi_tamil.data.source.local.storage.FileStorage
 import com.jskaleel.vizhi_tamil.domain.model.ImageOCR
+import com.jskaleel.vizhi_tamil.domain.model.OcrLanguage
+import com.jskaleel.vizhi_tamil.domain.model.PageSegmentation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -31,34 +34,38 @@ class OCRRepositoryImpl @Inject constructor(
     private val fileStorage: FileStorage,
     private val recentScanDao: RecentScanDao,
     private val trainedDataInstaller: TrainedDataInstaller,
+    private val settingsRepository: SettingsRepository,
 ) : OCRRepository {
 
     // Tesseract init is deferred off the constructor: it must run on a background
     // thread and only after the traineddata has been copied into place.
     private val initMutex = Mutex()
 
+    // Which language the native engine is currently initialised for; null = none.
     @Volatile
-    private var initialized = false
+    private var initializedLanguage: String? = null
 
     // TessBaseAPI holds native per-call state and is not thread-safe, so
     // concurrent recognition is serialised.
     private val recognitionMutex = Mutex()
 
-    private suspend fun ensureInitialized(): Result<Unit> {
-        if (initialized) return Result.success(Unit)
-        return initMutex.withLock {
-            if (initialized) return@withLock Result.success(Unit)
+    private suspend fun ensureInitialized(
+        language: OcrLanguage,
+        pageSeg: PageSegmentation,
+    ): Result<Unit> = initMutex.withLock {
+        if (initializedLanguage != language.code) {
             trainedDataInstaller.ensureInstalled().getOrElse {
                 return@withLock Result.failure(it)
             }
-            val ok = tessBaseAPI.init(fileStorage.getFilesDir().absolutePath, TESS_LANGUAGES)
+            val ok = tessBaseAPI.init(fileStorage.getFilesDir().absolutePath, language.code)
             if (!ok) {
                 return@withLock Result.failure(IllegalStateException("Tesseract init failed"))
             }
-            tessBaseAPI.pageSegMode = TessBaseAPI.PageSegMode.PSM_AUTO_OSD
-            initialized = true
-            Result.success(Unit)
+            initializedLanguage = language.code
         }
+        // Page segmentation is cheap to change between recognitions.
+        tessBaseAPI.pageSegMode = pageSeg.toTessMode()
+        Result.success(Unit)
     }
 
     override suspend fun recognizeAndSave(
@@ -67,7 +74,8 @@ class OCRRepositoryImpl @Inject constructor(
         if (imagePaths.isEmpty()) {
             return@withContext OCRResult.Error(message = "No image to scan")
         }
-        ensureInitialized().getOrElse {
+        val settings = settingsRepository.settings.first()
+        ensureInitialized(settings.ocrLanguage, settings.pageSegMode).getOrElse {
             return@withContext OCRResult.Error(
                 message = it.message ?: "Failed to initialise OCR engine",
             )
@@ -157,9 +165,12 @@ class OCRRepositoryImpl @Inject constructor(
         return newFile.path
     }
 
-    private data class Recognition(val text: String, val accuracy: Int)
-
-    companion object {
-        private const val TESS_LANGUAGES = "tam+eng"
+    private fun PageSegmentation.toTessMode(): Int = when (this) {
+        PageSegmentation.AUTO_OSD -> TessBaseAPI.PageSegMode.PSM_AUTO_OSD
+        PageSegmentation.AUTO -> TessBaseAPI.PageSegMode.PSM_AUTO
+        PageSegmentation.SINGLE_BLOCK -> TessBaseAPI.PageSegMode.PSM_SINGLE_BLOCK
+        PageSegmentation.SINGLE_LINE -> TessBaseAPI.PageSegMode.PSM_SINGLE_LINE
     }
+
+    private data class Recognition(val text: String, val accuracy: Int)
 }

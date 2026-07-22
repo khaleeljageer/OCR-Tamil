@@ -79,6 +79,7 @@ fun ImageOCRDetailScreen(
                             context.toast(R.string.detail_copied)
                         },
                         onShare = { context.shareText(scan.text) },
+                        onExport = callbacks.onExport,
                         onEdit = callbacks.onStartEdit,
                         onDelete = callbacks.onDelete,
                     )
@@ -191,6 +192,7 @@ private fun MetaRow(scan: ImageOCR) {
 private fun DetailActionsMenu(
     onCopy: () -> Unit,
     onShare: () -> Unit,
+    onExport: () -> Unit,
     onEdit: () -> Unit,
     onDelete: () -> Unit,
 ) {
@@ -201,36 +203,26 @@ private fun DetailActionsMenu(
             contentDescription = stringResource(R.string.action_more),
         )
     }
-    DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-        DropdownMenuItem(
-            text = { Text(stringResource(R.string.action_copy)) },
-            onClick = {
-                expanded = false
-                onCopy()
-            },
-        )
-        DropdownMenuItem(
-            text = { Text(stringResource(R.string.action_share)) },
-            onClick = {
-                expanded = false
-                onShare()
-            },
-        )
-        DropdownMenuItem(
-            text = { Text(stringResource(R.string.action_edit)) },
-            onClick = {
-                expanded = false
-                onEdit()
-            },
-        )
-        DropdownMenuItem(
-            text = { Text(stringResource(R.string.action_delete)) },
-            onClick = {
-                expanded = false
-                onDelete()
-            },
-        )
+    // Each action closes the menu, then runs. Wrapped so the dismiss is centralised.
+    fun runAndClose(action: () -> Unit): () -> Unit = {
+        expanded = false
+        action()
     }
+    DropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+        MenuAction(R.string.action_copy, runAndClose(onCopy))
+        MenuAction(R.string.action_share, runAndClose(onShare))
+        MenuAction(R.string.action_export, runAndClose(onExport))
+        MenuAction(R.string.action_edit, runAndClose(onEdit))
+        MenuAction(R.string.action_delete, runAndClose(onDelete))
+    }
+}
+
+@Composable
+private fun MenuAction(labelRes: Int, onClick: () -> Unit) {
+    DropdownMenuItem(
+        text = { Text(stringResource(labelRes)) },
+        onClick = onClick,
+    )
 }
 
 /**
