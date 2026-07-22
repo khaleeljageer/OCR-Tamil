@@ -28,15 +28,11 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        // Auto styles adapt the status/navigation bar icons to light/dark,
+        // matching VizhiTamilTheme which follows the system setting.
         enableEdgeToEdge(
-            SystemBarStyle.light(
-                Color.TRANSPARENT,
-                Color.TRANSPARENT,
-            ),
-            SystemBarStyle.light(
-                Color.argb(0xFF, 0xF2, 0xE7, 0xBA),
-                Color.argb(0xFF, 0xF2, 0xE7, 0xBA),
-            ),
+            statusBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
+            navigationBarStyle = SystemBarStyle.auto(Color.TRANSPARENT, Color.TRANSPARENT),
         )
         installSplashScreen()
         super.onCreate(savedInstanceState)

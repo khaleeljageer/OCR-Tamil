@@ -3,7 +3,7 @@ package com.jskaleel.vizhi_tamil.ui.screens.imageDetail
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.jskaleel.vizhi_tamil.ui.screens.common.FullScreenLoader
+import com.jskaleel.vizhi_tamil.ui.components.LoadingIndicator
 
 @Composable
 fun ImageOCRDetailScreenRoute(
@@ -12,7 +12,7 @@ fun ImageOCRDetailScreenRoute(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     when (uiState) {
-        ImageOCRDetailUiState.Loading -> FullScreenLoader()
+        ImageOCRDetailUiState.Loading -> LoadingIndicator(message = "Recognising text…")
         is ImageOCRDetailUiState.Result -> {
             val result = uiState as ImageOCRDetailUiState.Result
             ImageOCRDetailScreen(
