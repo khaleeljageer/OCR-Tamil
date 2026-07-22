@@ -31,8 +31,7 @@ fun EmptyState(
     icon: Painter,
     title: String,
     modifier: Modifier = Modifier,
-    description: String? = null,
-    action: (@Composable () -> Unit)? = null,
+    description: String? = null
 ) {
     Column(
         modifier = modifier
@@ -63,10 +62,6 @@ fun EmptyState(
                 textAlign = TextAlign.Center,
             )
         }
-        if (action != null) {
-            Spacer(Modifier.height(24.dp))
-            action()
-        }
     }
 }
 
@@ -78,7 +73,6 @@ private fun EmptyStatePreview() {
             icon = painterResource(R.drawable.rounded_scanner_24),
             title = "No scans yet",
             description = "Tap Scan to capture a document and extract Tamil text.",
-            action = { Button(onClick = {}) { Text("Scan") } },
         )
     }
 }

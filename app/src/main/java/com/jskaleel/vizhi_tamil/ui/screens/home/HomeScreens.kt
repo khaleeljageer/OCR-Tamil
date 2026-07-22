@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Button
 import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
@@ -67,6 +68,10 @@ fun HomeScreen(
     isProcessing: Boolean = false,
 ) {
     val selectionMode = (uiState as? HomeUiState.Content)?.inSelectionMode == true
+    // The scan action is available on both the empty state and the list,
+    // and hidden only while loading or picking items to delete.
+    val showFab = uiState is HomeUiState.Empty ||
+        (uiState is HomeUiState.Content && !selectionMode)
 
     // Back exits selection mode before leaving the screen.
     BackHandler(enabled = selectionMode) { callbacks.onClearSelection() }
@@ -80,7 +85,7 @@ fun HomeScreen(
             )
         },
         floatingActionButton = {
-            if (uiState is HomeUiState.Content && !selectionMode) {
+            if (showFab) {
                 ExtendedFloatingActionButton(
                     onClick = callbacks.onScanClick,
                     icon = {
