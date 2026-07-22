@@ -110,13 +110,13 @@ fun MainNavigation() {
     }
 }
 
-
 @Preview(
-    showBackground = true, showSystemUi = true,
-    device = "spec:parent=resizable,navigation=buttons"
+    showBackground = true,
+    showSystemUi = true,
+    device = "spec:parent=resizable,navigation=buttons",
 )
 @Composable
-fun GreetingPreview() {
+private fun MainNavigationPreview() {
     VizhiTamilTheme {
         MainNavigation()
     }

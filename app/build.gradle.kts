@@ -119,4 +119,11 @@ dependencies {
     // ML Kit document scanner
     implementation(libs.play.services.mlkit.document.scanner)
     detektPlugins(libs.detekt.formatting)
+
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    androidTestImplementation(libs.androidx.room.testing)
 }

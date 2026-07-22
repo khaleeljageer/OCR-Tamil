@@ -335,6 +335,7 @@ naming:
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**']
     functionPattern: '[a-z][a-zA-Z0-9]*'
     excludeClassPattern: '$^'
+    ignoreAnnotated: ['Composable']
   FunctionParameterNaming:
     active: true
     parameterPattern: '[a-z][A-Za-z0-9]*'
@@ -374,7 +375,7 @@ naming:
     privatePropertyPattern: '(_)?[A-Za-z][_A-Za-z0-9]*'
   PackageNaming:
     active: true
-    packagePattern: '[a-z]+(\.[a-z][A-Za-z0-9]*)*'
+    packagePattern: '[a-z]+(\.[a-z][A-Za-z0-9_]*)*'
   TopLevelPropertyNaming:
     active: true
     constantPattern: '[A-Z][_A-Z0-9]*'
@@ -620,7 +621,9 @@ style:
     active: true
     maxJumpCount: 1
   MagicNumber:
-    active: true
+    # Disabled for this Compose UI project: dp/sp sizes and Color(0x…) tokens are
+    # inherently literal and dominate the findings without signalling real defects.
+    active: false
     excludes: ['**/test/**', '**/androidTest/**', '**/commonTest/**', '**/jvmTest/**', '**/androidUnitTest/**', '**/androidInstrumentedTest/**', '**/jsTest/**', '**/iosTest/**', '**/*.kts']
     ignoreNumbers:
       - '-1'
@@ -750,7 +753,8 @@ style:
     active: true
   UnusedPrivateMember:
     active: true
-    allowedNames: ''
+    # @Preview composables are referenced only by tooling.
+    allowedNames: '.*Preview'
   UnusedPrivateProperty:
     active: true
     allowedNames: '_|ignored|expected|serialVersionUID'
@@ -795,3 +799,9 @@ style:
     active: true
     excludeImports:
       - 'java.util.*'
+formatting:
+  active: true
+  # The applicationId package contains an underscore (com.jskaleel.vizhi_tamil);
+  # renaming it is out of scope, so the underscore-in-package rule is disabled.
+  PackageName:
+    active: false

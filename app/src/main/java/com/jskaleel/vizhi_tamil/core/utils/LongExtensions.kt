@@ -1,19 +1,8 @@
 package com.jskaleel.vizhi_tamil.core.utils
 
-import android.annotation.SuppressLint
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-
-@SuppressLint("DefaultLocale")
-fun Long?.sizeInMBString(): String {
-    val sizeInMB = if (this != null) {
-        this.toDouble() / (1024 * 1024)
-    } else {
-        0
-    }
-    return String.format("%.2f MB", sizeInMB)
-}
 
 fun Long.toRelativeTimeStamp(): String {
     val now = System.currentTimeMillis()
