@@ -7,12 +7,3 @@ plugins {
     alias(libs.plugins.ksp.android) apply false
     alias(libs.plugins.detekt.android) apply false
 }
-
-buildscript {
-    repositories {
-        google()
-    }
-    dependencies {
-        classpath(libs.androidx.navigation.safe.args.gradle.plugin)
-    }
-}

@@ -2,19 +2,24 @@ package com.jskaleel.vizhi_tamil.data.repository
 
 import com.googlecode.tesseract.android.TessBaseAPI
 import com.jskaleel.vizhi_tamil.core.model.OCRResult
+import com.jskaleel.vizhi_tamil.core.ocr.TrainedDataInstaller
 import com.jskaleel.vizhi_tamil.core.utils.toRelativeTimeStamp
 import com.jskaleel.vizhi_tamil.data.model.ImageOCRResponseDTO
 import com.jskaleel.vizhi_tamil.data.source.local.room.dao.RecentScanDao
 import com.jskaleel.vizhi_tamil.data.source.local.room.entity.RecentScan
 import com.jskaleel.vizhi_tamil.data.source.local.storage.FileStorage
 import com.jskaleel.vizhi_tamil.domain.model.ImageOCR
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import java.io.File
 import javax.inject.Inject
 
 interface OCRRepository {
-    fun fetchTextFromImage(imagePath: String): OCRResult<ImageOCRResponseDTO>
+    suspend fun fetchTextFromImage(imagePath: String): OCRResult<ImageOCRResponseDTO>
     suspend fun saveImageResult(oCR: ImageOCRResponseDTO)
     fun getRecentScans(): Flow<List<ImageOCR>>
 }
@@ -22,31 +27,65 @@ interface OCRRepository {
 class OCRRepositoryImpl @Inject constructor(
     private val tessBaseAPI: TessBaseAPI,
     private val fileStorage: FileStorage,
-    private val recentScanDao: RecentScanDao
+    private val recentScanDao: RecentScanDao,
+    private val trainedDataInstaller: TrainedDataInstaller,
 ) : OCRRepository {
 
-    init {
-        val tessDataPath = fileStorage.getFilesDir().absolutePath
-        tessBaseAPI.init(tessDataPath, "tam+eng")
-        tessBaseAPI.pageSegMode = TessBaseAPI.PageSegMode.PSM_AUTO_OSD
+    // Tesseract init is deferred off the constructor: it must run on a background
+    // thread and only after the traineddata has been copied into place.
+    private val initMutex = Mutex()
+
+    @Volatile
+    private var initialized = false
+
+    // TessBaseAPI holds native per-call state and is not thread-safe, so
+    // concurrent scans are serialised.
+    private val recognitionMutex = Mutex()
+
+    private suspend fun ensureInitialized(): Result<Unit> {
+        if (initialized) return Result.success(Unit)
+        return initMutex.withLock {
+            if (initialized) return@withLock Result.success(Unit)
+            trainedDataInstaller.ensureInstalled().getOrElse {
+                return@withLock Result.failure(it)
+            }
+            val ok = tessBaseAPI.init(fileStorage.getFilesDir().absolutePath, TESS_LANGUAGES)
+            if (!ok) {
+                return@withLock Result.failure(IllegalStateException("Tesseract init failed"))
+            }
+            tessBaseAPI.pageSegMode = TessBaseAPI.PageSegMode.PSM_AUTO_OSD
+            initialized = true
+            Result.success(Unit)
+        }
     }
 
-    override fun fetchTextFromImage(imagePath: String): OCRResult<ImageOCRResponseDTO> {
-        val ocrImagePath: File = imagePath.toFile()
-        tessBaseAPI.setImage(ocrImagePath)
-        val imgFileDirPath = copyImageFromTempToDirectory(ocrImagePath)
-        val text = try {
-            tessBaseAPI.getHOCRText(1)
-        } catch (_: Exception) {
-            ""
+    override suspend fun fetchTextFromImage(
+        imagePath: String,
+    ): OCRResult<ImageOCRResponseDTO> = withContext(Dispatchers.IO) {
+        ensureInitialized().getOrElse {
+            return@withContext OCRResult.Error(
+                message = it.message ?: "Failed to initialise OCR engine",
+            )
         }
-        val accuracy = tessBaseAPI.meanConfidence()
-        val timeStamp = System.currentTimeMillis()
-        tessBaseAPI.clear()
-        return if (text.isNotEmpty()) {
-            OCRResult.Success(ImageOCRResponseDTO(text, accuracy, timeStamp, imgFileDirPath))
-        } else {
-            OCRResult.Error(null, "No text found")
+
+        recognitionMutex.withLock {
+            val ocrImagePath: File = File(imagePath)
+            val imgFileDirPath = copyImageFromTempToDirectory(ocrImagePath)
+            tessBaseAPI.setImage(ocrImagePath)
+            val text = try {
+                tessBaseAPI.getHOCRText(1)
+            } catch (_: Exception) {
+                ""
+            }
+            val accuracy = tessBaseAPI.meanConfidence()
+            val timeStamp = System.currentTimeMillis()
+            tessBaseAPI.clear()
+
+            if (text.isNotEmpty()) {
+                OCRResult.Success(ImageOCRResponseDTO(text, accuracy, timeStamp, imgFileDirPath))
+            } else {
+                OCRResult.Error(message = "No text found in the image")
+            }
         }
     }
 
@@ -56,37 +95,34 @@ class OCRRepositoryImpl @Inject constructor(
                 filePath = oCR.imagePath,
                 timeStamp = oCR.timeStamp,
                 text = oCR.text,
-                accuracy = oCR.accuracy
-            )
+                accuracy = oCR.accuracy,
+            ),
         )
     }
 
     override fun getRecentScans(): Flow<List<ImageOCR>> {
-        return recentScanDao.getAllScan().map {
-            it.map { recentScan ->
+        return recentScanDao.getAllScan().map { scans ->
+            scans.map { recentScan ->
                 ImageOCR(
                     text = recentScan.text,
                     accuracy = recentScan.accuracy,
                     timeStamp = recentScan.timeStamp.toRelativeTimeStamp(),
-                    imagePath = recentScan.filePath
+                    imagePath = recentScan.filePath,
                 )
             }
         }
     }
 
-    fun stopTesseract() {
-        tessBaseAPI.stop()
-        tessBaseAPI.recycle()
-    }
-
     private fun copyImageFromTempToDirectory(tmpImagePath: File): String {
         val ocrImageDir = fileStorage.getOCRImageDir()
         val newFile = File(ocrImageDir, tmpImagePath.name)
-        tmpImagePath.copyTo(newFile)
-        return ocrImageDir.path
+        if (!newFile.exists()) {
+            tmpImagePath.copyTo(newFile, overwrite = true)
+        }
+        return newFile.path
     }
-}
 
-private fun String.toFile(): File {
-    return File(this)
+    companion object {
+        private const val TESS_LANGUAGES = "tam+eng"
+    }
 }

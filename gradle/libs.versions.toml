@@ -14,7 +14,6 @@ ksp = "2.2.0-2.0.2"
 
 kotlinxCoroutinesAndroid = "1.10.2"
 lottieCompose = "6.6.7"
-navigationSafeArgsGradlePlugin = "2.9.2"
 kotlinx-serialization = "1.8.1"
 navigationCompose = "2.9.2"
 roomRuntime = "2.7.2"
@@ -53,7 +52,6 @@ lifecycle-viewmodel-compose = { module = "androidx.lifecycle:lifecycle-viewmodel
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottieCompose" }
 navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
-androidx-navigation-safe-args-gradle-plugin = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "navigationSafeArgsGradlePlugin" }
 play-services-mlkit-document-scanner = { module = "com.google.android.gms:play-services-mlkit-document-scanner", version.ref = "playServicesMlkitDocumentScanner" }
 
 [plugins]

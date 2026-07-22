@@ -10,42 +10,45 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavDestination.Companion.hierarchy
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import com.jskaleel.vizhi_tamil.ui.model.BottomBarItem
-import com.jskaleel.vizhi_tamil.ui.navigation.Route
 
 @Composable
 fun BottomNavigationBar(
     items: List<BottomBarItem>,
     navController: NavController,
-    currentRoute: String?
+    currentDestination: NavDestination?,
 ) {
     NavigationBar(
         modifier = Modifier.fillMaxWidth(),
         containerColor = MaterialTheme.colorScheme.background,
-        tonalElevation = 6.dp
+        tonalElevation = 6.dp,
     ) {
         items.forEach { item ->
+            val selected = currentDestination
+                ?.hierarchy
+                ?.any { it.hasRoute(item.route::class) } == true
+
             NavigationBarItem(
                 icon = {
                     Icon(
-                        item.icon,
+                        painter = item.icon,
                         contentDescription = item.title,
                     )
                 },
                 label = { },
-                selected = currentRoute == item.route,
+                selected = selected,
                 onClick = {
-                    if (item.route == Route.Main.name) {
-                        navController.popBackStack(Route.Main.name, inclusive = false)
-                    }
-                    if (currentRoute != item.route) {
+                    if (!selected) {
                         navController.navigate(item.route) {
-                            popUpTo(navController.graph.startDestinationId)
-                            launchSingleTop = true
-                            restoreState = true
-                            popUpTo(Route.Main.name) {
+                            popUpTo(navController.graph.findStartDestination().id) {
                                 saveState = true
                             }
+                            launchSingleTop = true
+                            restoreState = true
                         }
                     }
                 },
@@ -54,8 +57,8 @@ fun BottomNavigationBar(
                     selectedTextColor = MaterialTheme.colorScheme.primary,
                     indicatorColor = MaterialTheme.colorScheme.background,
                     unselectedIconColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),
-                    unselectedTextColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f)
-                )
+                    unselectedTextColor = MaterialTheme.colorScheme.primary.copy(alpha = 0.6f),
+                ),
             )
         }
     }

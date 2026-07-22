@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -16,11 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavDestination.Companion.hasRoute
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.jskaleel.vizhi_tamil.R
 import com.jskaleel.vizhi_tamil.ui.core.BottomNavigationBar
 import com.jskaleel.vizhi_tamil.ui.model.BottomBarItem
+import com.jskaleel.vizhi_tamil.ui.navigation.AppRoute
 import com.jskaleel.vizhi_tamil.ui.navigation.NavigationHost
 import com.jskaleel.vizhi_tamil.ui.theme.VizhiTamilTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -48,23 +50,25 @@ class MainActivity : ComponentActivity() {
 fun MainNavigation() {
     val navController = rememberNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = navBackStackEntry?.destination?.route
+    val currentDestination = navBackStackEntry?.destination
 
     val bottomBarItems = listOf(
         BottomBarItem(
             title = "Home",
             icon = painterResource(id = R.drawable.rounded_dashboard_24),
-            route = "home"
+            route = AppRoute.Home,
         ),
         BottomBarItem(
             title = "About",
             icon = painterResource(id = R.drawable.rounded_info_24),
-            route = "about"
-        )
+            route = AppRoute.About,
+        ),
     )
 
-    // Show bottom bar only on home screen
-    val showBottomBar = bottomBarItems.any { it.route == currentRoute }
+    // Bottom bar is shown only on the top-level destinations, not on detail screens.
+    val showBottomBar = bottomBarItems.any { item ->
+        currentDestination?.hierarchy?.any { it.hasRoute(item.route::class) } == true
+    }
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -73,20 +77,15 @@ fun MainNavigation() {
                 BottomNavigationBar(
                     items = bottomBarItems,
                     navController = navController,
-                    currentRoute = currentRoute
+                    currentDestination = currentDestination,
                 )
             }
-        }
+        },
     ) { innerPadding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(innerPadding)
-        ) {
-            NavigationHost(
-                navController = navController,
-            )
-        }
+        NavigationHost(
+            navController = navController,
+            modifier = Modifier.padding(innerPadding),
+        )
     }
 }
 

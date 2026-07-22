@@ -10,43 +10,21 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/ocr/TrainedDataCopyWorker.kt"
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/ocr/TrainedDataInstaller.kt"
                 },
                 "region": {
-                  "endColumn": 24,
-                  "endLine": 14,
-                  "startColumn": 18,
-                  "startLine": 14
+                  "endColumn": 28,
+                  "endLine": 36,
+                  "startColumn": 17,
+                  "startLine": 36
                 }
               }
             }
           ],
           "message": {
-            "text": "Function doWork is nested too deeply."
+            "text": "Function copyMissing is nested too deeply."
           },
           "ruleId": "detekt.complexity.NestedBlockDepth"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeViewModel.kt"
-                },
-                "region": {
-                  "endColumn": 6,
-                  "endLine": 74,
-                  "startColumn": 12,
-                  "startLine": 72
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "This empty block of code can be removed."
-          },
-          "ruleId": "detekt.empty-blocks.EmptyElseBlock"
         },
         {
           "level": "warning",
@@ -76,28 +54,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/ocr/TrainedDataCopyWorker.kt"
-                },
-                "region": {
-                  "endColumn": 40,
-                  "endLine": 28,
-                  "startColumn": 26,
-                  "startLine": 28
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "The caught exception is swallowed. The original exception could be lost."
-          },
-          "ruleId": "detekt.exceptions.SwallowedException"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/model/ApiResultMapper.kt"
                 },
                 "region": {
@@ -113,28 +69,6 @@
             "text": "The caught exception is too generic. Prefer catching specific exceptions to the case that is currently handled."
           },
           "ruleId": "detekt.exceptions.TooGenericExceptionCaught"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/repository/OCRRepository.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
         },
         {
           "level": "warning",
@@ -189,18 +123,18 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/AppModule.kt"
                 },
                 "region": {
-                  "endColumn": 2,
+                  "endColumn": 10,
                   "endLine": 1,
-                  "startColumn": 1,
+                  "startColumn": 9,
                   "startLine": 1
                 }
               }
             }
           ],
           "message": {
-            "text": "File must end with a newline (\\n)"
+            "text": "Package name must not contain underscore"
           },
-          "ruleId": "detekt.formatting.FinalNewline"
+          "ruleId": "detekt.formatting.PackageName"
         },
         {
           "level": "warning",
@@ -211,40 +145,18 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/AppModule.kt"
                 },
                 "region": {
-                  "endColumn": 10,
+                  "endColumn": 2,
                   "endLine": 1,
-                  "startColumn": 9,
+                  "startColumn": 1,
                   "startLine": 1
                 }
               }
             }
           ],
           "message": {
-            "text": "Package name must not contain underscore"
+            "text": "File must end with a newline (\\n)"
           },
-          "ruleId": "detekt.formatting.PackageName"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/RepositoryModule.kt"
-                },
-                "region": {
-                  "endColumn": 10,
-                  "endLine": 1,
-                  "startColumn": 9,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Package name must not contain underscore"
-          },
-          "ruleId": "detekt.formatting.PackageName"
+          "ruleId": "detekt.formatting.FinalNewline"
         },
         {
           "level": "warning",
@@ -267,6 +179,28 @@
             "text": "File must end with a newline (\\n)"
           },
           "ruleId": "detekt.formatting.FinalNewline"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/di/RepositoryModule.kt"
+                },
+                "region": {
+                  "endColumn": 10,
+                  "endLine": 1,
+                  "startColumn": 9,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Package name must not contain underscore"
+          },
+          "ruleId": "detekt.formatting.PackageName"
         },
         {
           "level": "warning",
@@ -333,28 +267,6 @@
             "text": "File must end with a newline (\\n)"
           },
           "ruleId": "detekt.formatting.FinalNewline"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/model/ConfigResponseDTO.kt"
-                },
-                "region": {
-                  "endColumn": 10,
-                  "endLine": 1,
-                  "startColumn": 9,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Package name must not contain underscore"
-          },
-          "ruleId": "detekt.formatting.PackageName"
         },
         {
           "level": "warning",
@@ -384,7 +296,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/model/ImageOCRResponseDTO.kt"
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/model/ConfigResponseDTO.kt"
                 },
                 "region": {
                   "endColumn": 10,
@@ -421,6 +333,28 @@
             "text": "File must end with a newline (\\n)"
           },
           "ruleId": "detekt.formatting.FinalNewline"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/model/ImageOCRResponseDTO.kt"
+                },
+                "region": {
+                  "endColumn": 10,
+                  "endLine": 1,
+                  "startColumn": 9,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Package name must not contain underscore"
+          },
+          "ruleId": "detekt.formatting.PackageName"
         },
         {
           "level": "warning",
@@ -475,18 +409,18 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/room/VizhiTamilDatabase.kt"
                 },
                 "region": {
-                  "endColumn": 2,
+                  "endColumn": 10,
                   "endLine": 1,
-                  "startColumn": 1,
+                  "startColumn": 9,
                   "startLine": 1
                 }
               }
             }
           ],
           "message": {
-            "text": "File must end with a newline (\\n)"
+            "text": "Package name must not contain underscore"
           },
-          "ruleId": "detekt.formatting.FinalNewline"
+          "ruleId": "detekt.formatting.PackageName"
         },
         {
           "level": "warning",
@@ -497,18 +431,18 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/room/VizhiTamilDatabase.kt"
                 },
                 "region": {
-                  "endColumn": 10,
+                  "endColumn": 2,
                   "endLine": 1,
-                  "startColumn": 9,
+                  "startColumn": 1,
                   "startLine": 1
                 }
               }
             }
           ],
           "message": {
-            "text": "Package name must not contain underscore"
+            "text": "File must end with a newline (\\n)"
           },
-          "ruleId": "detekt.formatting.PackageName"
+          "ruleId": "detekt.formatting.FinalNewline"
         },
         {
           "level": "warning",
@@ -563,28 +497,6 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/storage/InternalFileStorage.kt"
                 },
                 "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/storage/InternalFileStorage.kt"
-                },
-                "region": {
                   "endColumn": 10,
                   "endLine": 1,
                   "startColumn": 9,
@@ -597,6 +509,28 @@
             "text": "Package name must not contain underscore"
           },
           "ruleId": "detekt.formatting.PackageName"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/storage/InternalFileStorage.kt"
+                },
+                "region": {
+                  "endColumn": 2,
+                  "endLine": 1,
+                  "startColumn": 1,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "File must end with a newline (\\n)"
+          },
+          "ruleId": "detekt.formatting.FinalNewline"
         },
         {
           "level": "warning",
@@ -717,18 +651,18 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/mapper/ImageOCRMapper.kt"
                 },
                 "region": {
-                  "endColumn": 10,
+                  "endColumn": 2,
                   "endLine": 1,
-                  "startColumn": 9,
+                  "startColumn": 1,
                   "startLine": 1
                 }
               }
             }
           ],
           "message": {
-            "text": "Package name must not contain underscore"
+            "text": "File must end with a newline (\\n)"
           },
-          "ruleId": "detekt.formatting.PackageName"
+          "ruleId": "detekt.formatting.FinalNewline"
         },
         {
           "level": "warning",
@@ -739,40 +673,18 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/mapper/ImageOCRMapper.kt"
                 },
                 "region": {
-                  "endColumn": 2,
+                  "endColumn": 10,
                   "endLine": 1,
-                  "startColumn": 1,
+                  "startColumn": 9,
                   "startLine": 1
                 }
               }
             }
           ],
           "message": {
-            "text": "File must end with a newline (\\n)"
+            "text": "Package name must not contain underscore"
           },
-          "ruleId": "detekt.formatting.FinalNewline"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/mapper/ConfigMapper.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
+          "ruleId": "detekt.formatting.PackageName"
         },
         {
           "level": "warning",
@@ -795,6 +707,28 @@
             "text": "Package name must not contain underscore"
           },
           "ruleId": "detekt.formatting.PackageName"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/mapper/ConfigMapper.kt"
+                },
+                "region": {
+                  "endColumn": 2,
+                  "endLine": 1,
+                  "startColumn": 1,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "File must end with a newline (\\n)"
+          },
+          "ruleId": "detekt.formatting.FinalNewline"
         },
         {
           "level": "warning",
@@ -849,72 +783,6 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/model/BottomBarItem.kt"
                 },
                 "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/model/BottomBarItem.kt"
-                },
-                "region": {
-                  "endColumn": 10,
-                  "endLine": 1,
-                  "startColumn": 9,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Package name must not contain underscore"
-          },
-          "ruleId": "detekt.formatting.PackageName"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/utils/NavigationState.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/utils/NavigationState.kt"
-                },
-                "region": {
                   "endColumn": 10,
                   "endLine": 1,
                   "startColumn": 9,
@@ -956,51 +824,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/core/BottomNavigationBar.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/Route.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/Route.kt"
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/NavigationHost.kt"
                 },
                 "region": {
                   "endColumn": 10,
@@ -1022,29 +846,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/NavigationHost.kt"
-                },
-                "region": {
-                  "endColumn": 1,
-                  "endLine": 18,
-                  "startColumn": 1,
-                  "startLine": 17
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Needless blank line(s)"
-          },
-          "ruleId": "detekt.formatting.NoConsecutiveBlankLines"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/NavigationHost.kt"
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/AppRoute.kt"
                 },
                 "region": {
                   "endColumn": 10,
@@ -1223,32 +1025,10 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt"
                 },
                 "region": {
-                  "endColumn": 10,
-                  "endLine": 1,
-                  "startColumn": 9,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Package name must not contain underscore"
-          },
-          "ruleId": "detekt.formatting.PackageName"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt"
-                },
-                "region": {
                   "endColumn": 29,
-                  "endLine": 95,
+                  "endLine": 94,
                   "startColumn": 28,
-                  "startLine": 95
+                  "startLine": 94
                 }
               }
             }
@@ -1289,10 +1069,32 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt"
                 },
                 "region": {
+                  "endColumn": 10,
+                  "endLine": 1,
+                  "startColumn": 9,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Package name must not contain underscore"
+          },
+          "ruleId": "detekt.formatting.PackageName"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt"
+                },
+                "region": {
                   "endColumn": 1,
-                  "endLine": 94,
+                  "endLine": 93,
                   "startColumn": 1,
-                  "startLine": 93
+                  "startLine": 92
                 }
               }
             }
@@ -1311,72 +1113,6 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
                 },
                 "region": {
-                  "endColumn": 1,
-                  "endLine": 40,
-                  "startColumn": 1,
-                  "startLine": 39
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "First line in a method block should not be empty"
-          },
-          "ruleId": "detekt.formatting.NoEmptyFirstLineInMethodBlock"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
-                },
-                "region": {
-                  "endColumn": 1,
-                  "endLine": 77,
-                  "startColumn": 1,
-                  "startLine": 76
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "First line in a method block should not be empty"
-          },
-          "ruleId": "detekt.formatting.NoEmptyFirstLineInMethodBlock"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
-                },
-                "region": {
                   "endColumn": 10,
                   "endLine": 1,
                   "startColumn": 9,
@@ -1399,28 +1135,6 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreenRoute.kt"
                 },
                 "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreenRoute.kt"
-                },
-                "region": {
                   "endColumn": 10,
                   "endLine": 1,
                   "startColumn": 9,
@@ -1443,18 +1157,18 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeViewModel.kt"
                 },
                 "region": {
-                  "endColumn": 2,
+                  "endColumn": 10,
                   "endLine": 1,
-                  "startColumn": 1,
+                  "startColumn": 9,
                   "startLine": 1
                 }
               }
             }
           ],
           "message": {
-            "text": "File must end with a newline (\\n)"
+            "text": "Package name must not contain underscore"
           },
-          "ruleId": "detekt.formatting.FinalNewline"
+          "ruleId": "detekt.formatting.PackageName"
         },
         {
           "level": "warning",
@@ -1462,51 +1176,7 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeViewModel.kt"
-                },
-                "region": {
-                  "endColumn": 1,
-                  "endLine": 74,
-                  "startColumn": 1,
-                  "startLine": 73
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Unexpected blank line(s) before \"}\""
-          },
-          "ruleId": "detekt.formatting.NoBlankLineBeforeRbrace"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeViewModel.kt"
-                },
-                "region": {
-                  "endColumn": 1,
-                  "endLine": 74,
-                  "startColumn": 1,
-                  "startLine": 73
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "First line in a method block should not be empty"
-          },
-          "ruleId": "detekt.formatting.NoEmptyFirstLineInMethodBlock"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeViewModel.kt"
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt"
                 },
                 "region": {
                   "endColumn": 10,
@@ -1521,6 +1191,50 @@
             "text": "Package name must not contain underscore"
           },
           "ruleId": "detekt.formatting.PackageName"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt"
+                },
+                "region": {
+                  "endColumn": 10,
+                  "endLine": 1,
+                  "startColumn": 9,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Package name must not contain underscore"
+          },
+          "ruleId": "detekt.formatting.PackageName"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt"
+                },
+                "region": {
+                  "endColumn": 2,
+                  "endLine": 1,
+                  "startColumn": 1,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "File must end with a newline (\\n)"
+          },
+          "ruleId": "detekt.formatting.FinalNewline"
         },
         {
           "level": "warning",
@@ -1550,50 +1264,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt"
-                },
-                "region": {
-                  "endColumn": 10,
-                  "endLine": 1,
-                  "startColumn": 9,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Package name must not contain underscore"
-          },
-          "ruleId": "detekt.formatting.PackageName"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreenRoute.kt"
                 },
                 "region": {
@@ -1609,50 +1279,6 @@
             "text": "Package name must not contain underscore"
           },
           "ruleId": "detekt.formatting.PackageName"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreenRoute.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailViewModel.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
         },
         {
           "level": "warning",
@@ -1704,21 +1330,21 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/ocr/TrainedDataCopyWorker.kt"
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/ocr/TrainedDataInstaller.kt"
                 },
                 "region": {
-                  "endColumn": 2,
+                  "endColumn": 10,
                   "endLine": 1,
-                  "startColumn": 1,
+                  "startColumn": 9,
                   "startLine": 1
                 }
               }
             }
           ],
           "message": {
-            "text": "File must end with a newline (\\n)"
+            "text": "Package name must not contain underscore"
           },
-          "ruleId": "detekt.formatting.FinalNewline"
+          "ruleId": "detekt.formatting.PackageName"
         },
         {
           "level": "warning",
@@ -1773,28 +1399,6 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/model/ApiResultMapper.kt"
                 },
                 "region": {
-                  "endColumn": 2,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "File must end with a newline (\\n)"
-          },
-          "ruleId": "detekt.formatting.FinalNewline"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/model/ApiResultMapper.kt"
-                },
-                "region": {
                   "endColumn": 10,
                   "endLine": 1,
                   "startColumn": 9,
@@ -1807,6 +1411,28 @@
             "text": "Package name must not contain underscore"
           },
           "ruleId": "detekt.formatting.PackageName"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/model/ApiResultMapper.kt"
+                },
+                "region": {
+                  "endColumn": 2,
+                  "endLine": 1,
+                  "startColumn": 1,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "File must end with a newline (\\n)"
+          },
+          "ruleId": "detekt.formatting.FinalNewline"
         },
         {
           "level": "warning",
@@ -1927,18 +1553,18 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/utils/LongExtensions.kt"
                 },
                 "region": {
-                  "endColumn": 2,
+                  "endColumn": 10,
                   "endLine": 1,
-                  "startColumn": 1,
+                  "startColumn": 9,
                   "startLine": 1
                 }
               }
             }
           ],
           "message": {
-            "text": "File must end with a newline (\\n)"
+            "text": "Package name must not contain underscore"
           },
-          "ruleId": "detekt.formatting.FinalNewline"
+          "ruleId": "detekt.formatting.PackageName"
         },
         {
           "level": "warning",
@@ -1949,40 +1575,18 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/utils/LongExtensions.kt"
                 },
                 "region": {
-                  "endColumn": 10,
+                  "endColumn": 2,
                   "endLine": 1,
-                  "startColumn": 9,
+                  "startColumn": 1,
                   "startLine": 1
                 }
               }
             }
           ],
           "message": {
-            "text": "Package name must not contain underscore"
+            "text": "File must end with a newline (\\n)"
           },
-          "ruleId": "detekt.formatting.PackageName"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/VizhiTamilApp.kt"
-                },
-                "region": {
-                  "endColumn": 10,
-                  "endLine": 1,
-                  "startColumn": 9,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Package name must not contain underscore"
-          },
-          "ruleId": "detekt.formatting.PackageName"
+          "ruleId": "detekt.formatting.FinalNewline"
         },
         {
           "level": "warning",
@@ -2005,6 +1609,28 @@
             "text": "File must end with a newline (\\n)"
           },
           "ruleId": "detekt.formatting.FinalNewline"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/VizhiTamilApp.kt"
+                },
+                "region": {
+                  "endColumn": 10,
+                  "endLine": 1,
+                  "startColumn": 9,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Package name must not contain underscore"
+          },
+          "ruleId": "detekt.formatting.PackageName"
         },
         {
           "level": "warning",
@@ -2386,50 +2012,6 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/utils/NavigationState.kt"
-                },
-                "region": {
-                  "endColumn": 42,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Package name should match the pattern: [a-z]+(\\.[a-z][A-Za-z0-9]*)*"
-          },
-          "ruleId": "detekt.naming.PackageNaming"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/utils/NavigationState.kt"
-                },
-                "region": {
-                  "endColumn": 15,
-                  "endLine": 36,
-                  "startColumn": 5,
-                  "startLine": 36
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Function names should match the pattern: [a-z][a-zA-Z0-9]*"
-          },
-          "ruleId": "detekt.naming.FunctionNaming"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/core/BottomNavigationBar.kt"
                 },
                 "region": {
@@ -2456,9 +2038,9 @@
                 },
                 "region": {
                   "endColumn": 24,
-                  "endLine": 17,
+                  "endLine": 20,
                   "startColumn": 5,
-                  "startLine": 17
+                  "startLine": 20
                 }
               }
             }
@@ -2467,50 +2049,6 @@
             "text": "Function names should match the pattern: [a-z][a-zA-Z0-9]*"
           },
           "ruleId": "detekt.naming.FunctionNaming"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/Route.kt"
-                },
-                "region": {
-                  "endColumn": 46,
-                  "endLine": 13,
-                  "startColumn": 13,
-                  "startLine": 13
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "A member is named after the object. This might result in confusion. Please rename the member."
-          },
-          "ruleId": "detekt.naming.MemberNameEqualsClassName"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/Route.kt"
-                },
-                "region": {
-                  "endColumn": 47,
-                  "endLine": 1,
-                  "startColumn": 1,
-                  "startLine": 1
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Package name should match the pattern: [a-z]+(\\.[a-z][A-Za-z0-9]*)*"
-          },
-          "ruleId": "detekt.naming.PackageNaming"
         },
         {
           "level": "warning",
@@ -2544,9 +2082,9 @@
                 },
                 "region": {
                   "endColumn": 19,
-                  "endLine": 19,
+                  "endLine": 13,
                   "startColumn": 5,
-                  "startLine": 19
+                  "startLine": 13
                 }
               }
             }
@@ -2555,6 +2093,28 @@
             "text": "Function names should match the pattern: [a-z][a-zA-Z0-9]*"
           },
           "ruleId": "detekt.naming.FunctionNaming"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/AppRoute.kt"
+                },
+                "region": {
+                  "endColumn": 47,
+                  "endLine": 1,
+                  "startColumn": 1,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Package name should match the pattern: [a-z]+(\\.[a-z][A-Za-z0-9]*)*"
+          },
+          "ruleId": "detekt.naming.PackageNaming"
         },
         {
           "level": "warning",
@@ -2940,9 +2500,9 @@
                 },
                 "region": {
                   "endColumn": 19,
-                  "endLine": 48,
+                  "endLine": 50,
                   "startColumn": 5,
-                  "startLine": 48
+                  "startLine": 50
                 }
               }
             }
@@ -2962,9 +2522,9 @@
                 },
                 "region": {
                   "endColumn": 20,
-                  "endLine": 99,
+                  "endLine": 98,
                   "startColumn": 5,
-                  "startLine": 99
+                  "startLine": 98
                 }
               }
             }
@@ -3006,9 +2566,9 @@
                 },
                 "region": {
                   "endColumn": 15,
-                  "endLine": 33,
+                  "endLine": 47,
                   "startColumn": 5,
-                  "startLine": 33
+                  "startLine": 47
                 }
               }
             }
@@ -3027,54 +2587,54 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
                 },
                 "region": {
-                  "endColumn": 19,
-                  "endLine": 62,
-                  "startColumn": 5,
-                  "startLine": 62
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Function names should match the pattern: [a-z][a-zA-Z0-9]*"
-          },
-          "ruleId": "detekt.naming.FunctionNaming"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
-                },
-                "region": {
-                  "endColumn": 19,
-                  "endLine": 75,
-                  "startColumn": 5,
-                  "startLine": 75
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "Function names should match the pattern: [a-z][a-zA-Z0-9]*"
-          },
-          "ruleId": "detekt.naming.FunctionNaming"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
-                },
-                "region": {
-                  "endColumn": 30,
-                  "endLine": 109,
+                  "endColumn": 27,
+                  "endLine": 88,
                   "startColumn": 13,
-                  "startLine": 109
+                  "startLine": 88
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Function names should match the pattern: [a-z][a-zA-Z0-9]*"
+          },
+          "ruleId": "detekt.naming.FunctionNaming"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
+                },
+                "region": {
+                  "endColumn": 27,
+                  "endLine": 104,
+                  "startColumn": 13,
+                  "startLine": 104
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Function names should match the pattern: [a-z][a-zA-Z0-9]*"
+          },
+          "ruleId": "detekt.naming.FunctionNaming"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
+                },
+                "region": {
+                  "endColumn": 37,
+                  "endLine": 156,
+                  "startColumn": 13,
+                  "startLine": 156
                 }
               }
             }
@@ -3116,9 +2676,9 @@
                 },
                 "region": {
                   "endColumn": 20,
-                  "endLine": 21,
+                  "endLine": 23,
                   "startColumn": 5,
-                  "startLine": 21
+                  "startLine": 23
                 }
               }
             }
@@ -3149,6 +2709,72 @@
             "text": "Package name should match the pattern: [a-z]+(\\.[a-z][A-Za-z0-9]*)*"
           },
           "ruleId": "detekt.naming.PackageNaming"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt"
+                },
+                "region": {
+                  "endColumn": 50,
+                  "endLine": 1,
+                  "startColumn": 1,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Package name should match the pattern: [a-z]+(\\.[a-z][A-Za-z0-9]*)*"
+          },
+          "ruleId": "detekt.naming.PackageNaming"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt"
+                },
+                "region": {
+                  "endColumn": 16,
+                  "endLine": 23,
+                  "startColumn": 5,
+                  "startLine": 23
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Function names should match the pattern: [a-z][a-zA-Z0-9]*"
+          },
+          "ruleId": "detekt.naming.FunctionNaming"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt"
+                },
+                "region": {
+                  "endColumn": 31,
+                  "endLine": 41,
+                  "startColumn": 13,
+                  "startLine": 41
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Function names should match the pattern: [a-z][a-zA-Z0-9]*"
+          },
+          "ruleId": "detekt.naming.FunctionNaming"
         },
         {
           "level": "warning",
@@ -3248,9 +2874,9 @@
                 },
                 "region": {
                   "endColumn": 30,
-                  "endLine": 9,
+                  "endLine": 11,
                   "startColumn": 5,
-                  "startLine": 9
+                  "startLine": 11
                 }
               }
             }
@@ -3289,6 +2915,28 @@
               "physicalLocation": {
                 "artifactLocation": {
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/ocr/TrainedDataCopyWorker.kt"
+                },
+                "region": {
+                  "endColumn": 42,
+                  "endLine": 1,
+                  "startColumn": 1,
+                  "startLine": 1
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Package name should match the pattern: [a-z]+(\\.[a-z][A-Za-z0-9]*)*"
+          },
+          "ruleId": "detekt.naming.PackageNaming"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/ocr/TrainedDataInstaller.kt"
                 },
                 "region": {
                   "endColumn": 42,
@@ -3479,28 +3127,6 @@
             "text": "String.format(\"%.2f MB\", sizeInMB) uses implicitly default locale for string formatting."
           },
           "ruleId": "detekt.potential-bugs.ImplicitDefaultLocale"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/repository/OCRRepository.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 92,
-                  "startColumn": 2,
-                  "startLine": 92
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/repository/OCRRepository.kt is not ending with a new line."
-          },
-          "ruleId": "detekt.style.NewLineAtEndOfFile"
         },
         {
           "level": "warning",
@@ -3807,94 +3433,6 @@
           ],
           "message": {
             "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/usecase/OCRUseCase.kt is not ending with a new line."
-          },
-          "ruleId": "detekt.style.NewLineAtEndOfFile"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/model/BottomBarItem.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 9,
-                  "startColumn": 2,
-                  "startLine": 9
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/model/BottomBarItem.kt is not ending with a new line."
-          },
-          "ruleId": "detekt.style.NewLineAtEndOfFile"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/utils/NavigationState.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 43,
-                  "startColumn": 2,
-                  "startLine": 43
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/utils/NavigationState.kt is not ending with a new line."
-          },
-          "ruleId": "detekt.style.NewLineAtEndOfFile"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/core/BottomNavigationBar.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 62,
-                  "startColumn": 2,
-                  "startLine": 62
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/core/BottomNavigationBar.kt is not ending with a new line."
-          },
-          "ruleId": "detekt.style.NewLineAtEndOfFile"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/Route.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 27,
-                  "startColumn": 2,
-                  "startLine": 27
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/navigation/Route.kt is not ending with a new line."
           },
           "ruleId": "detekt.style.NewLineAtEndOfFile"
         },
@@ -5316,9 +4854,9 @@
                 },
                 "region": {
                   "endColumn": 2,
-                  "endLine": 103,
+                  "endLine": 102,
                   "startColumn": 2,
-                  "startLine": 103
+                  "startLine": 102
                 }
               }
             }
@@ -5337,32 +4875,10 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
                 },
                 "region": {
-                  "endColumn": 2,
-                  "endLine": 115,
-                  "startColumn": 2,
-                  "startLine": 115
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt is not ending with a new line."
-          },
-          "ruleId": "detekt.style.NewLineAtEndOfFile"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
-                },
-                "region": {
-                  "endColumn": 18,
-                  "endLine": 67,
-                  "startColumn": 15,
-                  "startLine": 67
+                  "endColumn": 63,
+                  "endLine": 161,
+                  "startColumn": 61,
+                  "startLine": 161
                 }
               }
             }
@@ -5381,16 +4897,38 @@
                   "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
                 },
                 "region": {
-                  "endColumn": 30,
-                  "endLine": 109,
-                  "startColumn": 13,
-                  "startLine": 109
+                  "endColumn": 50,
+                  "endLine": 162,
+                  "startColumn": 48,
+                  "startLine": 162
                 }
               }
             }
           ],
           "message": {
-            "text": "Private function `HomeScreenPreview` is unused."
+            "text": "This expression contains a magic number. Consider defining it to a well named constant."
+          },
+          "ruleId": "detekt.style.MagicNumber"
+        },
+        {
+          "level": "warning",
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt"
+                },
+                "region": {
+                  "endColumn": 37,
+                  "endLine": 156,
+                  "startColumn": 13,
+                  "startLine": 156
+                }
+              }
+            }
+          ],
+          "message": {
+            "text": "Private function `HomeScreenContentPreview` is unused."
           },
           "ruleId": "detekt.style.UnusedPrivateMember"
         },
@@ -5400,43 +4938,21 @@
             {
               "physicalLocation": {
                 "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreenRoute.kt"
+                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/about/AboutScreen.kt"
                 },
                 "region": {
-                  "endColumn": 2,
-                  "endLine": 69,
-                  "startColumn": 2,
-                  "startLine": 69
+                  "endColumn": 31,
+                  "endLine": 41,
+                  "startColumn": 13,
+                  "startLine": 41
                 }
               }
             }
           ],
           "message": {
-            "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreenRoute.kt is not ending with a new line."
+            "text": "Private function `AboutScreenPreview` is unused."
           },
-          "ruleId": "detekt.style.NewLineAtEndOfFile"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeViewModel.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 84,
-                  "startColumn": 2,
-                  "startLine": 84
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeViewModel.kt is not ending with a new line."
-          },
-          "ruleId": "detekt.style.NewLineAtEndOfFile"
+          "ruleId": "detekt.style.UnusedPrivateMember"
         },
         {
           "level": "warning",
@@ -5457,94 +4973,6 @@
           ],
           "message": {
             "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreens.kt is not ending with a new line."
-          },
-          "ruleId": "detekt.style.NewLineAtEndOfFile"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreenRoute.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 24,
-                  "startColumn": 2,
-                  "startLine": 24
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreenRoute.kt is not ending with a new line."
-          },
-          "ruleId": "detekt.style.NewLineAtEndOfFile"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailViewModel.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 75,
-                  "startColumn": 2,
-                  "startLine": 75
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailViewModel.kt is not ending with a new line."
-          },
-          "ruleId": "detekt.style.NewLineAtEndOfFile"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailViewModel.kt"
-                },
-                "region": {
-                  "endColumn": 18,
-                  "endLine": 51,
-                  "startColumn": 27,
-                  "startLine": 49
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "`it` should not be used as name for a lambda parameter."
-          },
-          "ruleId": "detekt.style.ExplicitItLambdaParameter"
-        },
-        {
-          "level": "warning",
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "file:///home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/ocr/TrainedDataCopyWorker.kt"
-                },
-                "region": {
-                  "endColumn": 2,
-                  "endLine": 35,
-                  "startColumn": 2,
-                  "startLine": 35
-                }
-              }
-            }
-          ],
-          "message": {
-            "text": "The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/ocr/TrainedDataCopyWorker.kt is not ending with a new line."
           },
           "ruleId": "detekt.style.NewLineAtEndOfFile"
         },
