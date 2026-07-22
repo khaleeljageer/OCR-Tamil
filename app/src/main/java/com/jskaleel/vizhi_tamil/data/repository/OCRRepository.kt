@@ -3,6 +3,7 @@ package com.jskaleel.vizhi_tamil.data.repository
 import com.googlecode.tesseract.android.TessBaseAPI
 import com.jskaleel.vizhi_tamil.core.model.OCRResult
 import com.jskaleel.vizhi_tamil.core.ocr.TrainedDataInstaller
+import com.jskaleel.vizhi_tamil.core.utils.stripHtml
 import com.jskaleel.vizhi_tamil.core.utils.toRelativeTimeStamp
 import com.jskaleel.vizhi_tamil.data.model.ImageOCRResponseDTO
 import com.jskaleel.vizhi_tamil.data.source.local.room.dao.RecentScanDao
@@ -22,6 +23,7 @@ interface OCRRepository {
     suspend fun fetchTextFromImage(imagePath: String): OCRResult<ImageOCRResponseDTO>
     suspend fun saveImageResult(oCR: ImageOCRResponseDTO)
     fun getRecentScans(): Flow<List<ImageOCR>>
+    suspend fun deleteScans(scans: List<ImageOCR>)
 }
 
 class OCRRepositoryImpl @Inject constructor(
@@ -104,13 +106,21 @@ class OCRRepositoryImpl @Inject constructor(
         return recentScanDao.getAllScan().map { scans ->
             scans.map { recentScan ->
                 ImageOCR(
-                    text = recentScan.text,
+                    id = recentScan.id,
+                    text = recentScan.text.stripHtml(),
                     accuracy = recentScan.accuracy,
                     timeStamp = recentScan.timeStamp.toRelativeTimeStamp(),
                     imagePath = recentScan.filePath,
                 )
             }
         }
+    }
+
+    override suspend fun deleteScans(scans: List<ImageOCR>) = withContext(Dispatchers.IO) {
+        scans.forEach { scan ->
+            runCatching { File(scan.imagePath).takeIf { it.exists() }?.delete() }
+        }
+        recentScanDao.deleteByIds(scans.map { it.id })
     }
 
     private fun copyImageFromTempToDirectory(tmpImagePath: File): String {

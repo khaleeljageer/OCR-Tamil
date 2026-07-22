@@ -157,11 +157,11 @@
 
 <div>
   <ul>
-    <li>115 number of properties</li>
-    <li>82 number of functions</li>
-    <li>38 number of classes</li>
+    <li>127 number of properties</li>
+    <li>101 number of functions</li>
+    <li>39 number of classes</li>
     <li>24 number of packages</li>
-    <li>44 number of kt files</li>
+    <li>45 number of kt files</li>
   </ul>
 </div>
 
@@ -170,39 +170,22 @@
 
 <div>
   <ul>
-    <li>1,948 lines of code (loc)</li>
-    <li>1,668 source lines of code (sloc)</li>
-    <li>1,039 logical lines of code (lloc)</li>
-    <li>63 comment lines of code (cloc)</li>
-    <li>145 cyclomatic complexity (mcc)</li>
-    <li>71 cognitive complexity</li>
-    <li>249 number of total code smells</li>
+    <li>2,255 lines of code (loc)</li>
+    <li>1,943 source lines of code (sloc)</li>
+    <li>1,249 logical lines of code (lloc)</li>
+    <li>70 comment lines of code (cloc)</li>
+    <li>179 cyclomatic complexity (mcc)</li>
+    <li>100 cognitive complexity</li>
+    <li>253 number of total code smells</li>
     <li>3% comment source ratio</li>
-    <li>139 mcc per 1,000 lloc</li>
-    <li>239 code smells per 1,000 lloc</li>
+    <li>143 mcc per 1,000 lloc</li>
+    <li>202 code smells per 1,000 lloc</li>
   </ul>
 </div>
 
 
 <h2>Findings</h2>
-<div>Total: 249
-  <h3>complexity: 1</h3>
-  <details id="NestedBlockDepth" open="open">
-    <summary class="rule-container"><span class="rule">NestedBlockDepth: 1 </span><span class="description">Excessive nesting leads to hidden complexity. Prefer extracting code to make it easier to understand.</span></summary>
-<a href="https://detekt.dev/docs/rules/complexity#nestedblockdepth">Documentation</a>
-    <ul>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/ocr/TrainedDataInstaller.kt:36:17</span><span class="message">Function copyMissing is nested too deeply.</span>
-        <pre><code><span class="lineno">  33 </span>    fun installBlocking(languages: List&lt;String&gt; = DEFAULT_LANGUAGES): Result&lt;Unit&gt; =
-<span class="lineno">  34 </span>        copyMissing(languages)
-<span class="lineno">  35 </span>
-<span class="lineno">  36 </span>    private fun <span class="error">copyMissing</span>(languages: List&lt;String&gt;): Result&lt;Unit&gt; {
-<span class="lineno">  37 </span>        val tessDataDir = File(context.filesDir, TESSDATA_DIR).apply {
-<span class="lineno">  38 </span>            if (!exists()) mkdirs()
-<span class="lineno">  39 </span>        }
-</code></pre>
-      </li>
-    </ul>
-  </details>
+<div>Total: 253
   <h3>exceptions: 2</h3>
   <details id="TooGenericExceptionCaught" open="open">
     <summary class="rule-container"><span class="rule">TooGenericExceptionCaught: 2 </span><span class="description">The caught exception is too generic. Prefer catching specific exceptions to the case that is currently handled.</span></summary>
@@ -260,7 +243,7 @@
     </ul>
   </details>
   <details id="FinalNewline" open="open">
-    <summary class="rule-container"><span class="rule">FinalNewline: 21 </span><span class="description">Detects missing final newlines</span></summary>
+    <summary class="rule-container"><span class="rule">FinalNewline: 20 </span><span class="description">Detects missing final newlines</span></summary>
 <a href="https://detekt.dev/docs/rules/formatting#finalnewline">Documentation</a>
     <ul>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/VizhiTamilApp.kt:1:1</span><span class="message">File must end with a newline (\n)</span>
@@ -282,12 +265,6 @@
 <span class="lineno">   2 </span>
 <span class="lineno">   3 </span>import android.annotation.SuppressLint
 <span class="lineno">   4 </span>import java.text.SimpleDateFormat
-</code></pre>
-      </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/utils/StringExtensions.kt:1:1</span><span class="message">File must end with a newline (\n)</span>
-        <pre><code><span class="lineno">   1 </span><span class="error">p</span>ackage com.jskaleel.vizhi_tamil.core.utils
-<span class="lineno">   2 </span>
-<span class="lineno">   3 </span>fun String?.valueOrDefault(default: String = &quot;&quot;): String = this ?: default
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/utils/TypeAlias.kt:1:1</span><span class="message">File must end with a newline (\n)</span>
@@ -457,7 +434,7 @@
     </ul>
   </details>
   <details id="PackageName" open="open">
-    <summary class="rule-container"><span class="rule">PackageName: 44 </span><span class="description">Checks package name is formatted correctly</span></summary>
+    <summary class="rule-container"><span class="rule">PackageName: 45 </span><span class="description">Checks package name is formatted correctly</span></summary>
 <a href="https://detekt.dev/docs/rules/formatting#packagename">Documentation</a>
     <ul>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/VizhiTamilApp.kt:1:9</span><span class="message">Package name must not contain underscore</span>
@@ -512,7 +489,8 @@
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/utils/StringExtensions.kt:1:9</span><span class="message">Package name must not contain underscore</span>
         <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.core.utils
 <span class="lineno">   2 </span>
-<span class="lineno">   3 </span>fun String?.valueOrDefault(default: String = &quot;&quot;): String = this ?: default
+<span class="lineno">   3 </span>import androidx.core.text.HtmlCompat
+<span class="lineno">   4 </span>
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/utils/TypeAlias.kt:1:9</span><span class="message">Package name must not contain underscore</span>
@@ -703,6 +681,13 @@
 <span class="lineno">   4 </span>import android.os.Bundle
 </code></pre>
       </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeCallbacks.kt:1:9</span><span class="message">Package name must not contain underscore</span>
+        <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.ui.screens.home
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import com.jskaleel.vizhi_tamil.domain.model.ImageOCR
+<span class="lineno">   4 </span>
+</code></pre>
+      </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreenRoute.kt:1:9</span><span class="message">Package name must not contain underscore</span>
         <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.ui.screens.home
 <span class="lineno">   2 </span>
@@ -713,8 +698,8 @@
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:1:9</span><span class="message">Package name must not contain underscore</span>
         <pre><code><span class="lineno">   1 </span>package <span class="error">c</span>om.jskaleel.vizhi_tamil.ui.screens.home
 <span class="lineno">   2 </span>
-<span class="lineno">   3 </span>import androidx.compose.foundation.clickable
-<span class="lineno">   4 </span>import androidx.compose.foundation.layout.Arrangement
+<span class="lineno">   3 </span>import androidx.activity.compose.BackHandler
+<span class="lineno">   4 </span>import androidx.compose.foundation.background
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeViewModel.kt:1:9</span><span class="message">Package name must not contain underscore</span>
@@ -768,9 +753,9 @@
       </li>
     </ul>
   </details>
-  <h3>naming: 67</h3>
+  <h3>naming: 73</h3>
   <details id="FunctionNaming" open="open">
-    <summary class="rule-container"><span class="rule">FunctionNaming: 23 </span><span class="description">Function names should follow the naming convention set in the configuration.</span></summary>
+    <summary class="rule-container"><span class="rule">FunctionNaming: 28 </span><span class="description">Function names should follow the naming convention set in the configuration.</span></summary>
 <a href="https://detekt.dev/docs/rules/naming#functionnaming">Documentation</a>
     <ul>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/components/ConfidenceBadge.kt:36:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
@@ -923,44 +908,94 @@
 <span class="lineno">  26 </span>) {
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:47:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno">  44 </span>import java.io.File
-<span class="lineno">  45 </span>
-<span class="lineno">  46 </span>@Composable
-<span class="lineno">  47 </span>fun <span class="error">HomeScreen</span>(
-<span class="lineno">  48 </span>    uiState: HomeUiState,
-<span class="lineno">  49 </span>    onScanClick: () -&gt; Unit,
-<span class="lineno">  50 </span>    onScanItemClick: (String) -&gt; Unit,
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:64:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno">  61 </span>
+<span class="lineno">  62 </span>@OptIn(ExperimentalMaterial3Api::class)
+<span class="lineno">  63 </span>@Composable
+<span class="lineno">  64 </span>fun <span class="error">HomeScreen</span>(
+<span class="lineno">  65 </span>    uiState: HomeUiState,
+<span class="lineno">  66 </span>    callbacks: HomeCallbacks,
+<span class="lineno">  67 </span>) {
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:88:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno">  85 </span>}
-<span class="lineno">  86 </span>
-<span class="lineno">  87 </span>@Composable
-<span class="lineno">  88 </span>private fun <span class="error">RecentScanList</span>(
-<span class="lineno">  89 </span>    scans: List&lt;ImageOCR&gt;,
-<span class="lineno">  90 </span>    onScanItemClick: (String) -&gt; Unit,
-<span class="lineno">  91 </span>) {
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:121:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 118 </span>
+<span class="lineno"> 119 </span>@OptIn(ExperimentalMaterial3Api::class)
+<span class="lineno"> 120 </span>@Composable
+<span class="lineno"> 121 </span>private fun <span class="error">HomeTopBar</span>(
+<span class="lineno"> 122 </span>    selectedCount: Int,
+<span class="lineno"> 123 </span>    onClearSelection: () -&gt; Unit,
+<span class="lineno"> 124 </span>    onDeleteSelected: () -&gt; Unit,
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:104:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno"> 101 </span>}
-<span class="lineno"> 102 </span>
-<span class="lineno"> 103 </span>@Composable
-<span class="lineno"> 104 </span>private fun <span class="error">RecentScanItem</span>(
-<span class="lineno"> 105 </span>    scan: ImageOCR,
-<span class="lineno"> 106 </span>    onClick: () -&gt; Unit,
-<span class="lineno"> 107 </span>) {
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:154:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 151 </span>}
+<span class="lineno"> 152 </span>
+<span class="lineno"> 153 </span>@Composable
+<span class="lineno"> 154 </span>private fun <span class="error">ContentBody</span>(
+<span class="lineno"> 155 </span>    state: HomeUiState.Content,
+<span class="lineno"> 156 </span>    callbacks: HomeCallbacks,
+<span class="lineno"> 157 </span>) {
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:156:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
-        <pre><code><span class="lineno"> 153 </span>
-<span class="lineno"> 154 </span>@Preview(showSystemUi = true, showBackground = true, device = &quot;spec:parent=pixel_6&quot;)
-<span class="lineno"> 155 </span>@Composable
-<span class="lineno"> 156 </span>private fun <span class="error">HomeScreenContentPreview</span>() {
-<span class="lineno"> 157 </span>    VizhiTamilTheme {
-<span class="lineno"> 158 </span>        HomeScreen(
-<span class="lineno"> 159 </span>            uiState = HomeUiState.Content(
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:173:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 170 </span>}
+<span class="lineno"> 171 </span>
+<span class="lineno"> 172 </span>@Composable
+<span class="lineno"> 173 </span>private fun <span class="error">SearchField</span>(
+<span class="lineno"> 174 </span>    query: String,
+<span class="lineno"> 175 </span>    onQueryChange: (String) -&gt; Unit,
+<span class="lineno"> 176 </span>    onClear: () -&gt; Unit,
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:201:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 198 </span>}
+<span class="lineno"> 199 </span>
+<span class="lineno"> 200 </span>@Composable
+<span class="lineno"> 201 </span>private fun <span class="error">NoResults</span>(query: String) {
+<span class="lineno"> 202 </span>    Box(
+<span class="lineno"> 203 </span>        modifier = Modifier.fillMaxSize(),
+<span class="lineno"> 204 </span>        contentAlignment = Alignment.Center,
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:217:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 214 </span>
+<span class="lineno"> 215 </span>@OptIn(ExperimentalMaterial3Api::class)
+<span class="lineno"> 216 </span>@Composable
+<span class="lineno"> 217 </span>private fun <span class="error">RecentScanList</span>(
+<span class="lineno"> 218 </span>    state: HomeUiState.Content,
+<span class="lineno"> 219 </span>    callbacks: HomeCallbacks,
+<span class="lineno"> 220 </span>) {
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:259:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 256 </span>}
+<span class="lineno"> 257 </span>
+<span class="lineno"> 258 </span>@Composable
+<span class="lineno"> 259 </span>private fun <span class="error">SwipeDeleteBackground</span>() {
+<span class="lineno"> 260 </span>    Box(
+<span class="lineno"> 261 </span>        modifier = Modifier
+<span class="lineno"> 262 </span>            .fillMaxSize()
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:278:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 275 </span>
+<span class="lineno"> 276 </span>@OptIn(ExperimentalMaterial3Api::class)
+<span class="lineno"> 277 </span>@Composable
+<span class="lineno"> 278 </span>private fun <span class="error">RecentScanItem</span>(
+<span class="lineno"> 279 </span>    scan: ImageOCR,
+<span class="lineno"> 280 </span>    selected: Boolean,
+<span class="lineno"> 281 </span>    onClick: () -&gt; Unit,
+</code></pre>
+      </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:337:13</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
+        <pre><code><span class="lineno"> 334 </span>
+<span class="lineno"> 335 </span>@Preview(showSystemUi = true, showBackground = true, device = &quot;spec:parent=pixel_6&quot;)
+<span class="lineno"> 336 </span>@Composable
+<span class="lineno"> 337 </span>private fun <span class="error">HomeScreenContentPreview</span>() {
+<span class="lineno"> 338 </span>    VizhiTamilTheme {
+<span class="lineno"> 339 </span>        HomeScreen(
+<span class="lineno"> 340 </span>            uiState = HomeUiState.Content(
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/imageDetail/ImageOCRDetailScreenRoute.kt:11:5</span><span class="message">Function names should match the pattern: [a-z][a-zA-Z0-9]*</span>
@@ -1006,7 +1041,7 @@
     </ul>
   </details>
   <details id="PackageNaming" open="open">
-    <summary class="rule-container"><span class="rule">PackageNaming: 44 </span><span class="description">Package names should match the naming convention set in the configuration.</span></summary>
+    <summary class="rule-container"><span class="rule">PackageNaming: 45 </span><span class="description">Package names should match the naming convention set in the configuration.</span></summary>
 <a href="https://detekt.dev/docs/rules/naming#packagenaming">Documentation</a>
     <ul>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/VizhiTamilApp.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
@@ -1061,7 +1096,8 @@
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/utils/StringExtensions.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
         <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.core.utils</span>
 <span class="lineno">   2 </span>
-<span class="lineno">   3 </span>fun String?.valueOrDefault(default: String = &quot;&quot;): String = this ?: default
+<span class="lineno">   3 </span>import androidx.core.text.HtmlCompat
+<span class="lineno">   4 </span>
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/utils/TypeAlias.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
@@ -1252,6 +1288,13 @@
 <span class="lineno">   4 </span>import android.os.Bundle
 </code></pre>
       </li>
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeCallbacks.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
+        <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.ui.screens.home</span>
+<span class="lineno">   2 </span>
+<span class="lineno">   3 </span>import com.jskaleel.vizhi_tamil.domain.model.ImageOCR
+<span class="lineno">   4 </span>
+</code></pre>
+      </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreenRoute.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
         <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.ui.screens.home</span>
 <span class="lineno">   2 </span>
@@ -1262,8 +1305,8 @@
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
         <pre><code><span class="lineno">   1 </span><span class="error">package com.jskaleel.vizhi_tamil.ui.screens.home</span>
 <span class="lineno">   2 </span>
-<span class="lineno">   3 </span>import androidx.compose.foundation.clickable
-<span class="lineno">   4 </span>import androidx.compose.foundation.layout.Arrangement
+<span class="lineno">   3 </span>import androidx.activity.compose.BackHandler
+<span class="lineno">   4 </span>import androidx.compose.foundation.background
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeViewModel.kt:1:1</span><span class="message">Package name should match the pattern: [a-z]+(\.[a-z][A-Za-z0-9]*)*</span>
@@ -1334,7 +1377,7 @@
       </li>
     </ul>
   </details>
-  <h3>style: 107</h3>
+  <h3>style: 106</h3>
   <details id="MagicNumber" open="open">
     <summary class="rule-container"><span class="rule">MagicNumber: 80 </span><span class="description">Report magic numbers. Magic number is a numeric literal that is not defined as a constant and hence it's unclear what the purpose of this number is. It's better to declare such numbers as constants and give them a proper name. By default, -1, 0, 1, and 2 are not considered to be magic numbers.</span></summary>
 <a href="https://detekt.dev/docs/rules/style#magicnumber">Documentation</a>
@@ -1529,24 +1572,24 @@
 <span class="lineno">  46 </span>    ) {
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:161:61</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
-        <pre><code><span class="lineno"> 158 </span>        HomeScreen(
-<span class="lineno"> 159 </span>            uiState = HomeUiState.Content(
-<span class="lineno"> 160 </span>                scans = listOf(
-<span class="lineno"> 161 </span>                    ImageOCR(&quot;இது ஒரு எடுத்துக்காட்டு உரை&quot;, <span class="error">92</span>, &quot;2 hours ago&quot;, &quot;/tmp/a.jpg&quot;),
-<span class="lineno"> 162 </span>                    ImageOCR(&quot;மற்றொரு ஸ்கேன்&quot;, 68, &quot;yesterday&quot;, &quot;/tmp/b.jpg&quot;),
-<span class="lineno"> 163 </span>                ),
-<span class="lineno"> 164 </span>            ),
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:342:61</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 339 </span>        HomeScreen(
+<span class="lineno"> 340 </span>            uiState = HomeUiState.Content(
+<span class="lineno"> 341 </span>                scans = listOf(
+<span class="lineno"> 342 </span>                    ImageOCR(&quot;இது ஒரு எடுத்துக்காட்டு உரை&quot;, <span class="error">92</span>, &quot;2 hours ago&quot;, &quot;/tmp/a.jpg&quot;, 1),
+<span class="lineno"> 343 </span>                    ImageOCR(&quot;மற்றொரு ஸ்கேன்&quot;, 68, &quot;yesterday&quot;, &quot;/tmp/b.jpg&quot;, 2),
+<span class="lineno"> 344 </span>                ),
+<span class="lineno"> 345 </span>            ),
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:162:48</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
-        <pre><code><span class="lineno"> 159 </span>            uiState = HomeUiState.Content(
-<span class="lineno"> 160 </span>                scans = listOf(
-<span class="lineno"> 161 </span>                    ImageOCR(&quot;இது ஒரு எடுத்துக்காட்டு உரை&quot;, 92, &quot;2 hours ago&quot;, &quot;/tmp/a.jpg&quot;),
-<span class="lineno"> 162 </span>                    ImageOCR(&quot;மற்றொரு ஸ்கேன்&quot;, <span class="error">68</span>, &quot;yesterday&quot;, &quot;/tmp/b.jpg&quot;),
-<span class="lineno"> 163 </span>                ),
-<span class="lineno"> 164 </span>            ),
-<span class="lineno"> 165 </span>            onScanClick = {},
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:343:48</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
+        <pre><code><span class="lineno"> 340 </span>            uiState = HomeUiState.Content(
+<span class="lineno"> 341 </span>                scans = listOf(
+<span class="lineno"> 342 </span>                    ImageOCR(&quot;இது ஒரு எடுத்துக்காட்டு உரை&quot;, 92, &quot;2 hours ago&quot;, &quot;/tmp/a.jpg&quot;, 1),
+<span class="lineno"> 343 </span>                    ImageOCR(&quot;மற்றொரு ஸ்கேன்&quot;, <span class="error">68</span>, &quot;yesterday&quot;, &quot;/tmp/b.jpg&quot;, 2),
+<span class="lineno"> 344 </span>                ),
+<span class="lineno"> 345 </span>            ),
+<span class="lineno"> 346 </span>            callbacks = HomeCallbacks(),
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/theme/Color.kt:6:21</span><span class="message">This expression contains a magic number. Consider defining it to a well named constant.</span>
@@ -2139,7 +2182,7 @@
     </ul>
   </details>
   <details id="NewLineAtEndOfFile" open="open">
-    <summary class="rule-container"><span class="rule">NewLineAtEndOfFile: 21 </span><span class="description">Checks whether files end with a line separator.</span></summary>
+    <summary class="rule-container"><span class="rule">NewLineAtEndOfFile: 20 </span><span class="description">Checks whether files end with a line separator.</span></summary>
 <a href="https://detekt.dev/docs/rules/style#newlineatendoffile">Documentation</a>
     <ul>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/VizhiTamilApp.kt:13:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/VizhiTamilApp.kt is not ending with a new line.</span>
@@ -2161,12 +2204,6 @@
 <span class="lineno">  30 </span>        }
 <span class="lineno">  31 </span>    }
 <span class="lineno">  32 </span>}
-</code></pre>
-      </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/utils/StringExtensions.kt:3:75</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/utils/StringExtensions.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">   1 </span>package com.jskaleel.vizhi_tamil.core.utils
-<span class="lineno">   2 </span>
-<span class="lineno">   3 </span>fun String?.valueOrDefault(default: String = &quot;&quot;): String = this ?: default
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/utils/TypeAlias.kt:3:32</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/core/utils/TypeAlias.kt is not ending with a new line.</span>
@@ -2217,11 +2254,11 @@
 <span class="lineno">  11 </span>}
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/room/dao/RecentScanDao.kt:20:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/room/dao/RecentScanDao.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  17 </span>
-<span class="lineno">  18 </span>    @Query(&quot;delete from recent_scan where time_stamp =:timeStamp&quot;)
-<span class="lineno">  19 </span>    suspend fun deleteScan(timeStamp: Long)
-<span class="lineno">  20 </span>}
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/room/dao/RecentScanDao.kt:23:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/room/dao/RecentScanDao.kt is not ending with a new line.</span>
+        <pre><code><span class="lineno">  20 </span>
+<span class="lineno">  21 </span>    @Query(&quot;DELETE FROM recent_scan WHERE id IN (:ids)&quot;)
+<span class="lineno">  22 </span>    suspend fun deleteByIds(ids: List&lt;Int&gt;)
+<span class="lineno">  23 </span>}
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/room/entity/RecentScan.kt:24:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/data/source/local/room/entity/RecentScan.kt is not ending with a new line.</span>
@@ -2266,11 +2303,11 @@
 <span class="lineno">   8 </span>)
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/usecase/OCRUseCase.kt:31:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/usecase/OCRUseCase.kt is not ending with a new line.</span>
-        <pre><code><span class="lineno">  28 </span>    override fun getRecentScans(): Flow&lt;List&lt;ImageOCR&gt;&gt; {
-<span class="lineno">  29 </span>        return ocrRepository.getRecentScans()
-<span class="lineno">  30 </span>    }
-<span class="lineno">  31 </span>}
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/usecase/OCRUseCase.kt:36:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/domain/usecase/OCRUseCase.kt is not ending with a new line.</span>
+        <pre><code><span class="lineno">  33 </span>    override suspend fun deleteScans(scans: List&lt;ImageOCR&gt;) {
+<span class="lineno">  34 </span>        ocrRepository.deleteScans(scans)
+<span class="lineno">  35 </span>    }
+<span class="lineno">  36 </span>}
 </code></pre>
       </li>
       <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt:102:2</span><span class="message">The file /home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/activity/MainActivity.kt is not ending with a new line.</span>
@@ -2343,14 +2380,14 @@
 <span class="lineno">  44 </span>    }
 </code></pre>
       </li>
-      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:156:13</span><span class="message">Private function `HomeScreenContentPreview` is unused.</span>
-        <pre><code><span class="lineno"> 153 </span>
-<span class="lineno"> 154 </span>@Preview(showSystemUi = true, showBackground = true, device = &quot;spec:parent=pixel_6&quot;)
-<span class="lineno"> 155 </span>@Composable
-<span class="lineno"> 156 </span>private fun <span class="error">HomeScreenContentPreview</span>() {
-<span class="lineno"> 157 </span>    VizhiTamilTheme {
-<span class="lineno"> 158 </span>        HomeScreen(
-<span class="lineno"> 159 </span>            uiState = HomeUiState.Content(
+      <li><span class="location">/home/asuran/Projects/android-projects/OCR-Tamil/app/src/main/java/com/jskaleel/vizhi_tamil/ui/screens/home/HomeScreens.kt:337:13</span><span class="message">Private function `HomeScreenContentPreview` is unused.</span>
+        <pre><code><span class="lineno"> 334 </span>
+<span class="lineno"> 335 </span>@Preview(showSystemUi = true, showBackground = true, device = &quot;spec:parent=pixel_6&quot;)
+<span class="lineno"> 336 </span>@Composable
+<span class="lineno"> 337 </span>private fun <span class="error">HomeScreenContentPreview</span>() {
+<span class="lineno"> 338 </span>    VizhiTamilTheme {
+<span class="lineno"> 339 </span>        HomeScreen(
+<span class="lineno"> 340 </span>            uiState = HomeUiState.Content(
 </code></pre>
       </li>
     </ul>
@@ -2358,7 +2395,7 @@
 </div>
 
 
-generated with <a href="https://detekt.dev/">detekt version 1.23.8</a> on 2026-07-22 19:20:33 UTC.
+generated with <a href="https://detekt.dev/">detekt version 1.23.8</a> on 2026-07-22 19:46:04 UTC.
 
 </body>
 </html>

@@ -39,8 +39,16 @@ fun HomeScreenRoute(
 
     HomeScreen(
         uiState = uiState,
-        onScanClick = { startDocumentScan(activity, context, scannerLauncher) },
-        onScanItemClick = onOpenDetail,
+        callbacks = HomeCallbacks(
+            onScanClick = { startDocumentScan(activity, context, scannerLauncher) },
+            onScanItemClick = onOpenDetail,
+            onSearchChange = viewModel::onSearchChange,
+            onClearSearch = viewModel::onClearSearch,
+            onToggleSelection = viewModel::onToggleSelection,
+            onClearSelection = viewModel::onClearSelection,
+            onDeleteSelected = viewModel::onDeleteSelected,
+            onDeleteScan = viewModel::onDeleteScan,
+        ),
     )
 }
 

@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Vizhi Tamil</string>
+
+    <!-- Actions -->
+    <string name="action_scan">Scan</string>
+    <string name="action_delete">Delete</string>
+    <string name="action_clear_selection">Clear selection</string>
+    <string name="action_clear_search">Clear search</string>
+
+    <!-- Home -->
+    <string name="home_empty_title">No scans yet</string>
+    <string name="home_empty_desc">Tap Scan to capture a document and extract Tamil text.</string>
+    <string name="home_search_hint">Search scans</string>
+    <string name="home_no_results">No scans match “%1$s”</string>
+    <string name="home_selected_count">%1$d selected</string>
 </resources>

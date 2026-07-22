@@ -17,4 +17,7 @@ interface RecentScanDao {
 
     @Query("delete from recent_scan where time_stamp =:timeStamp")
     suspend fun deleteScan(timeStamp: Long)
+
+    @Query("DELETE FROM recent_scan WHERE id IN (:ids)")
+    suspend fun deleteByIds(ids: List<Int>)
 }

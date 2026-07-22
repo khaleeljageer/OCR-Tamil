@@ -12,6 +12,7 @@ import javax.inject.Inject
 interface OCRUseCase {
     suspend fun fetchTextFromImage(imagePath: String): OCRResult<ImageOCR>
     fun getRecentScans(): Flow<List<ImageOCR>>
+    suspend fun deleteScans(scans: List<ImageOCR>)
 }
 
 class OCRUseCaseImpl @Inject constructor(
@@ -27,5 +28,9 @@ class OCRUseCaseImpl @Inject constructor(
 
     override fun getRecentScans(): Flow<List<ImageOCR>> {
         return ocrRepository.getRecentScans()
+    }
+
+    override suspend fun deleteScans(scans: List<ImageOCR>) {
+        ocrRepository.deleteScans(scans)
     }
 }
