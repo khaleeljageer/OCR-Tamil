@@ -9,6 +9,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -21,10 +22,11 @@ import com.google.mlkit.vision.documentscanner.GmsDocumentScanningResult
 
 @Composable
 fun HomeScreenRoute(
-    onOpenDetail: (String) -> Unit,
+    onOpenDetail: (Int) -> Unit,
     viewModel: HomeViewModel = hiltViewModel(),
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val isProcessing by viewModel.isProcessing.collectAsStateWithLifecycle()
     val activity = LocalActivity.current
     val context = LocalContext.current
 
@@ -33,12 +35,26 @@ fun HomeScreenRoute(
     ) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val scanningResult = GmsDocumentScanningResult.fromActivityResultIntent(result.data)
-            scanningResult?.pages?.firstOrNull()?.imageUri?.path?.let(onOpenDetail)
+            val pagePaths = scanningResult?.pages
+                ?.mapNotNull { it.imageUri.path }
+                .orEmpty()
+            viewModel.onScanned(pagePaths)
+        }
+    }
+
+    LaunchedEffect(Unit) {
+        viewModel.events.collect { event ->
+            when (event) {
+                is HomeEvent.OpenScan -> onOpenDetail(event.scanId)
+                is HomeEvent.ShowMessage ->
+                    Toast.makeText(context, event.message, Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
     HomeScreen(
         uiState = uiState,
+        isProcessing = isProcessing,
         callbacks = HomeCallbacks(
             onScanClick = { startDocumentScan(activity, context, scannerLauncher) },
             onScanItemClick = onOpenDetail,
@@ -60,7 +76,6 @@ private fun startDocumentScan(
     if (activity == null) return
     val options = GmsDocumentScannerOptions.Builder()
         .setScannerMode(SCANNER_MODE_FULL)
-        .setPageLimit(1)
         .setGalleryImportAllowed(true)
         .setResultFormats(RESULT_FORMAT_JPEG)
         .build()

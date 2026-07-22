@@ -15,5 +15,5 @@ sealed interface AppRoute {
     data object About : AppRoute
 
     @Serializable
-    data class ImageOcrDetail(val imagePath: String) : AppRoute
+    data class ImageOcrDetail(val scanId: Int) : AppRoute
 }

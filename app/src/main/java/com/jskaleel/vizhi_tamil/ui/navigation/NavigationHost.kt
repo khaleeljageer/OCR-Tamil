@@ -21,8 +21,8 @@ fun NavigationHost(
     ) {
         composable<AppRoute.Home> {
             HomeScreenRoute(
-                onOpenDetail = { imagePath ->
-                    navController.navigate(AppRoute.ImageOcrDetail(imagePath))
+                onOpenDetail = { scanId ->
+                    navController.navigate(AppRoute.ImageOcrDetail(scanId))
                 },
             )
         }
@@ -30,8 +30,10 @@ fun NavigationHost(
             AboutScreen()
         }
         composable<AppRoute.ImageOcrDetail> {
-            // The ViewModel reads its imagePath argument from SavedStateHandle.
-            ImageOCRDetailScreenRoute()
+            // The ViewModel reads its scanId argument from SavedStateHandle.
+            ImageOCRDetailScreenRoute(
+                onBack = { navController.popBackStack() },
+            )
         }
     }
 }

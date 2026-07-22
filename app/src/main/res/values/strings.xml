@@ -6,6 +6,13 @@
     <string name="action_delete">Delete</string>
     <string name="action_clear_selection">Clear selection</string>
     <string name="action_clear_search">Clear search</string>
+    <string name="action_back">Back</string>
+    <string name="action_more">More options</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_share">Share</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_save">Save</string>
+    <string name="action_cancel">Cancel</string>
 
     <!-- Home -->
     <string name="home_empty_title">No scans yet</string>
@@ -13,4 +20,9 @@
     <string name="home_search_hint">Search scans</string>
     <string name="home_no_results">No scans match “%1$s”</string>
     <string name="home_selected_count">%1$d selected</string>
+    <string name="home_recognising">Recognising text…</string>
+
+    <!-- Detail -->
+    <string name="detail_title">Scan</string>
+    <string name="detail_copied">Copied to clipboard</string>
 </resources>

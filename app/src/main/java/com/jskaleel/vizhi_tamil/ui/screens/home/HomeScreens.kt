@@ -64,6 +64,7 @@ import java.io.File
 fun HomeScreen(
     uiState: HomeUiState,
     callbacks: HomeCallbacks,
+    isProcessing: Boolean = false,
 ) {
     val selectionMode = (uiState as? HomeUiState.Content)?.inSelectionMode == true
 
@@ -112,7 +113,23 @@ fun HomeScreen(
                     callbacks = callbacks,
                 )
             }
+
+            if (isProcessing) {
+                ProcessingOverlay()
+            }
         }
+    }
+}
+
+@Composable
+private fun ProcessingOverlay() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.scrim.copy(alpha = 0.32f)),
+        contentAlignment = Alignment.Center,
+    ) {
+        LoadingIndicator(message = stringResource(R.string.home_recognising))
     }
 }
 
@@ -245,7 +262,7 @@ private fun RecentScanList(
                         if (state.inSelectionMode) {
                             callbacks.onToggleSelection(scan.id)
                         } else {
-                            callbacks.onScanItemClick(scan.imagePath)
+                            callbacks.onScanItemClick(scan.id)
                         }
                     },
                     onLongClick = { callbacks.onToggleSelection(scan.id) },

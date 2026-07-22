@@ -12,8 +12,14 @@ interface RecentScanDao {
     @Query("SELECT * FROM recent_scan ORDER BY time_stamp DESC")
     fun getAllScan(): Flow<MutableList<RecentScan>>
 
+    @Query("SELECT * FROM recent_scan WHERE id = :id")
+    suspend fun getById(id: Int): RecentScan?
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insert(item: RecentScan)
+    suspend fun insert(item: RecentScan): Long
+
+    @Query("UPDATE recent_scan SET text = :text WHERE id = :id")
+    suspend fun updateText(id: Int, text: String)
 
     @Query("delete from recent_scan where time_stamp =:timeStamp")
     suspend fun deleteScan(timeStamp: Long)

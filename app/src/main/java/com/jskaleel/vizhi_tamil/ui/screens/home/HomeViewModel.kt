@@ -2,13 +2,17 @@ package com.jskaleel.vizhi_tamil.ui.screens.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.jskaleel.vizhi_tamil.core.model.OCRResult
 import com.jskaleel.vizhi_tamil.domain.model.ImageOCR
 import com.jskaleel.vizhi_tamil.domain.usecase.OCRUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -21,6 +25,12 @@ class HomeViewModel @Inject constructor(
 
     private val searchQuery = MutableStateFlow("")
     private val selectedIds = MutableStateFlow<Set<Int>>(emptySet())
+
+    private val _isProcessing = MutableStateFlow(false)
+    val isProcessing: StateFlow<Boolean> = _isProcessing.asStateFlow()
+
+    private val _events = Channel<HomeEvent>(Channel.BUFFERED)
+    val events = _events.receiveAsFlow()
 
     // null until the first DB emission, so we can show Loading before Empty.
     private val allScans: StateFlow<List<ImageOCR>?> = ocrUseCase.getRecentScans()
@@ -53,6 +63,20 @@ class HomeViewModel @Inject constructor(
         started = SharingStarted.WhileSubscribed(STOP_TIMEOUT_MILLIS),
         initialValue = HomeUiState.Loading,
     )
+
+    /** Runs OCR over the scanned pages, persists one scan, then opens it. */
+    fun onScanned(imagePaths: List<String>) {
+        if (imagePaths.isEmpty()) return
+        viewModelScope.launch {
+            _isProcessing.value = true
+            val event = when (val result = ocrUseCase.recognizeAndSave(imagePaths)) {
+                is OCRResult.Success -> HomeEvent.OpenScan(result.data.id)
+                is OCRResult.Error -> HomeEvent.ShowMessage(result.message)
+            }
+            _isProcessing.value = false
+            _events.send(event)
+        }
+    }
 
     fun onSearchChange(query: String) {
         searchQuery.value = query
@@ -95,6 +119,11 @@ class HomeViewModel @Inject constructor(
     companion object {
         private const val STOP_TIMEOUT_MILLIS = 5_000L
     }
+}
+
+sealed interface HomeEvent {
+    data class OpenScan(val scanId: Int) : HomeEvent
+    data class ShowMessage(val message: String) : HomeEvent
 }
 
 sealed interface HomeUiState {

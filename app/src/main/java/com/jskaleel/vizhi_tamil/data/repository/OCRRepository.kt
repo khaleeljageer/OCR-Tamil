@@ -3,9 +3,7 @@ package com.jskaleel.vizhi_tamil.data.repository
 import com.googlecode.tesseract.android.TessBaseAPI
 import com.jskaleel.vizhi_tamil.core.model.OCRResult
 import com.jskaleel.vizhi_tamil.core.ocr.TrainedDataInstaller
-import com.jskaleel.vizhi_tamil.core.utils.stripHtml
 import com.jskaleel.vizhi_tamil.core.utils.toRelativeTimeStamp
-import com.jskaleel.vizhi_tamil.data.model.ImageOCRResponseDTO
 import com.jskaleel.vizhi_tamil.data.source.local.room.dao.RecentScanDao
 import com.jskaleel.vizhi_tamil.data.source.local.room.entity.RecentScan
 import com.jskaleel.vizhi_tamil.data.source.local.storage.FileStorage
@@ -20,8 +18,10 @@ import java.io.File
 import javax.inject.Inject
 
 interface OCRRepository {
-    suspend fun fetchTextFromImage(imagePath: String): OCRResult<ImageOCRResponseDTO>
-    suspend fun saveImageResult(oCR: ImageOCRResponseDTO)
+    /** Recognises text across all pages, persists one scan, and returns it with its id. */
+    suspend fun recognizeAndSave(imagePaths: List<String>): OCRResult<ImageOCR>
+    suspend fun getScan(id: Int): ImageOCR?
+    suspend fun updateScanText(id: Int, text: String)
     fun getRecentScans(): Flow<List<ImageOCR>>
     suspend fun deleteScans(scans: List<ImageOCR>)
 }
@@ -41,7 +41,7 @@ class OCRRepositoryImpl @Inject constructor(
     private var initialized = false
 
     // TessBaseAPI holds native per-call state and is not thread-safe, so
-    // concurrent scans are serialised.
+    // concurrent recognition is serialised.
     private val recognitionMutex = Mutex()
 
     private suspend fun ensureInitialized(): Result<Unit> {
@@ -61,58 +61,75 @@ class OCRRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun fetchTextFromImage(
-        imagePath: String,
-    ): OCRResult<ImageOCRResponseDTO> = withContext(Dispatchers.IO) {
+    override suspend fun recognizeAndSave(
+        imagePaths: List<String>,
+    ): OCRResult<ImageOCR> = withContext(Dispatchers.IO) {
+        if (imagePaths.isEmpty()) {
+            return@withContext OCRResult.Error(message = "No image to scan")
+        }
         ensureInitialized().getOrElse {
             return@withContext OCRResult.Error(
                 message = it.message ?: "Failed to initialise OCR engine",
             )
         }
 
-        recognitionMutex.withLock {
-            val ocrImagePath: File = File(imagePath)
-            val imgFileDirPath = copyImageFromTempToDirectory(ocrImagePath)
-            tessBaseAPI.setImage(ocrImagePath)
-            val text = try {
-                tessBaseAPI.getHOCRText(1)
-            } catch (_: Exception) {
-                ""
-            }
-            val accuracy = tessBaseAPI.meanConfidence()
-            val timeStamp = System.currentTimeMillis()
-            tessBaseAPI.clear()
-
-            if (text.isNotEmpty()) {
-                OCRResult.Success(ImageOCRResponseDTO(text, accuracy, timeStamp, imgFileDirPath))
-            } else {
-                OCRResult.Error(message = "No text found in the image")
-            }
+        val recognition = recognitionMutex.withLock { recognizePages(imagePaths) }
+        if (recognition.text.isBlank()) {
+            return@withContext OCRResult.Error(message = "No text found in the image")
         }
-    }
 
-    override suspend fun saveImageResult(oCR: ImageOCRResponseDTO) {
-        recentScanDao.insert(
+        val timeStamp = System.currentTimeMillis()
+        val savedImagePath = copyImageToStorage(File(imagePaths.first()))
+        val id = recentScanDao.insert(
             RecentScan(
-                filePath = oCR.imagePath,
-                timeStamp = oCR.timeStamp,
-                text = oCR.text,
-                accuracy = oCR.accuracy,
+                filePath = savedImagePath,
+                timeStamp = timeStamp,
+                text = recognition.text,
+                accuracy = recognition.accuracy,
+            ),
+        ).toInt()
+
+        OCRResult.Success(
+            ImageOCR(
+                id = id,
+                text = recognition.text,
+                accuracy = recognition.accuracy,
+                timeStamp = timeStamp.toRelativeTimeStamp(),
+                imagePath = savedImagePath,
             ),
         )
     }
 
+    private fun recognizePages(imagePaths: List<String>): Recognition {
+        val builder = StringBuilder()
+        var confidenceSum = 0
+        var pageCount = 0
+        imagePaths.forEach { path ->
+            tessBaseAPI.setImage(File(path))
+            val pageText = runCatching { tessBaseAPI.getUTF8Text() }.getOrDefault("").trim()
+            if (pageText.isNotEmpty()) {
+                if (builder.isNotEmpty()) builder.append("\n\n")
+                builder.append(pageText)
+                confidenceSum += tessBaseAPI.meanConfidence()
+                pageCount++
+            }
+            tessBaseAPI.clear()
+        }
+        val accuracy = if (pageCount > 0) confidenceSum / pageCount else 0
+        return Recognition(text = builder.toString(), accuracy = accuracy)
+    }
+
+    override suspend fun getScan(id: Int): ImageOCR? = withContext(Dispatchers.IO) {
+        recentScanDao.getById(id)?.toImageOCR()
+    }
+
+    override suspend fun updateScanText(id: Int, text: String) = withContext(Dispatchers.IO) {
+        recentScanDao.updateText(id, text)
+    }
+
     override fun getRecentScans(): Flow<List<ImageOCR>> {
         return recentScanDao.getAllScan().map { scans ->
-            scans.map { recentScan ->
-                ImageOCR(
-                    id = recentScan.id,
-                    text = recentScan.text.stripHtml(),
-                    accuracy = recentScan.accuracy,
-                    timeStamp = recentScan.timeStamp.toRelativeTimeStamp(),
-                    imagePath = recentScan.filePath,
-                )
-            }
+            scans.map { it.toImageOCR() }
         }
     }
 
@@ -123,7 +140,15 @@ class OCRRepositoryImpl @Inject constructor(
         recentScanDao.deleteByIds(scans.map { it.id })
     }
 
-    private fun copyImageFromTempToDirectory(tmpImagePath: File): String {
+    private fun RecentScan.toImageOCR(): ImageOCR = ImageOCR(
+        id = id,
+        text = text,
+        accuracy = accuracy,
+        timeStamp = timeStamp.toRelativeTimeStamp(),
+        imagePath = filePath,
+    )
+
+    private fun copyImageToStorage(tmpImagePath: File): String {
         val ocrImageDir = fileStorage.getOCRImageDir()
         val newFile = File(ocrImageDir, tmpImagePath.name)
         if (!newFile.exists()) {
@@ -131,6 +156,8 @@ class OCRRepositoryImpl @Inject constructor(
         }
         return newFile.path
     }
+
+    private data class Recognition(val text: String, val accuracy: Int)
 
     companion object {
         private const val TESS_LANGUAGES = "tam+eng"

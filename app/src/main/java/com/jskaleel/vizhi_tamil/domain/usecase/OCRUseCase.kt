@@ -1,36 +1,31 @@
 package com.jskaleel.vizhi_tamil.domain.usecase
 
 import com.jskaleel.vizhi_tamil.core.model.OCRResult
-import com.jskaleel.vizhi_tamil.core.model.map
-import com.jskaleel.vizhi_tamil.core.model.onSuccess
 import com.jskaleel.vizhi_tamil.data.repository.OCRRepository
-import com.jskaleel.vizhi_tamil.domain.mapper.ImageOCRMapper
 import com.jskaleel.vizhi_tamil.domain.model.ImageOCR
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 interface OCRUseCase {
-    suspend fun fetchTextFromImage(imagePath: String): OCRResult<ImageOCR>
+    suspend fun recognizeAndSave(imagePaths: List<String>): OCRResult<ImageOCR>
+    suspend fun getScan(id: Int): ImageOCR?
+    suspend fun updateScanText(id: Int, text: String)
     fun getRecentScans(): Flow<List<ImageOCR>>
     suspend fun deleteScans(scans: List<ImageOCR>)
 }
 
 class OCRUseCaseImpl @Inject constructor(
-    private val ocrRepository: OCRRepository
+    private val ocrRepository: OCRRepository,
 ) : OCRUseCase {
-    override suspend fun fetchTextFromImage(imagePath: String): OCRResult<ImageOCR> {
-        return ocrRepository.fetchTextFromImage(imagePath)
-            .onSuccess {
-                ocrRepository.saveImageResult(it)
-            }
-            .map(ImageOCRMapper())
-    }
+    override suspend fun recognizeAndSave(imagePaths: List<String>): OCRResult<ImageOCR> =
+        ocrRepository.recognizeAndSave(imagePaths)
 
-    override fun getRecentScans(): Flow<List<ImageOCR>> {
-        return ocrRepository.getRecentScans()
-    }
+    override suspend fun getScan(id: Int): ImageOCR? = ocrRepository.getScan(id)
 
-    override suspend fun deleteScans(scans: List<ImageOCR>) {
-        ocrRepository.deleteScans(scans)
-    }
+    override suspend fun updateScanText(id: Int, text: String) =
+        ocrRepository.updateScanText(id, text)
+
+    override fun getRecentScans(): Flow<List<ImageOCR>> = ocrRepository.getRecentScans()
+
+    override suspend fun deleteScans(scans: List<ImageOCR>) = ocrRepository.deleteScans(scans)
 }
